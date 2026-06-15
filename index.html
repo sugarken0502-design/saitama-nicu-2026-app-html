@@ -181,15 +181,30 @@
   .tm-phase.present{color:var(--green-700);}
   .tm-phase.discuss{color:var(--amber);}
   .tm-phase.over{color:var(--red);}
-  .ring-wrap{position:relative;width:230px;height:230px;margin:8px auto 14px;}
-  .ring-wrap svg{transform:rotate(-90deg);}
-  .ring-bg{fill:none;stroke:var(--line);stroke-width:14;}
-  .ring-fg{fill:none;stroke:var(--green-500);stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset .95s linear,stroke .3s;}
-  .ring-center{
-    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  .clock-wrap{
+    text-align:center;margin:18px auto 18px;padding:26px 16px;
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow);max-width:330px;
   }
-  .tm-time{font-size:3rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.02em;line-height:1;}
-  .tm-of{font-size:.74rem;color:var(--muted);margin-top:6px;}
+  .tm-time{
+    font-size:4.6rem;font-weight:800;font-variant-numeric:tabular-nums;
+    letter-spacing:.01em;line-height:1;color:var(--green-700);
+  }
+  .tm-of{font-size:.86rem;color:var(--muted);margin-top:12px;font-weight:700;}
+  /* full-screen flash alert (iOS-reliable, replaces vibration) */
+  #flash{
+    position:fixed;inset:0;z-index:200;pointer-events:none;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;
+    font-size:2rem;font-weight:800;color:#fff;letter-spacing:.06em;
+  }
+  #flash.show{visibility:visible;animation:flashPulse 1.6s ease;}
+  #flash.present-end{background:var(--amber);}
+  #flash.time-up{background:var(--red);}
+  @keyframes flashPulse{
+    0%{opacity:0;} 8%{opacity:.96;} 28%{opacity:.35;}
+    48%{opacity:.96;} 68%{opacity:.35;} 88%{opacity:.96;} 100%{opacity:0;}
+  }
   .tm-controls{display:flex;gap:10px;justify-content:center;margin-top:6px;}
   .tm-btn{
     flex:1;max-width:130px;border:none;border-radius:12px;padding:14px;font-weight:800;font-size:.92rem;cursor:pointer;
@@ -222,6 +237,7 @@
 </style>
 </head>
 <body>
+<div id="flash"></div>
 
 <header>
   <div class="eyebrow">Saitama Neonatal Care Meeting 2026</div>
@@ -263,28 +279,25 @@
   <!-- ===== TIMER ===== -->
   <section id="timer" class="view">
     <div class="view-inner">
-      <div class="sec-label">発表タイマー</div>
+      <div class="sec-label">発表タイマー（カウントアップ）</div>
       <div class="tm-talk" id="tm-talk">一般演題：発表6分 / 討論3分</div>
-      <div class="tm-phase present" id="tm-phase">発表</div>
-      <div class="ring-wrap">
-        <svg width="230" height="230" viewBox="0 0 230 230">
-          <circle class="ring-bg" cx="115" cy="115" r="100"></circle>
-          <circle class="ring-fg" id="ring" cx="115" cy="115" r="100"></circle>
-        </svg>
-        <div class="ring-center">
-          <div class="tm-time" id="tm-time">6:00</div>
-          <div class="tm-of" id="tm-of">発表 6:00</div>
-        </div>
+      <div class="tm-phase present" id="tm-phase">経過時間</div>
+      <div class="clock-wrap">
+        <div class="tm-time" id="tm-time">0:00</div>
+        <div class="tm-of" id="tm-of">目標 6:00</div>
       </div>
       <div class="tm-presets" id="tm-presets">
-        <button class="preset on" data-p="6" data-d="3">発表6分+討論3分</button>
-        <button class="preset" data-p="8" data-d="3">発表8分+討論3分</button>
+        <button class="preset on" data-min="6" data-alerts="5,6,9">一般演題 5/6/9分</button>
+        <button class="preset" data-min="15" data-alerts="11,13,15">特別企画 15分</button>
       </div>
       <div class="tm-controls">
         <button class="tm-btn start" id="tm-start">開始</button>
         <button class="tm-btn reset" id="tm-reset">リセット</button>
       </div>
-      <div class="tm-hint">発表終了で討論へ自動切替し、画面色とバイブで合図します。<br>（端末により振動・音が出ない場合があります）</div>
+      <label style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:.82rem;color:var(--green-700);font-weight:700;">
+        <input type="checkbox" id="tm-sound" checked style="width:18px;height:18px;accent-color:var(--green-700);">音を鳴らす
+      </label>
+      <div class="tm-hint">経過時間を数え上げます。一般演題は<b>5分（予鈴）・6分（発表終了）・9分（討論終了）</b>、特別企画は<b>11分・13分・15分</b>で画面フラッシュと音で合図します。<br>iPhoneでは「開始」を一度押すと音が鳴るようになります（マナーモード解除＋音量を上げてください）。</div>
     </div>
   </section>
 
@@ -493,15 +506,10 @@ document.querySelectorAll('.nav-btn').forEach(b=>{
   b.addEventListener('click',()=>show(b.dataset.view));
 });
 
-/* ============ TIMER ============ */
-const RING_LEN = 2*Math.PI*100;
-const ring=document.getElementById('ring');
-ring.style.strokeDasharray=RING_LEN;
-ring.style.strokeDashoffset=0;
-
-let presentSec=6*60, discussSec=3*60;
-let phase='present';        // present | discuss
-let remaining=presentSec;
+/* ============ TIMER (count-up) ============ */
+let alertPoints=[5*60,6*60,9*60];  // 合図する経過秒のリスト（昇順）
+let elapsed=0;           // 経過秒
+let fired={};            // 合図済みのポイント
 let running=false, tick=null;
 
 const elTime=document.getElementById('tm-time');
@@ -510,48 +518,66 @@ const elPhase=document.getElementById('tm-phase');
 const elTalk=document.getElementById('tm-talk');
 const btnStart=document.getElementById('tm-start');
 
-function fmt(s){const m=Math.floor(Math.abs(s)/60),x=Math.abs(s)%60;return (s<0?'-':'')+m+':'+String(x).padStart(2,'0');}
-function phaseTotal(){return phase==='present'?presentSec:discussSec;}
+function fmt(s){const m=Math.floor(s/60),x=s%60;return m+':'+String(x).padStart(2,'0');}
+function lastPoint(){return alertPoints[alertPoints.length-1];}
+function pointsLabel(){return alertPoints.map(fmt).join(' / ');}
 function paint(){
-  elTime.textContent=fmt(remaining);
-  if(phase==='present'){
-    elPhase.textContent='発表'; elPhase.className='tm-phase present';
-    elOf.textContent='発表 '+fmt(presentSec);
-    ring.style.stroke='var(--green-500)';
+  elTime.textContent=fmt(elapsed);
+  elOf.textContent='合図 '+pointsLabel();
+  const over = elapsed>=lastPoint();
+  if(over){
+    elPhase.textContent='終了時間・超過'; elPhase.className='tm-phase over';
+    elTime.style.color='var(--red)';
   }else{
-    elPhase.textContent='討論'; elPhase.className='tm-phase discuss';
-    elOf.textContent='討論 '+fmt(discussSec);
-    ring.style.stroke='var(--amber)';
+    elPhase.textContent='経過時間'; elPhase.className='tm-phase present';
+    elTime.style.color='var(--green-700)';
   }
-  const tot=phaseTotal();
-  let frac = remaining>0 ? remaining/tot : 0;
-  ring.style.strokeDashoffset = RING_LEN*(1-frac);
-  if(remaining<0){
-    elPhase.textContent=(phase==='present'?'発表':'討論')+' 超過'; elPhase.className='tm-phase over';
-    ring.style.stroke='var(--red)';
-  }
-  elTime.style.color = remaining<0?'var(--red)':'var(--ink)';
 }
-function buzz(ms){ if(navigator.vibrate) navigator.vibrate(ms); }
-function beep(){
-  try{
-    const ac=new (window.AudioContext||window.webkitAudioContext)();
-    const o=ac.createOscillator(),g=ac.createGain();
-    o.connect(g);g.connect(ac.destination);o.frequency.value=880;
-    g.gain.setValueAtTime(.18,ac.currentTime);
-    o.start();o.stop(ac.currentTime+.25);
-  }catch(e){}
+// iOS-compatible audio: one shared context, unlocked on a user tap.
+let audioCtx=null, soundOn=true;
+function ensureAudio(){
+  if(!audioCtx){
+    try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ audioCtx=null; }
+  }
+  if(audioCtx && audioCtx.state==='suspended'){ audioCtx.resume(); }
+}
+function beep(times){
+  if(!soundOn || !audioCtx) return;
+  const now=audioCtx.currentTime;
+  for(let i=0;i<times;i++){
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.frequency.value=880;
+    const t=now+i*0.32;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(0.5,t+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+0.28);
+    o.start(t); o.stop(t+0.3);
+  }
+}
+function buzz(ms){ if(navigator.vibrate) navigator.vibrate(ms); } // Android fallback (iOS ignores)
+const elFlash=document.getElementById('flash');
+function flash(kind,label){
+  elFlash.className=''; void elFlash.offsetWidth; // restart animation
+  elFlash.textContent=label;
+  elFlash.classList.add('show', kind);
+  setTimeout(()=>{ elFlash.className=''; }, 1700);
 }
 function step(){
-  remaining--;
-  if(remaining===0){ buzz([120,60,120]); beep(); }
-  if(phase==='present' && remaining===-1){
-    // auto-switch to discussion
-    phase='discuss'; remaining=discussSec; buzz([200,80,200]); beep();
+  elapsed++;
+  for(const pt of alertPoints){
+    if(!fired[pt] && elapsed>=pt){
+      fired[pt]=true;
+      const isLast = pt===lastPoint();
+      buzz(isLast?[400,120,400]:[200,80,200]);
+      beep(isLast?4:2);
+      flash(isLast?'time-up':'present-end', fmt(pt)+' 経過');
+    }
   }
   paint();
 }
 function start(){
+  ensureAudio(); // unlock audio on user tap (required by iOS)
   if(running){ // pause
     running=false; clearInterval(tick); btnStart.textContent='再開';
     return;
@@ -561,18 +587,18 @@ function start(){
 }
 function reset(){
   running=false; clearInterval(tick);
-  phase='present'; remaining=presentSec;
+  elapsed=0; fired={};
   btnStart.textContent='開始'; paint();
 }
 btnStart.addEventListener('click',start);
 document.getElementById('tm-reset').addEventListener('click',reset);
+document.getElementById('tm-sound').addEventListener('change',e=>{ soundOn=e.target.checked; });
 
 document.querySelectorAll('.preset').forEach(p=>{
   p.addEventListener('click',()=>{
     document.querySelectorAll('.preset').forEach(x=>x.classList.remove('on'));
     p.classList.add('on');
-    presentSec=parseInt(p.dataset.p)*60;
-    discussSec=parseInt(p.dataset.d)*60;
+    alertPoints=p.dataset.alerts.split(',').map(n=>parseInt(n)*60).sort((a,b)=>a-b);
     reset();
   });
 });
