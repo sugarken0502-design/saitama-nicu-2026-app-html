@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1f5e47">
+<title>第20回 埼玉県新生児医療懇話会</title>
+<style>
+  :root{
+    --ink:#13261f;
+    --green-900:#13402f;
+    --green-700:#1f5e47;
+    --green-500:#2f8765;
+    --green-300:#6cb795;
+    --green-100:#dcefe4;
+    --paper:#f6f8f5;
+    --card:#ffffff;
+    --line:#dce6df;
+    --muted:#5e7268;
+    --amber:#d98a2b;
+    --red:#c0473c;
+    --shadow:0 2px 10px rgba(19,64,47,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',Meiryo,system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:76px;
+  }
+
+  /* ===== Header ===== */
+  header{
+    background:linear-gradient(150deg,var(--green-900),var(--green-700) 70%);
+    color:#fff;
+    padding:calc(env(safe-area-inset-top) + 22px) 20px 22px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:'';position:absolute;right:-40px;top:-40px;
+    width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.14),transparent 70%);
+  }
+  .eyebrow{
+    font-size:.7rem;letter-spacing:.22em;font-weight:600;
+    opacity:.8;text-transform:uppercase;
+  }
+  header h1{
+    font-size:1.32rem;font-weight:700;letter-spacing:.02em;
+    margin:6px 0 12px;line-height:1.4;position:relative;
+  }
+  .hmeta{display:flex;gap:8px;flex-wrap:wrap;font-size:.78rem;position:relative;}
+  .hmeta span{
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:999px;padding:3px 11px;
+  }
+
+  /* ===== Views ===== */
+  main{max-width:680px;margin:0 auto;}
+  .view{display:none;padding:18px 16px 24px;animation:fade .25s ease;}
+  .view.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  .sec-label{
+    font-size:.72rem;letter-spacing:.16em;font-weight:700;color:var(--green-500);
+    text-transform:uppercase;margin:4px 2px 12px;display:flex;align-items:center;gap:8px;
+  }
+  .sec-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+  /* ===== Cards ===== */
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;
+  }
+  .card-pad{padding:15px 16px;}
+
+  /* ===== Schedule ===== */
+  .slot{
+    display:flex;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);
+    align-items:flex-start;
+  }
+  .slot:last-child{border-bottom:none;}
+  .slot.feature{background:linear-gradient(90deg,var(--green-100),transparent);}
+  .slot-time{
+    flex:none;width:74px;font-size:.74rem;font-weight:700;color:var(--green-700);
+    line-height:1.5;padding-top:2px;
+  }
+  .slot-body{flex:1;}
+  .slot-title{font-weight:700;font-size:.92rem;}
+  .slot-sub{font-size:.76rem;color:var(--muted);margin-top:3px;}
+  .tag-mini{
+    display:inline-block;font-size:.66rem;font-weight:700;padding:1px 8px;border-radius:999px;
+    background:var(--green-100);color:var(--green-700);margin-top:6px;letter-spacing:.04em;
+  }
+
+  /* ===== Session / talk list ===== */
+  .ses-head{
+    display:flex;align-items:center;gap:10px;margin:20px 2px 10px;
+  }
+  .ses-badge{
+    font-size:.74rem;font-weight:800;letter-spacing:.06em;color:#fff;
+    background:var(--green-700);border-radius:8px;padding:4px 11px;
+  }
+  .ses-badge.dr{background:var(--green-500);}
+  .ses-badge.me{background:var(--amber);}
+  .ses-chair{font-size:.74rem;color:var(--muted);}
+
+  .talk{
+    width:100%;text-align:left;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:13px 14px;margin-bottom:9px;cursor:pointer;
+    display:flex;gap:12px;align-items:center;transition:.15s;
+  }
+  .talk:active{transform:scale(.99);background:var(--green-100);}
+  .talk-no{
+    flex:none;width:34px;height:34px;border-radius:9px;
+    background:var(--green-100);color:var(--green-700);
+    font-weight:800;font-size:.82rem;display:grid;place-items:center;
+  }
+  .talk-no.dr{background:#e2f1ea;}
+  .talk-no.me{background:#f8ecd6;color:var(--amber);}
+  .talk-main{flex:1;min-width:0;}
+  .talk-ttl{font-size:.86rem;font-weight:700;line-height:1.45;}
+  .talk-aff{font-size:.73rem;color:var(--muted);margin-top:3px;}
+  .chev{flex:none;color:var(--green-300);font-size:1.1rem;}
+
+  /* ===== Abstract detail ===== */
+  .detail-head{
+    background:linear-gradient(150deg,var(--green-900),var(--green-700));
+    color:#fff;padding:18px 18px 20px;border-radius:14px;margin-bottom:14px;
+  }
+  .detail-head .kicker{font-size:.72rem;letter-spacing:.14em;opacity:.82;font-weight:700;}
+  .detail-head h2{font-size:1.06rem;line-height:1.5;margin:7px 0 10px;}
+  .detail-head .auth{font-size:.8rem;opacity:.95;}
+  .detail-head .aff{font-size:.76rem;opacity:.8;margin-top:3px;}
+  .abs-block{margin-bottom:13px;}
+  .abs-h{
+    font-size:.78rem;font-weight:800;color:var(--green-700);
+    margin-bottom:3px;letter-spacing:.03em;
+  }
+  .abs-p{font-size:.88rem;color:var(--ink);}
+  .back-btn{
+    display:inline-flex;align-items:center;gap:6px;background:none;border:none;
+    color:var(--green-700);font-weight:700;font-size:.86rem;cursor:pointer;
+    padding:6px 0;margin-bottom:6px;
+  }
+  .timer-launch{
+    width:100%;border:none;border-radius:12px;cursor:pointer;
+    background:var(--green-700);color:#fff;font-weight:700;font-size:.9rem;
+    padding:13px;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .timer-launch:active{background:var(--green-900);}
+
+  /* ===== Info / cards generic ===== */
+  .info-row{display:flex;padding:11px 16px;border-bottom:1px solid var(--line);font-size:.85rem;}
+  .info-row:last-child{border-bottom:none;}
+  .info-row dt{flex:none;width:78px;font-weight:700;color:var(--green-700);}
+  .info-row dd{flex:1;}
+  .note{font-size:.78rem;color:var(--muted);margin-top:8px;line-height:1.6;}
+  a{color:var(--green-500);}
+  .lead{font-size:.88rem;margin-bottom:12px;}
+  ul.clean{list-style:none;}
+  ul.clean li{font-size:.85rem;padding:7px 0 7px 20px;position:relative;border-bottom:1px solid var(--line);}
+  ul.clean li:last-child{border-bottom:none;}
+  ul.clean li::before{content:'';position:absolute;left:4px;top:15px;width:6px;height:6px;border-radius:50%;background:var(--green-300);}
+  .pill{display:inline-block;font-size:.74rem;font-weight:700;background:var(--green-100);color:var(--green-700);border-radius:999px;padding:3px 11px;margin:0 4px 4px 0;}
+  .big-btn{
+    display:block;text-align:center;text-decoration:none;
+    background:var(--amber);color:#fff;font-weight:700;font-size:.92rem;
+    border-radius:12px;padding:14px;margin-top:6px;
+  }
+
+  /* ===== Timer view ===== */
+  #timer .view-inner{padding-top:8px;}
+  .tm-talk{font-size:.82rem;color:var(--muted);text-align:center;margin-bottom:4px;min-height:1.2em;padding:0 10px;}
+  .tm-phase{text-align:center;font-weight:800;letter-spacing:.04em;font-size:1rem;margin-bottom:10px;}
+  .tm-phase.present{color:var(--green-700);}
+  .tm-phase.discuss{color:var(--amber);}
+  .tm-phase.over{color:var(--red);}
+  .ring-wrap{position:relative;width:230px;height:230px;margin:8px auto 14px;}
+  .ring-wrap svg{transform:rotate(-90deg);}
+  .ring-bg{fill:none;stroke:var(--line);stroke-width:14;}
+  .ring-fg{fill:none;stroke:var(--green-500);stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset .95s linear,stroke .3s;}
+  .ring-center{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .tm-time{font-size:3rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.02em;line-height:1;}
+  .tm-of{font-size:.74rem;color:var(--muted);margin-top:6px;}
+  .tm-controls{display:flex;gap:10px;justify-content:center;margin-top:6px;}
+  .tm-btn{
+    flex:1;max-width:130px;border:none;border-radius:12px;padding:14px;font-weight:800;font-size:.92rem;cursor:pointer;
+  }
+  .tm-btn.start{background:var(--green-700);color:#fff;}
+  .tm-btn.reset{background:#fff;color:var(--green-700);border:1px solid var(--line);}
+  .tm-presets{display:flex;gap:8px;justify-content:center;margin:14px 0 4px;flex-wrap:wrap;}
+  .preset{
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px;font-size:.78rem;font-weight:700;color:var(--green-700);cursor:pointer;
+  }
+  .preset.on{background:var(--green-700);color:#fff;border-color:var(--green-700);}
+  .tm-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;line-height:1.6;}
+
+  /* ===== Bottom nav ===== */
+  nav{
+    position:fixed;bottom:0;left:0;right:0;z-index:50;
+    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line);
+    display:flex;padding:6px 4px calc(env(safe-area-inset-bottom) + 6px);
+  }
+  .nav-btn{
+    flex:1;background:none;border:none;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:2px;
+    color:var(--muted);font-size:.66rem;font-weight:700;padding:5px 2px;
+  }
+  .nav-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;}
+  .nav-btn.active{color:var(--green-700);}
+  .nav-btn.active svg{stroke:var(--green-700);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Saitama Neonatal Care Meeting 2026</div>
+  <h1>第20回 埼玉県新生児医療懇話会</h1>
+  <div class="hmeta">
+    <span>6月27日(土) 13:00–17:00</span>
+    <span>大宮ソニックシティ 602</span>
+  </div>
+</header>
+
+<main>
+  <!-- ===== HOME / SCHEDULE ===== -->
+  <section id="home" class="view active">
+    <div class="sec-label">タイムスケジュール</div>
+    <div class="card" id="schedule"></div>
+
+    <div class="sec-label">本日のセッション</div>
+    <div class="card card-pad">
+      <p style="font-size:.85rem;">一般演題は全9演題。下のメニュー「<b>演題</b>」から各抄録をご覧いただけます。座長・演者の方はタイマーもご利用ください。</p>
+      <div style="margin-top:10px;">
+        <span class="pill">Ns 3演題</span>
+        <span class="pill">Dr 4演題</span>
+        <span class="pill">ME 2演題</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRAM (talks) ===== -->
+  <section id="program" class="view">
+    <div class="sec-label">一般演題</div>
+    <div id="talk-list"></div>
+  </section>
+
+  <!-- ===== ABSTRACT DETAIL ===== -->
+  <section id="detail" class="view">
+    <div class="view-inner" id="detail-inner"></div>
+  </section>
+
+  <!-- ===== TIMER ===== -->
+  <section id="timer" class="view">
+    <div class="view-inner">
+      <div class="sec-label">発表タイマー</div>
+      <div class="tm-talk" id="tm-talk">一般演題：発表6分 / 討論3分</div>
+      <div class="tm-phase present" id="tm-phase">発表</div>
+      <div class="ring-wrap">
+        <svg width="230" height="230" viewBox="0 0 230 230">
+          <circle class="ring-bg" cx="115" cy="115" r="100"></circle>
+          <circle class="ring-fg" id="ring" cx="115" cy="115" r="100"></circle>
+        </svg>
+        <div class="ring-center">
+          <div class="tm-time" id="tm-time">6:00</div>
+          <div class="tm-of" id="tm-of">発表 6:00</div>
+        </div>
+      </div>
+      <div class="tm-presets" id="tm-presets">
+        <button class="preset on" data-p="6" data-d="3">発表6分+討論3分</button>
+        <button class="preset" data-p="8" data-d="3">発表8分+討論3分</button>
+      </div>
+      <div class="tm-controls">
+        <button class="tm-btn start" id="tm-start">開始</button>
+        <button class="tm-btn reset" id="tm-reset">リセット</button>
+      </div>
+      <div class="tm-hint">発表終了で討論へ自動切替し、画面色とバイブで合図します。<br>（端末により振動・音が出ない場合があります）</div>
+    </div>
+  </section>
+
+  <!-- ===== INFO ===== -->
+  <section id="info" class="view">
+    <div class="sec-label">会場・アクセス</div>
+    <div class="card">
+      <dl>
+        <div class="info-row"><dt>会場</dt><dd>大宮ソニックシティ 602号室<br><span style="color:var(--muted);font-size:.78rem;">〒330-0854 さいたま市大宮区桜木町1-7-5</span></dd></div>
+        <div class="info-row"><dt>アクセス</dt><dd>JR・東武「大宮駅」西口より徒歩約3分（歩行者デッキ直結）</dd></div>
+        <div class="info-row"><dt>参加費</dt><dd>500円（当日集金・PayPay歓迎）</dd></div>
+        <div class="info-row"><dt>世話人会</dt><dd>12:15–12:45　704号室（ハイブリッド開催）</dd></div>
+      </dl>
+    </div>
+
+    <div class="sec-label">発表者の方へ</div>
+    <div class="card card-pad">
+      <ul class="clean">
+        <li>一般演題：<b>発表6分 / 質疑3分</b></li>
+        <li>PowerPoint・縦横比 16:9 推奨</li>
+        <li>スライドは <b>6/24まで</b> に事務局へメール送付</li>
+        <li>ノートPC持参時はHDMI確認のため発表30分前に来場</li>
+        <li>スライド冒頭でCOI（利益相反）を開示</li>
+      </ul>
+    </div>
+
+    <div class="sec-label">懇親会</div>
+    <div class="card">
+      <dl>
+        <div class="info-row"><dt>日時</dt><dd>6月27日(土) 18:00–20:00（予定）</dd></div>
+        <div class="info-row"><dt>会場</dt><dd>KICHIRI 大宮 WEST</dd></div>
+        <div class="info-row"><dt>会費</dt><dd>医師 7,000円 / コメディカル 5,000円（当日徴収）</dd></div>
+      </dl>
+    </div>
+
+    <div class="sec-label">特別講演・セミナー</div>
+    <div class="card card-pad" style="margin-bottom:10px;">
+      <div style="font-size:.7rem;font-weight:700;color:var(--green-500);letter-spacing:.08em;">共催スイーツセミナー</div>
+      <div style="font-weight:700;font-size:.92rem;margin:4px 0;">軟骨無形成症の早期診断と治療介入の意義について</div>
+      <div style="font-size:.8rem;">松本 志郎 先生（熊本大学小児科 特任教授）</div>
+      <div class="note">座長：須賀 健一／協賛：BioMarin Pharmaceutical Japan</div>
+    </div>
+    <div class="card card-pad">
+      <div style="font-size:.7rem;font-weight:700;color:var(--green-500);letter-spacing:.08em;">セミナー</div>
+      <div style="font-weight:700;font-size:.92rem;margin:4px 0;">明日からのケアがちょっと変わる？！家族のホンネ</div>
+      <div style="font-size:.8rem;">林 英美子 様（未熟児家族支援がんばりっこ 代表）</div>
+    </div>
+
+    <div class="sec-label">事務局</div>
+    <div class="card card-pad">
+      <p style="font-size:.84rem;">自治医科大学附属さいたま医療センター 周産期科新生児部門　須賀 健一</p>
+      <p class="note">
+        <a href="mailto:nicu.jichis@gmail.com">nicu.jichis@gmail.com</a><br>
+        <a href="https://sugarken0502-design.github.io/saitama-nicu-2026/" target="_blank" rel="noopener">研究会ホームページ</a>
+      </p>
+    </div>
+  </section>
+</main>
+
+<nav>
+  <button class="nav-btn active" data-view="home">
+    <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>ホーム
+  </button>
+  <button class="nav-btn" data-view="program">
+    <svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>演題
+  </button>
+  <button class="nav-btn" data-view="timer">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13V9M9 2h6"/></svg>タイマー
+  </button>
+  <button class="nav-btn" data-view="info">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>案内
+  </button>
+</nav>
+
+<script>
+/* ============ DATA ============ */
+const SCHEDULE = [
+  {t:"12:15", title:"世話人会", sub:"704号室・ハイブリッド開催"},
+  {t:"12:30", title:"受付開始"},
+  {t:"13:00", title:"開会の挨拶"},
+  {t:"13:05", title:"一般演題 Ns session", sub:"座長 岩波 悠子", tag:"演題"},
+  {t:"13:35", title:"一般演題 Dr / ME session", sub:"座長 中張 惇子", tag:"演題"},
+  {t:"14:25", title:"休憩"},
+  {t:"14:35", title:"共催スイーツセミナー", sub:"軟骨無形成症の早期診断と治療介入の意義について／松本 志郎 先生", feature:true},
+  {t:"15:20", title:"休憩・企業展示案内"},
+  {t:"15:30", title:"セミナー", sub:"明日からのケアがちょっと変わる？！家族のホンネ／林 英美子 様", feature:true},
+  {t:"16:05", title:"FCC特別企画", sub:"見て・語って・持ち帰る NICUケア実践交流ラボ", feature:true},
+  {t:"17:00", title:"閉会の挨拶"},
+  {t:"18:00", title:"懇親会", sub:"KICHIRI 大宮 WEST"},
+];
+
+const TALKS = [
+  {id:"Ns-1", ses:"Ns", title:"早産児をもつ父親の思いと看護師に望まれる支援",
+   auth:"（演者名記載予定）", aff:"川口市立医療センター",
+   abs:[["目的","NICUに入院する早産児をもつ父親の思いを明らかにし、その結果から父親に望まれる支援を検討して、質の高い家族看護につなげることを目的とする。"],
+        ["方法","質的記述的研究として、質的内容分析の手法を用いた。2025年6〜8月、在胎26〜34週で出生した早産児をもつ父親8名を対象に半構成的面接を実施した。面接時期は退院1週間前〜退院当日とした。逐語録から父親の思いと支援ニーズを抽出・コード化し、類似性に基づきカテゴリ化した。"],
+        ["結果","90コード、16サブカテゴリ、6カテゴリを抽出した。カテゴリは【児の成長や発達に対する不安】【児の成長や存在を実感できた喜び】【育児を実践して感じる困難さ】【父親になった責任感】【看護師の対応への満足感】【面会に行くことの大変さ】であった。父親は不安を抱く一方、ケア体験を通して児の存在を実感し、前向きな感情へ移行していた。また、育児への意欲が高まる一方、練習機会不足や仕事と面会の両立困難も語られた。"],
+        ["考察","父親支援では、危機段階に応じた心理的支援に加え、NICU入院期間を①接触②基礎ケア③育児技術習得④振り返りの4段階と捉え、段階的にケア参加を促すことが重要であると考えた。経験を積み重ねることで不安軽減や成功体験の形成につながり、父親としての主体性や育児への自信を高めると考える。勤務状況への配慮や育児練習機会の確保、情報共有体制の整備は、家族中心ケアの推進に寄与すると考える。"]]},
+  {id:"Ns-2", ses:"Ns", title:"全前脳胞症の児の家族へ実践した家族看護 〜家族看護エンパワーメントモデルを用いて〜",
+   auth:"笹森 明穂、遠江 里莉、岩波 悠子", aff:"自治医科大学附属さいたま医療センター",
+   abs:[["目的／意図","新生児領域で家族看護実践をする時、皆さまは家族の持つ力を高めるためにどのような関わりをしていますか？本企画では、胎児期に生命予後が短いと診断されたＡ君と、積極的治療を選択せず本人の生きる力を信じ自宅で家族と過ごしたいと希望したご両親へ「家族看護エンパワーメントモデル」を用いて実践した家族看護について症例報告します。"],
+        ["内容","自宅退院のために退院調整目的で当院へ転院となったＡ君家族の「病気体験の理解」「家族の日常生活・セルフケア強化」「家族危機への働きかけ」の看護介入を振り返り、Ａ君家族の持っている力を高める関わりができたのか、症例報告をもとに会場の皆様と考える機会とすることを目的としています。皆さまのご参加をお待ちしております。"]]},
+  {id:"Ns-3", ses:"Ns", title:"CCHSの在宅移行支援 〜はじめての在宅移行支援で見えた課題〜",
+   auth:"平間 ひとみ、山田 ゆかり", aff:"独立行政法人 国立病院機構 埼玉病院",
+   abs:[["経過","在胎41週にて他院産科施設で出生した児、酸素化不良・無呼吸発作を主訴に新生児搬送となった。当院入院後の経過・検査にて先天性中枢性低換気症候群（CCHS）とヒルシュスプルング病疑いのため、BIPAP管理・腹部ケアが行われた。生後1ヶ月で遺伝子検査の結果よりCCHSの診断あり。日齢78に気管切開術を行い、人工呼吸器管理となった。気管切開の必要がある旨の説明を実施した際に母親は流涙する姿が見られ、「声を出すことはできませんか？」などの発言が聞かれた。この家族に対し、面会時は家族の意向に合わせて月誕生日の写真撮影を行うことや、面会時間外でも喃語の動画撮影などを行うなど取り組んだ。"],
+        ["考察","NICU経験3年目であり、人工呼吸器管理の児を受け持つことや在宅移行支援を行うことは初めてであったが、先輩看護師からの助言を得ながら家族への支援を行った。家族の意向を汲み取り、家族の希望に合わせた支援をすることや密にコミュニケーションをとることで、家族と信頼関係の構築が行えたと考える。家族の思いに寄り添い、家族の意思決定を支援すること、ファミリーセンタードケアの実践が重要であることを痛感した。今回は家族との関わりについて振り返る。"]]},
+  {id:"Dr-1", ses:"Dr", title:"顔面形成異常と妊娠初期イソトレチノイン曝露との関連が疑われた症例",
+   auth:"〇上戸鎖 勇悟 ほか", aff:"埼玉県立小児医療センター 総合周産期母子医療センター 新生児科",
+   abs:[["緒言","ビタミンA誘導体であるイソトレチノインは、難治性の痤瘡に対して有効性が示されている経口レチノイド製剤であるが、本邦では薬事承認を得ていない未承認薬である。妊娠初期の曝露による頭蓋顔面、心血管系などの先天異常が報告されており、欧米では胎児曝露防止のため妊娠検査や避妊指導を含む管理プログラムのもと処方されている。一方、本邦では自由診療などを通じて入手可能であるが、妊娠可能年齢女性への注意喚起が不十分である。"],
+        ["症例","母体は23歳の初産婦で、催奇形性を有する未承認薬であることを把握せず、妊娠6週頃まで約半年間イソトレチノインを内服していた。児は在胎41週2日2,576 gで出生し、両側外耳道閉鎖、耳介低形成、小顎、開口障害などの第一・第二鰓弓由来構造の形成異常を認め、呼吸および哺乳障害を認め入院管理を要した。"],
+        ["考察","レチノイン酸は胎児期の頭頸部形成に重要な役割を担い、特に妊娠初期の過剰曝露は神経堤細胞の遊走や第一・第二鰓弓形成に影響を及ぼす。本症例で認めた両側外耳道閉鎖、耳介低形成、小顎などはレチノイン胎芽病の特徴と一致しており、妊娠初期の母体イソトレチノイン曝露との関連が疑われた。妊娠可能年齢の女性に対するイソトレチノイン処方時には、催奇形性に関する十分な説明と確実な避妊指導が不可欠であり、未承認薬の流通・使用に対する啓発や管理体制の整備が求められる。"]]},
+  {id:"Dr-2", ses:"Dr", title:"新生児期発症の遷延性高インスリン血性低血糖症を契機に診断したKDM6A関連歌舞伎症候群の女児例",
+   auth:"〇伊藤 璃津子 ほか", aff:"埼玉県立小児医療センター 総合周産期母子医療センター 新生児科",
+   abs:[["緒言","歌舞伎症候群は特徴的顔貌、発達遅滞、成長障害、先天性心疾患、摂食障害などを呈する先天異常症候群であり、KMT2DおよびKDM6Aが原因遺伝子として知られている。KDM6A関連例はX連鎖性のため、特に女児では症状が軽度または非典型的となり、早期診断が困難な場合がある。"],
+        ["症例","在胎38週2日、3,166 gで出生した女児。日齢1に心雑音を主訴に入院した。後頸部余剰皮膚と高口蓋を認め、心臓超音波検査で大動脈弁狭窄症と診断した。入院時より低血糖を認め、経腸栄養確立後も遷延した。日齢14に血糖47 mg/dL、インスリン3.7 µU/mLであり、高インスリン血性低血糖症と診断した。輸液離脱困難のため日齢16からジアゾキシドの内服を開始した。日齢75に全エクソーム解析を実施し、KDM6A遺伝子に病的変異を認め、歌舞伎症候群と診断した。哺乳確立困難のため日齢100に在宅経管栄養で退院した。月齢8か月時点で体格は年齢相当であり、明らかな粗大運動発達の遅れはないが、経口摂取困難が持続している。"],
+        ["考察","KDM6A関連歌舞伎症候群では、典型的顔貌や発達遅滞が明らかでない場合がある。本症例のように症候群像が不明瞭であっても、遷延する高インスリン血性低血糖症を認める場合には本症を鑑別に含め、早期に遺伝学的検査を検討することが重要である。"]]},
+  {id:"Dr-3", ses:"Dr", title:"CPAM type 3と肺葉外肺分画症のハイブリッド型の1例",
+   auth:"（著者名記載予定）", aff:"自治医科大学附属さいたま医療センター",
+   abs:[["背景","先天性嚢胞性肺疾患にはCPAM（Congenital pulmonary airway malformation）、肺分画症、気管支閉鎖などが含まれ、病態の重複を認めることがある。今回、CPAM type 3と肺葉外肺分画症のハイブリッド型と考えられた症例を経験した。"],
+        ["経過","症例は日齢0の男児。妊娠35週の胎児MRIで左下葉肺分画症を疑われ、在胎38週1日に出生した。出生後、人工呼吸管理を要したが日齢1に抜管した。超音波検査で左胸腔内に54×33×58 mmの腫瘤を認め、腹部大動脈からの流入血管を確認した。造影CTでは流出静脈が半奇静脈から奇静脈系へ連続していた。哺乳時の酸素需要が残存したため、日齢18に腫瘤摘出術を施行した。摘出標本では病変は正常肺と独立し、胸膜様被膜に覆われており、肺葉外肺分画症に合致した。病理組織学的に微小嚢胞が密在する充実性病変を認め、CPAM type 3の所見を伴っていた。"],
+        ["考察","肺分画症とCPAM type 1またはtype 2のハイブリッド病変は報告されているが、type 3との合併は検索し得た範囲で報告がない。本症例は先天性嚢胞性肺疾患の発生機序を考えるうえで示唆に富む症例と考えられた。"]]},
+  {id:"Dr-4", ses:"Dr", title:"鼻腔への著明な逆流により経口哺乳が困難である先天性鼻咽腔閉鎖不全症の1例",
+   auth:"田中 萌子、水本 崚允、堀田 奈緒美、櫻井 隼人、本島 由紀子、國方 徹也", aff:"埼玉医科大学病院 新生児科",
+   abs:[["緒言","新生児における鼻咽腔閉鎖不全の頻度の高い原因として、口蓋裂や粘膜下口蓋裂が挙げられる。今回、これらの形態異常を認めないものの、著明な鼻腔逆流により経口哺乳が困難であり、原因として短口蓋が疑われる鼻咽腔閉鎖不全症の1例を経験したため報告する。"],
+        ["症例","生後2か月の女児。母は24歳、2妊0産（人工流産1回）。妊娠33週頃より軽度羊水過多（AFI約25 cm）を認めたが、胎児の構造異常は指摘されなかった。妊娠38週5日に計画分娩となり、吸引分娩で出生した。出生時身長50.5 cm（1.0 SD）、体重2,810 g（0 SD）、頭囲30.5 cm（−2.0 SD）、Apgar score 9点/10点。全身状態は良好であったが、口腔内分泌物が多く頻回の吸引を要し、出生5時間に当院へ搬送された。全身診察で異常所見は認めず、X線・血液検査でも異常を認めなかった。哺乳開始後、多量の鼻腔逆流とむせ込みを認めた。経管栄養は問題なく施行可能であった。鼻咽腔内視鏡検査では口蓋裂および粘膜下口蓋裂を認めなかった。嚥下造影検査でミルクの著明な鼻腔逆流を確認し、鼻咽腔閉鎖不全症と診断した。MRI・CT検査では短口蓋を認め、原因である可能性を考えている。現在、在宅経管栄養導入に向けて指導を行っている。"],
+        ["考察","高度の鼻腔逆流を認める症例において、鼻咽腔閉鎖不全症の原因精査のため上述の画像検査を行った。皆様のご意見を伺いたい。"]]},
+  {id:"ME-1", ses:"ME", title:"当院における新生児上り搬送の変遷",
+   auth:"梅田 千典 ほか", aff:"自治医科大学附属さいたま医療センター 臨床工学部",
+   abs:[["背景","重症患者搬送において、当院では成人症例だけでなく新生児領域にも臨床工学技士が関与している。当初は消防局の救急車に依頼していた新生児上り搬送であったが、民間救急車を使用せざるを得なかった症例もあった。現在は当院のECMO搬送用救急車（ECMOカー）の導入に伴い、より安全な搬送方法が確立してきている。呼吸補助デバイスを装着した新生児搬送について、成人症例との比較、呼吸デバイスや車体による注意点、新機種導入による新たな問題点を検討したので報告する。"],
+        ["対象","2021年から2026年にかけて当院から他院へ呼吸補助デバイスを装着し搬送された、新生児上り搬送症例7例。"],
+        ["問題点と解決","保育器V-808（アトムメディカル社）設置：消防局救急車ではストレッチャー上に保育器をロープで固定せざるを得なかった。民間救急車にはストレッチャーを外しV-808の架台ごと積載できる車種があった。ECMOカーでは架台固定用ステーを作成しワンタッチ固定が可能となった。呼吸補助デバイス：NHF使用症例ではブレンダによってボンベ残圧が急速消費する事例があった。現在は新生児オプション搭載のハミルトンT1を使用し挿管・NPPV症例に対応可能となったが、マスクデバイスによっては気道内圧がかからないものもあった。"],
+        ["考察","限られた医療資源の中で重症症例を搬送すること自体がリスクではあるが、医療機器を熟知した臨床工学技士が関わることでより安全な搬送に寄与できる。新機器導入時は事前の入念なシミュレーションが必要である。"]]},
+  {id:"ME-2", ses:"ME", title:"低圧持続吸引装置の間欠開放コントローラの開発",
+   auth:"梅田 千典、柳沢 充延、草浦 理恵、百瀬 直樹", aff:"自治医科大学附属さいたま医療センター 臨床工学部／ビックワイズ",
+   abs:[["背景","低圧持続吸引器が必要な症例では、吸引チューブが組織に先当たりし吸着状態が続くことで粘膜が損傷してしまう。そのため吸引チューブが先当たりしていないか常に観察し、先当たりしていれば一時的に開放する必要がある。そこで間欠的に吸引チューブを開放できる装置（開放コントローラ）を開発したので報告する。"],
+        ["方法","直動式二方弁の電磁弁（CKD社製）に2極のリレー（オムロン社製）を接続し、タイマーに開放時間と閉鎖時間をプログラムしたものを実装した。実験用回路に接続し、吸引時間がコントロールできているか確認した。"],
+        ["結果","壁吸引圧を−10〜−20 cmH2Oとした。開放コントローラが「閉鎖」の状態で吸引カテーテル先端圧は−20 cmH2Oを示し、「開放」の状態でカテーテル先端圧は0 cmH2Oを示した。"],
+        ["考察・結語","従来の低圧持続吸引装置は持続で吸引圧をかける目的のため開放時間が設定されていない。開放コントローラでは「開放」状態でカテーテル先端が大気開放される時間を確保でき、粘膜損傷を回避できる可能性が示唆された。看護スタッフの労務軽減にも繋がると考える。実験的に有用性を検証でき、今後は実臨床に出せる仕様に改良を重ねたい。"]]},
+];
+
+/* ============ RENDER: schedule ============ */
+const schedEl = document.getElementById('schedule');
+schedEl.innerHTML = SCHEDULE.map(s=>`
+  <div class="slot ${s.feature?'feature':''}">
+    <div class="slot-time">${s.t}</div>
+    <div class="slot-body">
+      <div class="slot-title">${s.title}</div>
+      ${s.sub?`<div class="slot-sub">${s.sub}</div>`:''}
+      ${s.tag?`<span class="tag-mini">${s.tag}</span>`:''}
+    </div>
+  </div>`).join('');
+
+/* ============ RENDER: talk list ============ */
+const sesMeta = {Ns:{name:"Ns session",chair:"座長 岩波 悠子",cls:""},
+                 Dr:{name:"Dr session",chair:"座長 中張 惇子",cls:"dr"},
+                 ME:{name:"ME session",chair:"座長 中張 惇子",cls:"me"}};
+const listEl = document.getElementById('talk-list');
+let html="";
+["Ns","Dr","ME"].forEach(key=>{
+  const m=sesMeta[key];
+  html+=`<div class="ses-head"><span class="ses-badge ${m.cls}">${m.name}</span><span class="ses-chair">${m.chair}</span></div>`;
+  TALKS.filter(t=>t.ses===key).forEach((t,i)=>{
+    html+=`<button class="talk" onclick="openDetail('${t.id}')">
+      <span class="talk-no ${m.cls}">${i+1}</span>
+      <span class="talk-main">
+        <span class="talk-ttl">${t.title}</span>
+        <span class="talk-aff">${t.aff}</span>
+      </span>
+      <span class="chev">›</span>
+    </button>`;
+  });
+});
+listEl.innerHTML=html;
+
+/* ============ DETAIL ============ */
+const sesFull={Ns:"Ns session｜Nursing",Dr:"Dr session｜Doctor",ME:"ME session｜Clinical Engineering"};
+function openDetail(id){
+  const t=TALKS.find(x=>x.id===id);
+  document.getElementById('detail-inner').innerHTML=`
+    <button class="back-btn" onclick="show('program')">‹ 演題一覧へ戻る</button>
+    <div class="detail-head">
+      <div class="kicker">${t.id}　${sesFull[t.ses]}</div>
+      <h2>${t.title}</h2>
+      <div class="auth">${t.auth}</div>
+      <div class="aff">${t.aff}</div>
+    </div>
+    ${t.abs.map(([h,p])=>`<div class="abs-block"><div class="abs-h">【${h}】</div><div class="abs-p">${p}</div></div>`).join('')}
+    <button class="timer-launch" onclick="prefillTimer('${t.id}')">
+      ⏱ この演題でタイマーを開く（発表6分 / 討論3分）
+    </button>
+  `;
+  show('detail');
+  window.scrollTo({top:0});
+}
+
+/* ============ NAV ============ */
+function show(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(view).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.view===view);
+  });
+  if(view!=='detail') window.scrollTo({top:0});
+}
+document.querySelectorAll('.nav-btn').forEach(b=>{
+  b.addEventListener('click',()=>show(b.dataset.view));
+});
+
+/* ============ TIMER ============ */
+const RING_LEN = 2*Math.PI*100;
+const ring=document.getElementById('ring');
+ring.style.strokeDasharray=RING_LEN;
+ring.style.strokeDashoffset=0;
+
+let presentSec=6*60, discussSec=3*60;
+let phase='present';        // present | discuss
+let remaining=presentSec;
+let running=false, tick=null;
+
+const elTime=document.getElementById('tm-time');
+const elOf=document.getElementById('tm-of');
+const elPhase=document.getElementById('tm-phase');
+const elTalk=document.getElementById('tm-talk');
+const btnStart=document.getElementById('tm-start');
+
+function fmt(s){const m=Math.floor(Math.abs(s)/60),x=Math.abs(s)%60;return (s<0?'-':'')+m+':'+String(x).padStart(2,'0');}
+function phaseTotal(){return phase==='present'?presentSec:discussSec;}
+function paint(){
+  elTime.textContent=fmt(remaining);
+  if(phase==='present'){
+    elPhase.textContent='発表'; elPhase.className='tm-phase present';
+    elOf.textContent='発表 '+fmt(presentSec);
+    ring.style.stroke='var(--green-500)';
+  }else{
+    elPhase.textContent='討論'; elPhase.className='tm-phase discuss';
+    elOf.textContent='討論 '+fmt(discussSec);
+    ring.style.stroke='var(--amber)';
+  }
+  const tot=phaseTotal();
+  let frac = remaining>0 ? remaining/tot : 0;
+  ring.style.strokeDashoffset = RING_LEN*(1-frac);
+  if(remaining<0){
+    elPhase.textContent=(phase==='present'?'発表':'討論')+' 超過'; elPhase.className='tm-phase over';
+    ring.style.stroke='var(--red)';
+  }
+  elTime.style.color = remaining<0?'var(--red)':'var(--ink)';
+}
+function buzz(ms){ if(navigator.vibrate) navigator.vibrate(ms); }
+function beep(){
+  try{
+    const ac=new (window.AudioContext||window.webkitAudioContext)();
+    const o=ac.createOscillator(),g=ac.createGain();
+    o.connect(g);g.connect(ac.destination);o.frequency.value=880;
+    g.gain.setValueAtTime(.18,ac.currentTime);
+    o.start();o.stop(ac.currentTime+.25);
+  }catch(e){}
+}
+function step(){
+  remaining--;
+  if(remaining===0){ buzz([120,60,120]); beep(); }
+  if(phase==='present' && remaining===-1){
+    // auto-switch to discussion
+    phase='discuss'; remaining=discussSec; buzz([200,80,200]); beep();
+  }
+  paint();
+}
+function start(){
+  if(running){ // pause
+    running=false; clearInterval(tick); btnStart.textContent='再開';
+    return;
+  }
+  running=true; btnStart.textContent='一時停止';
+  tick=setInterval(step,1000);
+}
+function reset(){
+  running=false; clearInterval(tick);
+  phase='present'; remaining=presentSec;
+  btnStart.textContent='開始'; paint();
+}
+btnStart.addEventListener('click',start);
+document.getElementById('tm-reset').addEventListener('click',reset);
+
+document.querySelectorAll('.preset').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.preset').forEach(x=>x.classList.remove('on'));
+    p.classList.add('on');
+    presentSec=parseInt(p.dataset.p)*60;
+    discussSec=parseInt(p.dataset.d)*60;
+    reset();
+  });
+});
+
+function prefillTimer(id){
+  const t=TALKS.find(x=>x.id===id);
+  elTalk.textContent=`${t.id}　${t.title}`;
+  reset();
+  show('timer');
+}
+paint();
+</script>
+</body>
+</html>
