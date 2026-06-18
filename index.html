@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><link rel="apple-touch-icon" href="icon-180.png">
+<head>link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="埼玉NICU">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1f5e47">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#1f5e47">
@@ -310,7 +313,8 @@
       <label style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:.82rem;color:var(--green-700);font-weight:700;">
         <input type="checkbox" id="tm-sound" checked style="width:18px;height:18px;accent-color:var(--green-700);">音を鳴らす
       </label>
-      <div class="tm-hint">経過時間を数え上げます。一般演題は<b>5分（予鈴）・6分（発表終了）・9分（討論終了）</b>で画面フラッシュと音で合図します。<br>iPhoneでは「開始」を一度押すと音が鳴るようになります（マナーモード解除＋音量を上げてください）。</div>
+      <button id="tm-test" style="display:block;margin:12px auto 0;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-size:.8rem;font-weight:700;color:var(--green-700);cursor:pointer;">🔊 音をテスト</button>
+      <div class="tm-hint"><b style="color:var(--red);">音が鳴らないとき：</b>iPhone本体側面の<b>サイレント（マナー）スイッチをオフ</b>にし、音量を上げてから上の「音をテスト」を押してください。マナーモード中はWebの音は鳴りません。<br><br>一般演題は<b>5分（予鈴）・6分（発表終了）・9分（討論終了）</b>で画面フラッシュと音で合図します。画面はスリープさせずに点灯したままお使いください。</div>
     </div>
   </section>
 
@@ -616,25 +620,38 @@ function paint(){
     elTime.style.color='var(--green-700)';
   }
 }
-let audioCtx=null, soundOn=true;
+let audioCtx=null, soundOn=true, audioUnlocked=false;
 function ensureAudio(){
   if(!audioCtx){
     try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ audioCtx=null; }
   }
   if(audioCtx && audioCtx.state==='suspended'){ audioCtx.resume(); }
+  // iOS requires a sound to actually play during a user gesture to unlock audio.
+  if(audioCtx && !audioUnlocked){
+    try{
+      const buf=audioCtx.createBuffer(1,1,22050);
+      const src=audioCtx.createBufferSource();
+      src.buffer=buf; src.connect(audioCtx.destination); src.start(0);
+      audioUnlocked=true;
+    }catch(e){}
+  }
 }
 function beep(times){
   if(!soundOn || !audioCtx) return;
+  if(audioCtx.state==='suspended'){ audioCtx.resume(); }
   const now=audioCtx.currentTime;
   for(let i=0;i<times;i++){
     const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='square';
     o.connect(g); g.connect(audioCtx.destination);
-    o.frequency.value=880;
+    o.frequency.setValueAtTime(880, now);
     const t=now+i*0.32;
-    g.gain.setValueAtTime(0.0001,t);
-    g.gain.exponentialRampToValueAtTime(0.5,t+0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001,t+0.28);
-    o.start(t); o.stop(t+0.3);
+    // Linear ramps (not exponential to ~0) – iOS Safari renders these reliably.
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.6, t+0.02);
+    g.gain.setValueAtTime(0.6, t+0.22);
+    g.gain.linearRampToValueAtTime(0, t+0.3);
+    o.start(t); o.stop(t+0.32);
   }
 }
 function buzz(ms){ if(navigator.vibrate) navigator.vibrate(ms); }
@@ -675,6 +692,13 @@ function reset(){
 btnStart.addEventListener('click',start);
 document.getElementById('tm-reset').addEventListener('click',reset);
 document.getElementById('tm-sound').addEventListener('change',e=>{ soundOn=e.target.checked; });
+document.getElementById('tm-test').addEventListener('click',()=>{
+  ensureAudio();
+  const wasOn=soundOn; soundOn=true;
+  beep(2);
+  soundOn=wasOn;
+  flash('present-end','♪ テスト');
+});
 
 document.querySelectorAll('.preset').forEach(p=>{
   p.addEventListener('click',()=>{
