@@ -188,6 +188,48 @@
   .fcc-num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--green-700);color:#fff;font-weight:800;font-size:.78rem;display:grid;place-items:center;}
   .fcc-txt{font-size:.84rem;}
 
+  /* ===== Group lookup ===== */
+  .gl-input{
+    width:100%;border:1.5px solid var(--line);border-radius:12px;
+    padding:12px 14px;font-size:1rem;font-family:inherit;color:var(--ink);
+    background:#fff;outline:none;
+  }
+  .gl-input:focus{border-color:var(--green-500);}
+  .gl-hint{font-size:.74rem;color:var(--muted);margin-top:7px;}
+  .gl-result{margin-top:12px;display:none;}
+  .gl-result.show{display:block;animation:fade .2s ease;}
+  .gl-card{
+    border:1.5px solid var(--green-300);border-radius:14px;overflow:hidden;
+    margin-bottom:10px;background:#fff;box-shadow:var(--shadow);
+  }
+  .gl-band{
+    display:flex;align-items:center;gap:12px;
+    padding:13px 15px;color:#fff;
+    background:linear-gradient(135deg,var(--green-700),var(--green-500));
+  }
+  .gl-badge{
+    flex:none;width:46px;height:46px;border-radius:12px;
+    background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);
+    display:grid;place-items:center;font-size:1.6rem;font-weight:800;
+  }
+  .gl-band .who{font-size:1.04rem;font-weight:800;line-height:1.3;}
+  .gl-band .grp{font-size:.74rem;opacity:.9;letter-spacing:.08em;font-weight:700;}
+  .gl-body{padding:13px 15px;}
+  .gl-row{display:flex;gap:9px;padding:7px 0;font-size:.84rem;border-bottom:1px solid var(--line);}
+  .gl-row:last-child{border-bottom:none;}
+  .gl-row .lbl{flex:none;width:74px;color:var(--green-700);font-weight:700;}
+  .gl-row .val{flex:1;}
+  .gl-route{display:flex;flex-direction:column;gap:6px;margin-top:3px;}
+  .gl-stop{display:flex;gap:9px;align-items:flex-start;font-size:.82rem;}
+  .gl-stop .seq{flex:none;width:22px;height:22px;border-radius:50%;background:var(--green-100);color:var(--green-700);font-weight:800;font-size:.72rem;display:grid;place-items:center;margin-top:1px;}
+  .gl-none{font-size:.84rem;color:var(--red);font-weight:700;padding:10px 2px;}
+  .gl-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+  .gl-chip{
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:6px 13px;font-size:.8rem;font-weight:700;color:var(--green-700);cursor:pointer;
+  }
+  .gl-chip:active{background:var(--green-100);}
+
   /* ===== Timer view ===== */
   #timer .view-inner{padding-top:8px;}
   .tm-talk{font-size:.82rem;color:var(--muted);text-align:center;margin-bottom:4px;min-height:1.2em;padding:0 10px;}
@@ -257,7 +299,7 @@
   <div class="eyebrow">Saitama Neonatal Care Meeting 2026</div>
   <h1>第20回 埼玉県新生児医療懇話会</h1>
   <div class="hmeta">
-    <span>6月27日(土) 13:00–17:00</span>
+    <span>6月27日(土) 13:15–16:55</span>
     <span>大宮ソニックシティ 602</span>
   </div>
 </header>
@@ -305,7 +347,7 @@
       </div>
       <div class="tm-presets" id="tm-presets">
         <button class="preset on" data-min="6" data-alerts="5,6,9">一般演題 5/6/9分</button>
-        <button class="preset" data-min="15" data-alerts="11,13,15">特別企画 15分</button>
+        <button class="preset" data-min="14" data-alerts="12,14">FCC特別企画 12/14分</button>
       </div>
       <div class="tm-controls">
         <button class="tm-btn start" id="tm-start">開始</button>
@@ -315,7 +357,7 @@
         <input type="checkbox" id="tm-sound" checked style="width:18px;height:18px;accent-color:var(--green-700);">音を鳴らす
       </label>
       <button id="tm-test" style="display:block;margin:12px auto 0;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-size:.8rem;font-weight:700;color:var(--green-700);cursor:pointer;">🔊 音をテスト</button>
-      <div class="tm-hint"><b style="color:var(--red);">音が鳴らないとき：</b>iPhone本体側面の<b>サイレント（マナー）スイッチをオフ</b>にし、音量を上げてから上の「音をテスト」を押してください。マナーモード中はWebの音は鳴りません。<br><br>一般演題は<b>5分（予鈴）・6分（発表終了）・9分（討論終了）</b>で画面フラッシュと音で合図します。画面はスリープさせずに点灯したままお使いください。</div>
+      <div class="tm-hint"><b style="color:var(--red);">音が鳴らないとき：</b>iPhone本体側面の<b>サイレント（マナー）スイッチをオフ</b>にし、音量を上げてから上の「音をテスト」を押してください。マナーモード中はWebの音は鳴りません。<br><br>一般演題は<b>5分（予鈴）・6分（発表終了）・9分（討論終了）</b>、FCC特別企画は<b>12分（予鈴）・14分（終了）</b>で画面フラッシュと音で合図します。画面はスリープさせずに点灯したままお使いください。</div>
     </div>
   </section>
 
@@ -334,10 +376,18 @@
     <div class="sec-label">特別企画（FCC）</div>
     <div class="card card-pad">
       <div style="font-weight:700;font-size:.92rem;margin-bottom:4px;">見て・語って・持ち帰る　NICUケア実践交流ラボ</div>
-      <p style="font-size:.82rem;color:var(--muted);margin-bottom:10px;">3グループに分かれて各ブースを15分ずつ巡回（移動時間含む）</p>
-      <div class="fcc-step"><span class="fcc-num">1</span><span class="fcc-txt">各施設のFCC自慢（4施設）</span></div>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:10px;">3グループに分かれて各ブースを14分ずつ巡回（移動時間含む）</p>
+      <div class="fcc-step"><span class="fcc-num">1</span><span class="fcc-txt">各施設のFCC自慢（3施設）</span></div>
       <div class="fcc-step"><span class="fcc-num">2</span><span class="fcc-txt">アトムメディカル「家族とのコミュニケーションロールプレイ」</span></div>
       <div class="fcc-step"><span class="fcc-num">3</span><span class="fcc-txt">がんばりっこブース　林さんとお話ししよう</span></div>
+    </div>
+
+    <div class="sec-label">あなたのグループを調べる</div>
+    <div class="card card-pad">
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:10px;">お名前を入力すると、特別企画でのグループ・リーダー・巡回ブースの順番が表示されます。</p>
+      <input type="text" id="gl-name" class="gl-input" placeholder="例：須賀 健一　/　すが" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <div class="gl-hint">姓だけ・名だけ・スペースの有無どちらでもOKです。</div>
+      <div class="gl-result" id="gl-result"></div>
     </div>
 
     <div class="sec-label">発表者の方へ</div>
@@ -398,17 +448,16 @@
 <script>
 /* ============ DATA ============ */
 const SCHEDULE = [
-  {t:"12:15", title:"世話人会", sub:"704号室・ハイブリッド開催"},
-  {t:"12:30", title:"受付開始"},
-  {t:"13:00", title:"開会の挨拶"},
-  {t:"13:05", title:"一般演題 Ns session", sub:"座長 岩波 悠子（自治医大さいたま）", tag:"演題"},
-  {t:"13:35", title:"一般演題 Dr / ME session", sub:"座長 中張 惇子（自治医大さいたま）", tag:"演題"},
-  {t:"14:25", title:"休憩"},
-  {t:"14:35", title:"共催スイーツセミナー", sub:"軟骨無形成症の早期診断と治療介入の意義について／松本 志郎 先生（熊本大学）　座長 須賀 健一", feature:true},
-  {t:"15:20", title:"休憩・企業展示案内"},
-  {t:"15:30", title:"セミナー", sub:"明日からのケアがちょっと変わる？！家族のホンネ／林 英美子 様", feature:true},
-  {t:"16:05", title:"FCC特別企画", sub:"見て・語って・持ち帰る NICUケア実践交流ラボ（3グループ巡回）", feature:true},
-  {t:"17:00", title:"閉会の挨拶"},
+  {t:"12:50", title:"世話人会", sub:"704号室・ハイブリッド開催"},
+  {t:"12:55", title:"受付開始"},
+  {t:"13:15", title:"開会の挨拶"},
+  {t:"13:20", title:"一般演題 Ns session", sub:"座長 岩波 悠子（自治医大さいたま）", tag:"演題"},
+  {t:"13:50", title:"一般演題 Dr / ME session", sub:"座長 中張 惇子（自治医大さいたま）", tag:"演題"},
+  {t:"14:40", title:"休憩・企業展示案内"},
+  {t:"14:50", title:"共催スイーツセミナー", sub:"軟骨無形成症の早期診断と治療介入の意義について／松本 志郎 先生（熊本大学）　座長 須賀 健一", feature:true},
+  {t:"15:35", title:"セミナー", sub:"明日からのケアがちょっと変わる？！家族のホンネ／林 英美子 様", feature:true},
+  {t:"16:10", title:"FCC特別企画", sub:"見て・語って・持ち帰る NICUケア実践交流ラボ（3グループ巡回・各ブース14分）", feature:true},
+  {t:"16:52", title:"閉会の挨拶"},
   {t:"18:00", title:"懇親会", sub:"KICHIRI OMIYA WEST"},
 ];
 
@@ -437,11 +486,12 @@ const TALKS = [
    abs:[["緒言","歌舞伎症候群は特徴的顔貌、発達遅滞、成長障害、先天性心疾患、摂食障害などを呈する先天異常症候群であり、KMT2DおよびKDM6Aが原因遺伝子として知られている。KDM6A関連例はX連鎖性のため、特に女児では症状が軽度または非典型的となり、早期診断が困難な場合がある。"],
         ["症例","在胎38週2日、3,166 gで出生した女児。日齢1に心雑音を主訴に入院した。後頸部余剰皮膚と高口蓋を認め、心臓超音波検査で大動脈弁狭窄症と診断した。入院時より低血糖を認め、経腸栄養確立後も遷延した。日齢14に血糖47 mg/dL、インスリン3.7 µU/mLであり、高インスリン血性低血糖症と診断した。輸液離脱困難のため日齢16からジアゾキシドの内服を開始した。遷延する高インスリン血性低血糖症の背景疾患の精査として日齢75に全エクソーム解析を実施し、KDM6A遺伝子に病的変異を認め、歌舞伎症候群と診断した。哺乳確立困難のため日齢100に在宅経管栄養で退院した。月齢8か月時点で体格は年齢相当であり、明らかな粗大運動発達の遅れはないが、経口摂取困難が持続している。"],
         ["考察","KDM6A関連歌舞伎症候群では、典型的顔貌や発達遅滞が明らかでない場合がある。本症例のように症候群像が不明瞭であっても、遷延する高インスリン血性低血糖症を認める場合には本症を鑑別に含め、早期に遺伝学的検査を検討することが重要である。"]]},
-  {id:"Dr-3", ses:"Dr", title:"CPAM type 3と肺葉外肺分画症のハイブリッド型の1例",
-   auth:"（著者名記載予定）", aff:"自治医科大学附属さいたま医療センター",
-   abs:[["背景","先天性嚢胞性肺疾患にはCPAM（Congenital pulmonary airway malformation）、肺分画症、気管支閉鎖などが含まれ、病態の重複を認めることがある。今回、CPAM type 3と肺葉外肺分画症のハイブリッド型と考えられた症例を経験した。"],
-        ["経過","症例は日齢0の男児。妊娠35週の胎児MRIで左下葉肺分画症を疑われ、在胎38週1日に出生した。出生後、人工呼吸管理を要したが日齢1に抜管した。超音波検査で左胸腔内に54×33×58 mmの腫瘤を認め、腹部大動脈からの流入血管を確認した。造影CTでは流出静脈が半奇静脈から奇静脈系へ連続していた。哺乳時の酸素需要が残存したため、日齢18に腫瘤摘出術を施行した。摘出標本では病変は正常肺と独立し、胸膜様被膜に覆われており、肺葉外肺分画症に合致した。また、病理組織学的に微小嚢胞が密在する充実性病変を認め、CPAM type 3の所見を伴っていた。"],
-        ["考察","肺分画症とCPAM type 1またはtype 2のハイブリッド病変は報告されているが、type 3との合併は検索し得た範囲で報告がない。本症例は先天性嚢胞性肺疾患の発生機序を考えるうえで示唆に富む症例と考えられた。"]]},
+  {id:"Dr-3", ses:"Dr", title:"新生児期に手術を行った肺葉外肺分画症の1例",
+   auth:"〇芝大樹1)、渡邊慶太1)、竪山碧生1)、加藤清香1)、秋山めぐみ1)、石原温子1)、中張惇子1)、市川知佳2)、牛嶋順子2)、長崎瑛里3)、後藤俊平3)、大城久4)、中田和佳5)、桑田知之2)、池田太郎3)、須賀健一1)", aff:"自治医科大学附属さいたま医療センター 1)周産期科新生児部門, 2)産科部門, 3)小児外科部門, 4)病理診断科／5)自治医科大学とちぎ子ども医療センター画像診断部",
+   abs:[["緒言","先天性嚢胞性肺疾患にはCPAM、肺分画症、気管支閉鎖などが含まれ、肺の異なる発生段階での異なる部位の異常によって病態がわかれる。肺葉外肺分画症は多くは無症状で経過し、成人期に発見されて手術に至る例も多く報告されている。今回は新生児期に手術を行った肺葉外肺分画症の1例を経験したので報告する。"],
+        ["症例","症例は日齢0の男児。妊娠中期には左肺の大部分をしめるCPAM type3と考えられていたが、妊娠35週の胎児MRIで体循環からの流入血管があり左肺分画症が疑われた。在胎38週1日に出生し、人工呼吸管理を要したが日齢1に抜管した。超音波検査で左胸腔内に54×33×58 mmの腫瘤を認め、胸部大動脈からの流入血管を確認した。造影CTでは流出静脈が半奇静脈から奇静脈系へ連続していた。抜管後も哺乳時の酸素需要が残存したため、日齢18に腫瘤摘出術を施行した。術後4日目に抜管し、室内気で哺乳良好だったため日齢30に自宅退院した。摘出標本では病変は正常肺と独立し、胸膜に覆われており、一部には肺胞様構造も認め、肺葉外肺分画症と診断した。"],
+        ["考察","本症例では哺乳時の酸素需要が残存しており、大きな左下肺の腫瘤により左肺が圧排されている影響と考えられた。摘出術後は速やかに左肺も拡張し、酸素需要は消失した。"],
+        ["結語","肺葉外肺分画症は新生児期に症状をきたすこともあるため注意して経過観察する必要がある。"]]},
   {id:"Dr-4", ses:"Dr", title:"鼻腔への著明な逆流により経口哺乳が困難である先天性鼻咽腔閉鎖不全症の1例",
    auth:"田中 萌子、水本 崚允、堀田 奈緒美、櫻井 隼人、本島 由紀子、國方 徹也", aff:"埼玉医科大学病院 新生児科",
    abs:[["緒言","新生児における鼻咽腔閉鎖不全の頻度の高い原因として、口蓋裂や粘膜下口蓋裂が挙げられる。今回、これらの形態異常を認めないものの、著明な鼻腔逆流により経口哺乳が困難であり、原因として短口蓋が疑われる鼻咽腔閉鎖不全症の1例を経験したため報告する。"],
@@ -482,7 +532,13 @@ const LECTURES = [
    note:"※ 抄録は仮の内容です（演者と確認中）。"},
   {id:"LEC-2", kind:"セミナー", title:"明日からのケアがちょっと変わる？！家族のホンネ",
    auth:"林 英美子 様", aff:"一般社団法人 未熟児家族支援がんばりっこ 代表",
-   meta:"", abs:[], bio:[], society:"", note:""},
+   meta:"座長：関根 綾香（自治医科大学附属さいたま医療センター）",
+   abs:[["抄録","NICUや小児医療の現場では、子どもと家族のためを思って行われているケアであっても、その受け止め方は家族によってさまざまである。本講演では、22週542gで生まれた息子の子育て経験と、未熟児家族支援・がんばりっこの活動を通して出会った多くの家族の声をもとに、「家族のホンネ」について考える。"],
+        ["家族の声から","全国の未熟児・病児・障害児・お空に旅立った子どもの家族を対象に実施したアンケートには、約100家族から声が寄せられた。そこには医療者への感謝とともに、不安や戸惑い、遠慮からホンネを伝えられなかった経験や、退院後の生活の中で初めて気づいた思いが語られている。この「家族のホンネ」の講演内容は、これまでに国立成育医療研究センター、札幌医科大学、熊本市民病院においてNICUスタッフ向けに実施してきた。参加した医療者からは「聴いていたつもりで聞けていなかった」「退院後の暮らしをもっと想像したいと思った」などの感想が寄せられ、家族と医療者の間にある認識の違いや支援の可能性について新たな気づきが共有された。"],
+        ["医療と社会をつなぐ","講演では、アンケートに寄せられた家族の声を紹介しながら、支援の中で生じるすれ違いや、家族が本当に求めている関わりについて考える。また、退院後の暮らしや成長の先にある生活にも触れながら、医療と社会をつなぐ視点について共有したい。家族と医療者は、ともに子どもの育ちを支える仲間である。本講演が、ファミリーセンタードケアを家族の視点から改めて考え、明日からのケアが少し変わる時間となれば幸いである。"]],
+   bio:[],
+   profile:"【林 英美子（はやし えみこ）／太陽ママ】一般社団法人 未熟児家族支援・がんばりっこ 代表理事。2004年、22週542gで息子・太陽を出産。同年12月に未熟児家族の交流の場として「がんばりっこ仲間」の活動を開始し、2022年に「一般社団法人 未熟児家族支援・がんばりっこ」を設立。現在は、未熟児（低出生体重児・早産児）をはじめ、病児・障害児・お空っこ家族と、その家族を支える医療者・支援者をつなぐ活動を行っている。全国約2,000家族、医療・専門職を中心とした約250名の応援団が登録。痛みの緩和ケアガイドライン、NICU診療ガイドライン等の作成に家族の立場から参画。子どもたちの声や育ちの先にある暮らしを学ぶため、小学校の体育講師や相談員としても活動している。",
+   society:"", note:""},
 ];
 
 /* ============ RENDER: schedule ============ */
@@ -560,6 +616,7 @@ function openLecture(id){
     bioHtml=`<div class="bio-block"><div class="abs-h">【略歴】</div>${l.bio.map(([y,t])=>`<div class="bio-row"><span class="y">${y}</span><span>${t}</span></div>`).join('')}</div>`;
   }
   let socHtml = l.society ? `<div class="abs-block"><div class="abs-h">【所属学会等】</div><div class="abs-p">${l.society}</div></div>` : '';
+  let profHtml = l.profile ? `<div class="abs-block"><div class="abs-p" style="background:var(--green-100);border-radius:12px;padding:13px 14px;font-size:.82rem;">${l.profile}</div></div>` : '';
   let noteHtml = l.note ? `<p class="note">${l.note}</p>` : '';
   let bodyHtml = l.abs.length ? l.abs.map(([h,p])=>`<div class="abs-block"><div class="abs-h">【${h}】</div><div class="abs-p">${p}</div></div>`).join('')
                               : `<p class="abs-p" style="color:var(--muted);">抄録準備中</p>`;
@@ -573,6 +630,7 @@ function openLecture(id){
     </div>
     ${l.meta?`<p class="note" style="margin-top:0;margin-bottom:12px;">${l.meta}</p>`:''}
     ${bodyHtml}
+    ${profHtml}
     ${socHtml}
     ${bioHtml}
     ${noteHtml}
@@ -716,6 +774,107 @@ function prefillTimer(id){
   reset();
   show('timer');
 }
+
+/* ============ FCC GROUP LOOKUP ============ */
+const BOOTHS = {
+  1:"各施設のFCC自慢（3施設）",
+  2:"アトムメディカル ロールプレイ",
+  3:"がんばりっこブース（林さんとお話し）",
+};
+const GROUP_META = {
+  A:{leaders:"中張惇子", count:17, route:[1,2,3]},
+  B:{leaders:"秋山めぐみ・児玉美紀", count:17, route:[2,3,1]},
+  C:{leaders:"川畑建・芝大樹・杉山美峰", count:21, route:[3,1,2]},
+};
+const STAFF = [
+  {n:"須賀健一", role:"総監督", desc:"全体を見回り・進行を統括します。"},
+  {n:"山田ゆかり", role:"写真展ブース", desc:"看護写真展示ブースを担当します。"},
+  {n:"石井順子", role:"写真展ブース", desc:"看護写真展示ブースを担当します。"},
+  {n:"柏ゆかり", role:"写真展ブース", desc:"看護写真展示ブースを担当します。"},
+  {n:"関根綾香", role:"写真展ブース", desc:"看護写真展示ブースを担当します。"},
+];
+const ROSTER = [
+  {n:"野中航仁",g:"A"},{n:"加部一彦",g:"A"},{n:"岩谷綾香",g:"A"},{n:"中張惇子",g:"A"},
+  {n:"采元純",g:"A"},{n:"鈴木淑代",g:"A"},{n:"城戸京香",g:"A"},{n:"夏目雅美",g:"A"},
+  {n:"廣兼裕美",g:"A"},{n:"岩波悠子",g:"A"},{n:"多賀千尋",g:"A"},
+  {n:"宮下亜香里",g:"A"},{n:"福富宏美",g:"A"},{n:"笹森明穂",g:"A"},{n:"東山葵",g:"A"},
+  {n:"平間ひとみ",g:"A"},{n:"加藤清美",g:"A"},
+  {n:"秋山めぐみ",g:"B"},{n:"渡邉慶太",g:"B"},{n:"國方徹也",g:"B"},{n:"金隆根",g:"B"},
+  {n:"佐藤千穂",g:"B"},{n:"今西利之",g:"B"},{n:"菅野雅美",g:"B"},{n:"児玉美紀",g:"B"},
+  {n:"遠江里莉",g:"B"},{n:"生方歌織",g:"B"},{n:"関口六月",g:"B"},{n:"梅田千典",g:"B"},
+  {n:"寺田悠斗",g:"B"},{n:"黒図しおり",g:"B"},{n:"戸田花音",g:"B"},{n:"本間麗芽",g:"B"},
+  {n:"梅澤麻紀子",g:"B"},
+  {n:"川畑建",g:"C"},{n:"飛彈麻里子",g:"C"},{n:"田中萌子",g:"C"},{n:"長崎瑛里",g:"C"},
+  {n:"森田翔",g:"C"},{n:"伊藤璃津子",g:"C"},{n:"芝大樹",g:"C"},{n:"新井聡美",g:"C"},
+  {n:"野口祐子",g:"C"},{n:"永野亜希子",g:"C"},{n:"安村春日",g:"C"},
+  {n:"戸舘美憂",g:"C"},{n:"杉山美峰",g:"C"},{n:"林珠巨",g:"C"},{n:"岡安優奈",g:"C"},
+  {n:"佐藤文",g:"C"},{n:"石川敦子",g:"C"},{n:"萩原優花",g:"C"},{n:"廣本柚帆",g:"C"},
+  {n:"小林清香",g:"C"},{n:"姫島美幸",g:"C"},
+];
+const YOMI = {
+  "須賀健一":"すがけんいち","中張惇子":"なかはりあつこ","秋山めぐみ":"あきやまめぐみ",
+  "児玉美紀":"こだまみき","川畑建":"かわばたけん","芝大樹":"しばだいき","杉山美峰":"すぎやまみほ",
+  "関根綾香":"せきねあやか","山田ゆかり":"やまだゆかり",
+};
+const glStripSp = s => (s||"").replace(/[\s\u3000]/g,"");
+function glNorm(s){
+  return glStripSp(s).toLowerCase()
+    .replace(/[ァ-ン]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60));
+}
+function glRouteHtml(route){
+  return `<div class="gl-route">${route.map((b,i)=>
+    `<div class="gl-stop"><span class="seq">${i+1}</span><span>${BOOTHS[b]}</span></div>`).join('')}</div>`;
+}
+function glParticipantCard(name, g){
+  const m = GROUP_META[g];
+  return `<div class="gl-card">
+    <div class="gl-band">
+      <div class="gl-badge">${g}</div>
+      <div><div class="who">${name} さん</div><div class="grp">グループ ${g}（${m.count}名）</div></div>
+    </div>
+    <div class="gl-body">
+      <div class="gl-row"><span class="lbl">リーダー</span><span class="val">${m.leaders}</span></div>
+      <div class="gl-row"><span class="lbl">巡回の順番</span><span class="val">${glRouteHtml(m.route)}</span></div>
+      <div class="gl-row"><span class="lbl">めやす</span><span class="val">各ブース14分ずつ。リーダーの誘導に従ってご移動ください。</span></div>
+    </div>
+  </div>`;
+}
+function glStaffCard(s){
+  return `<div class="gl-card">
+    <div class="gl-band" style="background:linear-gradient(135deg,var(--amber),#e0a64e);">
+      <div class="gl-badge">★</div>
+      <div><div class="who">${s.n} さん</div><div class="grp">${s.role}</div></div>
+    </div>
+    <div class="gl-body"><div class="gl-row" style="border:none;"><span class="val">${s.desc}<br>特別企画では巡回グループには入りません。</span></div></div>
+  </div>`;
+}
+const glInput = document.getElementById('gl-name');
+const glResult = document.getElementById('gl-result');
+function glSearch(q){
+  const nq = glNorm(q);
+  if(nq.length < 1){ glResult.className='gl-result'; glResult.innerHTML=''; return; }
+  const staffHit = STAFF.filter(s=> glNorm(s.n).includes(nq) || (YOMI[glStripSp(s.n)]||'').includes(nq));
+  const seen={};
+  const partHit = ROSTER.filter(p=>{
+    const key=p.n+p.g; if(seen[key]) return false;
+    const hit = glNorm(p.n).includes(nq) || (YOMI[p.n]||'').includes(nq);
+    if(hit){ seen[key]=1; return true; } return false;
+  });
+  let html='';
+  if(staffHit.length===0 && partHit.length===0){
+    html = `<div class="gl-none">「${q}」に一致する方が見つかりませんでした。</div>
+      <div class="gl-hint">姓のみ・名のみでもお試しください。お名前が名簿にない場合は受付・リーダーにお声がけください。</div>`;
+  }else{
+    html = staffHit.map(glStaffCard).join('') + partHit.map(p=>glParticipantCard(p.n,p.g)).join('');
+    if(staffHit.length+partHit.length>1){
+      html = `<div class="gl-hint" style="margin-bottom:8px;">複数の候補が見つかりました。ご自身のお名前をご確認ください。</div>`+html;
+    }
+  }
+  glResult.className='gl-result show';
+  glResult.innerHTML=html;
+}
+glInput.addEventListener('input', e=> glSearch(e.target.value));
+
 paint();
 </script>
 </body>
