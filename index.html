@@ -1,881 +1,887 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#1f5e47">
-<title>第20回 埼玉県新生児医療懇話会</title>
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" href="icon-180.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'; worker-src 'self'; manifest-src 'self'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="埼玉NICU懇話会">
+<meta name="apple-mobile-web-app-title" content="NWS採点">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#1F3864">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>NWS 採点（案-6）</title>
 <style>
-  :root{
-    --ink:#13261f;
-    --green-900:#13402f;
-    --green-700:#1f5e47;
-    --green-500:#2f8765;
-    --green-300:#6cb795;
-    --green-100:#dcefe4;
-    --paper:#f6f8f5;
-    --card:#ffffff;
-    --line:#dce6df;
-    --muted:#5e7268;
-    --amber:#d98a2b;
-    --red:#c0473c;
-    --shadow:0 2px 10px rgba(19,64,47,.08);
-  }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-  html{height:auto;}
-  body{
-    font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',Meiryo,system-ui,sans-serif;
-    background:var(--paper);
-    color:var(--ink);
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-    min-height:100%;
-    padding-bottom:calc(env(safe-area-inset-bottom) + 96px);
-  }
+:root{
+  --navy:#1F3864; --blue:#2F5597; --baby:#1C7293; --care:#A85C08; --mist:#EEF2F9; --ice:#D9E2F3;
+  --yel:#FFF2CC; --ink:#1B2433; --sub:#55627A; --grey:#6B7A99; --line:#C9D3E6; --warn:#A63D2A; --ok:#2E7D32;
+  --bg:#F7F9FC; --card:#FFFFFF;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans CJK JP", "Noto Sans JP", Roboto, sans-serif;
+  font-size:17px; line-height:1.5; -webkit-text-size-adjust:100%}
+body{padding-bottom:env(safe-area-inset-bottom)}
+button{font:inherit; color:inherit; border:none; background:none; cursor:pointer; touch-action:manipulation}
+input{font:inherit; color:inherit}
+[hidden]{display:none !important}
+.topbar{position:sticky; top:0; z-index:30; display:flex; align-items:center; gap:12px;
+  padding:calc(10px + env(safe-area-inset-top)) 20px 10px; background:var(--navy); color:#fff}
+.topbar h1{font-size:19px; margin:0; font-weight:700; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.topbar h1 small{font-weight:500; opacity:.75; margin-left:6px; font-size:14px}
+.topbtn{min-height:44px; padding:0 16px; border-radius:10px; background:rgba(255,255,255,.14); color:#fff; font-weight:600; font-size:16px}
+.wrap{max-width:1100px; margin:0 auto; padding:20px 20px 40px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:16px}
+h2{font-size:20px; margin:0 0 12px; color:var(--navy)}
+h3{font-size:17px; margin:0 0 8px; color:var(--navy)}
+.muted{color:var(--sub); font-size:15px}
+.small{font-size:14px}
+.btn{min-height:52px; padding:0 22px; border-radius:12px; font-weight:700; font-size:17px; display:inline-flex; align-items:center; justify-content:center; gap:8px}
+.btn.primary{background:var(--navy); color:#fff}
+.btn.secondary{background:var(--mist); color:var(--navy); border:1px solid var(--line)}
+.btn.danger{background:#fff; color:var(--warn); border:1.5px solid var(--warn)}
+.btn.danger.fill{background:var(--warn); color:#fff}
+.btn:disabled{opacity:.45}
+.btn.block{width:100%}
+.row{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
 
-  /* ===== Header ===== */
-  header{
-    background:linear-gradient(150deg,var(--green-900),var(--green-700) 70%);
-    color:#fff;
-    padding:calc(env(safe-area-inset-top) + 22px) 20px 22px;
-    position:relative;
-    overflow:hidden;
-  }
-  header::after{
-    content:'';position:absolute;right:-40px;top:-40px;
-    width:160px;height:160px;border-radius:50%;
-    background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.14),transparent 70%);
-  }
-  .eyebrow{
-    font-size:.7rem;letter-spacing:.22em;font-weight:600;
-    opacity:.8;text-transform:uppercase;
-  }
-  header h1{
-    font-size:1.32rem;font-weight:700;letter-spacing:.02em;
-    margin:6px 0 12px;line-height:1.4;position:relative;
-  }
-  .hmeta{display:flex;gap:8px;flex-wrap:wrap;font-size:.78rem;position:relative;}
-  .hmeta span{
-    background:rgba(255,255,255,.14);
-    border:1px solid rgba(255,255,255,.22);
-    border-radius:999px;padding:3px 11px;
-  }
+/* home */
+.stats{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px}
+.stat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+.stat .num{font-size:44px; font-weight:800; color:var(--navy); line-height:1.1}
+.stat .lab{color:var(--sub); font-size:15px}
+.stat.alert .num{color:var(--warn)}
+.menu{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.menu .btn{min-height:96px; font-size:21px; border-radius:16px}
+.notice{background:var(--yel); border-radius:12px; padding:12px 16px; margin-bottom:16px; color:#5a4300; font-weight:600}
+.notice.red{background:#FBE9E5; color:var(--warn)}
+.privacy{margin-top:20px; font-size:14px; color:var(--sub)}
 
-  /* ===== Views ===== */
-  main{max-width:680px;margin:0 auto;}
-  .view{display:none;padding:18px 16px calc(env(safe-area-inset-bottom) + 40px);animation:fade .25s ease;}
-  .view.active{display:block;}
-  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+/* form */
+.field{margin-bottom:16px}
+.field > label, .flabel{display:block; font-weight:700; margin-bottom:6px; color:var(--navy); font-size:16px}
+.req::after{content:"必須"; margin-left:8px; font-size:12px; font-weight:700; color:#fff; background:var(--warn); border-radius:6px; padding:1px 6px; vertical-align:2px}
+.tin{min-height:52px; border:1.5px solid var(--line); border-radius:10px; padding:0 14px; background:#fff; font-size:20px; width:100%}
+.tin:focus{outline:3px solid var(--ice); border-color:var(--blue)}
+.idbox{display:flex; align-items:center; gap:8px}
+.idbox .prefix{font-size:20px; font-weight:700; color:var(--navy); white-space:nowrap}
+.idbox .tin{width:120px; text-align:center; letter-spacing:2px}
+.chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+.chip{min-height:44px; padding:0 14px; border-radius:22px; background:var(--mist); border:1px solid var(--line); color:var(--navy); font-weight:600; font-size:15px}
+.seg{display:flex; gap:8px; flex-wrap:wrap}
+.seg button{min-height:52px; min-width:88px; padding:0 18px; border-radius:12px; border:1.5px solid var(--line); background:#fff; font-weight:700; font-size:17px; color:var(--navy)}
+.seg button.on{background:var(--navy); border-color:var(--navy); color:#fff}
+.seg.small button{min-width:52px; padding:0 10px}
+.pma{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.step{width:52px; height:52px; border-radius:12px; background:var(--mist); border:1.5px solid var(--line); font-size:26px; font-weight:700; color:var(--navy)}
+.pma .tin{width:84px; text-align:center; font-size:24px; font-weight:700}
+.unit{font-weight:700; color:var(--navy)}
+.bandbadge{display:inline-block; padding:4px 12px; border-radius:16px; font-weight:700; font-size:15px; background:var(--mist); color:var(--navy)}
+.bandbadge.lt32{background:var(--navy); color:#fff}
+.bandbadge.b32_36{background:var(--blue); color:#fff}
+.bandbadge.ge37{background:var(--baby); color:#fff}
+.pmabanner{margin-top:10px; background:var(--yel); border-radius:12px; padding:10px 14px; display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+.pmabanner .txt{flex:1; min-width:240px; font-weight:600; color:#5a4300}
+.pmabanner.done{background:#E8F3EA}
+.pmabanner.done .txt{color:var(--ok)}
 
-  .sec-label{
-    font-size:.72rem;letter-spacing:.16em;font-weight:700;color:var(--green-500);
-    text-transform:uppercase;margin:4px 2px 12px;display:flex;align-items:center;gap:8px;
-  }
-  .sec-label::after{content:'';flex:1;height:1px;background:var(--line);}
+.sec{margin-top:24px}
+.sechead{display:flex; align-items:center; gap:12px; margin:0 0 10px}
+.sechead h2{margin:0; font-size:22px}
+.sechead .tag{font-weight:700; color:#fff; border-radius:8px; padding:2px 10px; font-size:14px}
+.baby .tag{background:var(--baby)} .care .tag{background:var(--care)}
+.baby .sechead h2{color:var(--baby)} .care .sechead h2{color:var(--care)}
+.domain{margin:14px 0 6px; font-weight:800; color:var(--sub); font-size:15px; letter-spacing:.5px}
+.item{background:#fff; border:1.5px solid var(--line); border-radius:14px; margin-bottom:10px; overflow:hidden}
+.item.missing{border-color:var(--warn); box-shadow:0 0 0 3px #F6D5CE}
+.itemmain{display:flex; align-items:center; gap:10px; padding:8px 10px 8px 6px}
+.ihead{flex:1; min-width:0; text-align:left; padding:8px 8px; border-radius:10px; display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; min-height:52px}
+.ihead .code{font-weight:800; color:var(--navy); min-width:44px}
+.ihead .lab{font-weight:700}
+.ihead .more{color:var(--blue); font-size:14px; font-weight:700; white-space:nowrap}
+.ibadge{font-size:13px; font-weight:700; border-radius:10px; padding:2px 8px}
+.ibadge.lt32{background:var(--navy); color:#fff}
+.ibadge.b32_36{background:var(--blue); color:#fff}
+.ibadge.ge37{background:var(--ice); color:var(--navy)}
+.ibadge.nopma{background:var(--yel); color:#5a4300}
+.scores{display:flex; gap:8px; flex-shrink:0}
+.sb{width:64px; height:56px; border-radius:12px; border:2px solid var(--line); background:#fff; font-size:24px; font-weight:800; color:var(--navy)}
+.sb.na{font-size:17px; border-style:dashed}
+.sb.on.s2{background:var(--navy); border-color:var(--navy); color:#fff}
+.sb.on.s1{background:var(--blue); border-color:var(--blue); color:#fff}
+.sb.on.s0{background:var(--grey); border-color:var(--grey); color:#fff}
+.sb.on.na{background:#fff; border-color:var(--navy); border-style:solid; box-shadow:inset 0 0 0 2px var(--navy)}
+.sb.placeholder{visibility:hidden}
+.crit{border-top:1px solid var(--line); background:var(--mist); padding:12px 16px 14px; font-size:15px}
+.crit .see{background:#fff; border-radius:10px; padding:8px 12px; margin-bottom:8px; font-weight:600}
+.crit .see b{color:var(--navy)}
+.crit .lv{display:flex; gap:10px; align-items:flex-start; margin:6px 0}
+.crit .lv .p{flex-shrink:0; width:30px; height:30px; border-radius:15px; color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:15px}
+.crit .p2{background:var(--navy)} .crit .p1{background:var(--blue)} .crit .p0{background:var(--grey)}
+.crit .meta{margin-top:8px; color:var(--sub)}
+.extra{border-top:1px dashed var(--line); padding:10px 16px 12px}
+.extra .q{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:6px 0}
+.extra .q .ql{font-weight:700; min-width:220px; flex:1}
+.extra .hint{margin-top:6px; font-size:14px; color:var(--blue); font-weight:600}
 
-  /* ===== Cards ===== */
-  .card{
-    background:var(--card);border:1px solid var(--line);border-radius:14px;
-    box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;
-  }
-  .card-pad{padding:15px 16px;}
+/* sticky footer */
+.footer{position:sticky; bottom:0; z-index:20; background:rgba(255,255,255,.97); border-top:1px solid var(--line);
+  padding:10px 20px calc(10px + env(safe-area-inset-bottom)); display:flex; gap:16px; align-items:center}
+.sum{flex:1; display:flex; gap:20px; flex-wrap:wrap}
+.sum .s{display:flex; align-items:baseline; gap:8px}
+.sum .s .k{font-weight:800; font-size:15px}
+.sum .s.b .k{color:var(--baby)} .sum .s.c .k{color:var(--care)}
+.sum .s .v{font-size:26px; font-weight:800; color:var(--navy); min-width:58px}
+.sum .s .d{font-size:13px; color:var(--sub)}
+.refflag{font-size:13px; font-weight:800; color:#fff; background:var(--warn); border-radius:8px; padding:1px 8px}
 
-  /* ===== Schedule ===== */
-  .slot{
-    display:flex;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);
-    align-items:flex-start;
-  }
-  .slot:last-child{border-bottom:none;}
-  .slot.feature{background:linear-gradient(90deg,var(--green-100),transparent);}
-  .slot-time{
-    flex:none;width:74px;font-size:.74rem;font-weight:700;color:var(--green-700);
-    line-height:1.5;padding-top:2px;
-  }
-  .slot-body{flex:1;}
-  .slot-title{font-weight:700;font-size:.92rem;}
-  .slot-sub{font-size:.76rem;color:var(--muted);margin-top:3px;}
-  .tag-mini{
-    display:inline-block;font-size:.66rem;font-weight:700;padding:1px 8px;border-radius:999px;
-    background:var(--green-100);color:var(--green-700);margin-top:6px;letter-spacing:.04em;
-  }
+/* list */
+.rec{display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--line)}
+.rec:last-child{border-bottom:none}
+.rec .main{flex:1; min-width:0}
+.rec .t1{font-weight:800; color:var(--navy)}
+.rec .t2{font-size:15px; color:var(--sub)}
+.pill{font-size:13px; font-weight:800; border-radius:10px; padding:2px 10px}
+.pill.un{background:#FBE9E5; color:var(--warn)} .pill.ex{background:#E8F3EA; color:var(--ok)}
 
-  /* ===== Session / talk list ===== */
-  .ses-head{
-    display:flex;align-items:center;gap:10px;margin:20px 2px 10px;
-  }
-  .ses-badge{
-    font-size:.74rem;font-weight:800;letter-spacing:.06em;color:#fff;
-    background:var(--green-700);border-radius:8px;padding:4px 11px;
-  }
-  .ses-badge.dr{background:var(--green-500);}
-  .ses-badge.me{background:var(--amber);}
-  .ses-chair{font-size:.74rem;color:var(--muted);}
+/* lock */
+.lock{position:fixed; inset:0; z-index:100; background:var(--navy); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px}
+.lock h2{color:#fff; font-size:24px; margin:0 0 6px}
+.lock .lmsg{min-height:26px; color:#FFE08A; font-weight:700; margin:8px 0 12px; text-align:center}
+.dots{display:flex; gap:18px; margin:18px 0 8px}
+.dots span{width:20px; height:20px; border-radius:10px; border:2px solid #fff}
+.dots span.f{background:#fff}
+.pad{display:grid; grid-template-columns:repeat(3, 92px); gap:16px; margin-top:8px}
+.pad button{width:92px; height:92px; border-radius:46px; background:rgba(255,255,255,.14); color:#fff; font-size:34px; font-weight:600}
+.pad button:active{background:rgba(255,255,255,.3)}
+.pad .fn{font-size:18px; background:transparent}
+.lock .forgot{margin-top:22px; color:#cfd8ea; text-decoration:underline; font-size:15px; min-height:44px}
 
-  .talk{
-    width:100%;text-align:left;background:var(--card);border:1px solid var(--line);
-    border-radius:12px;padding:13px 14px;margin-bottom:9px;cursor:pointer;
-    display:flex;gap:12px;align-items:center;transition:.15s;
-  }
-  .talk:active{transform:scale(.99);background:var(--green-100);}
-  .talk-no{
-    flex:none;width:34px;height:34px;border-radius:9px;
-    background:var(--green-100);color:var(--green-700);
-    font-weight:800;font-size:.82rem;display:grid;place-items:center;
-  }
-  .talk-no.dr{background:#e2f1ea;}
-  .talk-no.me{background:#f8ecd6;color:var(--amber);}
-  .talk-main{flex:1;min-width:0;}
-  .talk-ttl{font-size:.86rem;font-weight:700;line-height:1.45;}
-  .talk-aff{font-size:.73rem;color:var(--muted);margin-top:3px;}
-  .chev{flex:none;color:var(--green-300);font-size:1.1rem;}
-
-  /* ===== Abstract detail ===== */
-  .detail-head{
-    background:linear-gradient(150deg,var(--green-900),var(--green-700));
-    color:#fff;padding:18px 18px 20px;border-radius:14px;margin-bottom:14px;
-  }
-  .detail-head .kicker{font-size:.72rem;letter-spacing:.14em;opacity:.82;font-weight:700;}
-  .detail-head h2{font-size:1.06rem;line-height:1.5;margin:7px 0 10px;}
-  .detail-head .auth{font-size:.8rem;opacity:.95;}
-  .detail-head .aff{font-size:.76rem;opacity:.8;margin-top:3px;}
-  .abs-block{margin-bottom:13px;}
-  .abs-h{
-    font-size:.78rem;font-weight:800;color:var(--green-700);
-    margin-bottom:3px;letter-spacing:.03em;
-  }
-  .abs-p{font-size:.88rem;color:var(--ink);}
-  .back-btn{
-    display:inline-flex;align-items:center;gap:6px;background:none;border:none;
-    color:var(--green-700);font-weight:700;font-size:.86rem;cursor:pointer;
-    padding:6px 0;margin-bottom:6px;
-  }
-  .timer-launch{
-    width:100%;border:none;border-radius:12px;cursor:pointer;
-    background:var(--green-700);color:#fff;font-weight:700;font-size:.9rem;
-    padding:13px;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px;
-  }
-  .timer-launch:active{background:var(--green-900);}
-  .bio-block{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;}
-  .bio-row{display:flex;gap:10px;font-size:.8rem;padding:3px 0;}
-  .bio-row .y{flex:none;width:88px;font-weight:700;color:var(--green-700);}
-
-  /* ===== Info / cards generic ===== */
-  .info-row{display:flex;padding:11px 16px;border-bottom:1px solid var(--line);font-size:.85rem;}
-  .info-row:last-child{border-bottom:none;}
-  .info-row dt{flex:none;width:78px;font-weight:700;color:var(--green-700);}
-  .info-row dd{flex:1;}
-  .note{font-size:.78rem;color:var(--muted);margin-top:8px;line-height:1.6;}
-  a{color:var(--green-500);}
-  .lead{font-size:.88rem;margin-bottom:12px;}
-  ul.clean{list-style:none;}
-  ul.clean li{font-size:.85rem;padding:7px 0 7px 20px;position:relative;border-bottom:1px solid var(--line);}
-  ul.clean li:last-child{border-bottom:none;}
-  ul.clean li::before{content:'';position:absolute;left:4px;top:15px;width:6px;height:6px;border-radius:50%;background:var(--green-300);}
-  .pill{display:inline-block;font-size:.74rem;font-weight:700;background:var(--green-100);color:var(--green-700);border-radius:999px;padding:3px 11px;margin:0 4px 4px 0;}
-  .big-btn{
-    display:block;text-align:center;text-decoration:none;
-    background:var(--amber);color:#fff;font-weight:700;font-size:.92rem;
-    border-radius:12px;padding:14px;margin-top:6px;
-  }
-  .fcc-step{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--line);}
-  .fcc-step:last-child{border-bottom:none;}
-  .fcc-num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--green-700);color:#fff;font-weight:800;font-size:.78rem;display:grid;place-items:center;}
-  .fcc-txt{font-size:.84rem;}
-
-  /* ===== Group lookup ===== */
-  .gl-input{
-    width:100%;border:1.5px solid var(--line);border-radius:12px;
-    padding:12px 14px;font-size:1rem;font-family:inherit;color:var(--ink);
-    background:#fff;outline:none;
-  }
-  .gl-input:focus{border-color:var(--green-500);}
-  .gl-hint{font-size:.74rem;color:var(--muted);margin-top:7px;}
-  .gl-result{margin-top:12px;display:none;}
-  .gl-result.show{display:block;animation:fade .2s ease;}
-  .gl-card{
-    border:1.5px solid var(--green-300);border-radius:14px;overflow:hidden;
-    margin-bottom:10px;background:#fff;box-shadow:var(--shadow);
-  }
-  .gl-band{
-    display:flex;align-items:center;gap:12px;
-    padding:13px 15px;color:#fff;
-    background:linear-gradient(135deg,var(--green-700),var(--green-500));
-  }
-  .gl-badge{
-    flex:none;width:46px;height:46px;border-radius:12px;
-    background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);
-    display:grid;place-items:center;font-size:1.6rem;font-weight:800;
-  }
-  .gl-band .who{font-size:1.04rem;font-weight:800;line-height:1.3;}
-  .gl-band .grp{font-size:.74rem;opacity:.9;letter-spacing:.08em;font-weight:700;}
-  .gl-body{padding:13px 15px;}
-  .gl-row{display:flex;gap:9px;padding:7px 0;font-size:.84rem;border-bottom:1px solid var(--line);}
-  .gl-row:last-child{border-bottom:none;}
-  .gl-row .lbl{flex:none;width:74px;color:var(--green-700);font-weight:700;}
-  .gl-row .val{flex:1;}
-  .gl-route{display:flex;flex-direction:column;gap:6px;margin-top:3px;}
-  .gl-stop{display:flex;gap:9px;align-items:flex-start;font-size:.82rem;}
-  .gl-stop .seq{flex:none;width:22px;height:22px;border-radius:50%;background:var(--green-100);color:var(--green-700);font-weight:800;font-size:.72rem;display:grid;place-items:center;margin-top:1px;}
-  .gl-none{font-size:.84rem;color:var(--red);font-weight:700;padding:10px 2px;}
-  .gl-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
-  .gl-chip{
-    background:#fff;border:1px solid var(--line);border-radius:999px;
-    padding:6px 13px;font-size:.8rem;font-weight:700;color:var(--green-700);cursor:pointer;
-  }
-  .gl-chip:active{background:var(--green-100);}
-
-  /* ===== Timer view ===== */
-  #timer .view-inner{padding-top:8px;}
-  .tm-talk{font-size:.82rem;color:var(--muted);text-align:center;margin-bottom:4px;min-height:1.2em;padding:0 10px;}
-  .tm-phase{text-align:center;font-weight:800;letter-spacing:.04em;font-size:1rem;margin-bottom:10px;}
-  .tm-phase.present{color:var(--green-700);}
-  .tm-phase.discuss{color:var(--amber);}
-  .tm-phase.over{color:var(--red);}
-  .clock-wrap{
-    text-align:center;margin:18px auto 18px;padding:26px 16px;
-    background:var(--card);border:1px solid var(--line);border-radius:18px;
-    box-shadow:var(--shadow);max-width:330px;
-  }
-  .tm-time{
-    font-size:4.6rem;font-weight:800;font-variant-numeric:tabular-nums;
-    letter-spacing:.01em;line-height:1;color:var(--green-700);
-  }
-  .tm-of{font-size:.86rem;color:var(--muted);margin-top:12px;font-weight:700;}
-  /* full-screen flash alert (iOS-reliable, replaces vibration) */
-  #flash{
-    position:fixed;inset:0;z-index:200;pointer-events:none;
-    display:flex;align-items:center;justify-content:center;
-    opacity:0;visibility:hidden;
-    font-size:2rem;font-weight:800;color:#fff;letter-spacing:.06em;
-  }
-  #flash.show{visibility:visible;animation:flashPulse 1.6s ease;}
-  #flash.present-end{background:var(--amber);}
-  #flash.time-up{background:var(--red);}
-  @keyframes flashPulse{
-    0%{opacity:0;} 8%{opacity:.96;} 28%{opacity:.35;}
-    48%{opacity:.96;} 68%{opacity:.35;} 88%{opacity:.96;} 100%{opacity:0;}
-  }
-  .tm-controls{display:flex;gap:10px;justify-content:center;margin-top:6px;}
-  .tm-btn{
-    flex:1;max-width:130px;border:none;border-radius:12px;padding:14px;font-weight:800;font-size:.92rem;cursor:pointer;
-  }
-  .tm-btn.start{background:var(--green-700);color:#fff;}
-  .tm-btn.reset{background:#fff;color:var(--green-700);border:1px solid var(--line);}
-  .tm-presets{display:flex;gap:8px;justify-content:center;margin:14px 0 4px;flex-wrap:wrap;}
-  .preset{
-    background:#fff;border:1px solid var(--line);border-radius:999px;
-    padding:7px 14px;font-size:.78rem;font-weight:700;color:var(--green-700);cursor:pointer;
-  }
-  .preset.on{background:var(--green-700);color:#fff;border-color:var(--green-700);}
-  .tm-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;line-height:1.6;}
-
-  /* ===== Bottom nav ===== */
-  nav{
-    position:fixed;bottom:0;left:0;right:0;z-index:50;
-    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
-    border-top:1px solid var(--line);
-    display:flex;padding:6px 4px calc(env(safe-area-inset-bottom) + 6px);
-  }
-  .nav-btn{
-    flex:1;background:none;border:none;cursor:pointer;
-    display:flex;flex-direction:column;align-items:center;gap:2px;
-    color:var(--muted);font-size:.66rem;font-weight:700;padding:5px 2px;
-  }
-  .nav-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;}
-  .nav-btn.active{color:var(--green-700);}
-  .nav-btn.active svg{stroke:var(--green-700);}
+/* modal + toast */
+.modal{position:fixed; inset:0; z-index:90; background:rgba(15,23,40,.55); display:flex; align-items:center; justify-content:center; padding:20px}
+.mbox{background:#fff; border-radius:16px; padding:22px 24px; max-width:560px; width:100%; max-height:85vh; overflow:auto}
+.mbox h3{font-size:20px}
+.mbox .mbody{margin:10px 0 18px; white-space:pre-line}
+.mbox .mact{display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap}
+.toast{position:fixed; left:50%; bottom:110px; transform:translateX(-50%); z-index:95; background:var(--ink); color:#fff; padding:12px 20px; border-radius:12px; font-weight:700; box-shadow:0 6px 20px rgba(0,0,0,.25)}
 </style>
 </head>
 <body>
-<div id="flash"></div>
+<div id="lock" class="lock" hidden>
+  <h2 id="lockTitle">PINを入力</h2>
+  <div class="muted" style="color:#cfd8ea" id="lockSub">NWS 採点アプリ（案-6）</div>
+  <div class="dots" id="dots"><span></span><span></span><span></span><span></span></div>
+  <div class="lmsg" id="lockMsg"></div>
+  <div class="pad" id="pad"></div>
+  <button class="forgot" id="forgotBtn" type="button">PINを忘れた場合</button>
+</div>
 
-<header>
-  <div class="eyebrow">Saitama Neonatal Care Meeting 2026</div>
-  <h1>第20回 埼玉県新生児医療懇話会</h1>
-  <div class="hmeta">
-    <span>6月27日(土) 13:15–16:55</span>
-    <span>大宮ソニックシティ 602</span>
+<div id="app" hidden>
+  <header class="topbar">
+    <h1 id="title">NWS 採点<small>案-6</small></h1>
+    <button class="topbtn" id="homeBtn" type="button" hidden>ホーム</button>
+    <button class="topbtn" id="lockBtn" type="button">ロック</button>
+  </header>
+
+  <!-- HOME -->
+  <main id="v-home" class="wrap">
+    <div id="homeNotice"></div>
+    <div class="stats">
+      <div class="stat" id="statUn"><div class="num" id="nUn">0</div><div class="lab">未出力の記録</div></div>
+      <div class="stat"><div class="num" id="nEx">0</div><div class="lab">出力済み（端末内に残っている記録）</div></div>
+    </div>
+    <div class="menu">
+      <button class="btn primary" id="goNew" type="button">新規採点</button>
+      <button class="btn secondary" id="goList" type="button">記録一覧</button>
+      <button class="btn secondary" id="goExport" type="button">CSV出力・消去</button>
+      <button class="btn secondary" id="goSettings" type="button">設定</button>
+    </div>
+    <p class="privacy">このアプリは入力したデータを外部に送信しません。データはこの端末（タブレット）の中だけに保存されます。<br>氏名・患者ID・生年月日など、個人を特定できる情報は入力しないでください。</p>
+  </main>
+
+  <!-- FORM -->
+  <div id="v-form" hidden>
+    <main class="wrap" id="formWrap">
+      <div class="card">
+        <h2 id="formTitle">新規採点</h2>
+        <div class="grid2">
+          <div class="field" id="f-id">
+            <span class="flabel req">研究ID</span>
+            <div class="idbox"><span class="prefix" id="idPrefix">NWS-test-</span>
+              <input class="tin" id="idNum" inputmode="numeric" pattern="[0-9]*" maxlength="3" autocomplete="off" placeholder="001"></div>
+            <div class="chips" id="idChips"></div>
+          </div>
+          <div class="field" id="f-rater">
+            <label class="req" for="rater">職員コード</label>
+            <input class="tin" id="rater" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="例：1234">
+            <div class="muted small">氏名ではなく職員コードを入力してください</div>
+          </div>
+          <div class="field" id="f-date">
+            <label class="req" for="date">日付</label>
+            <input class="tin" id="date" type="date">
+          </div>
+          <div class="field" id="f-shift">
+            <span class="flabel req">勤務帯</span>
+            <div class="seg" id="shiftSeg"></div>
+          </div>
+        </div>
+
+        <div class="field" id="f-pma">
+          <span class="flabel req">修正週数</span>
+          <div class="pma">
+            <button class="step" type="button" id="wMinus" aria-label="週を減らす">−</button>
+            <input class="tin" id="pmaW" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" placeholder="--">
+            <button class="step" type="button" id="wPlus" aria-label="週を増やす">＋</button>
+            <span class="unit">週</span>
+            <div class="seg small" id="daySeg"></div>
+            <span class="unit">日</span>
+            <span class="bandbadge" id="bandBadge">未入力</span>
+          </div>
+          <div class="notice" id="otherNote" hidden style="margin:10px 0 0"></div>
+          <div class="pmabanner" id="pmaBanner" hidden><span class="txt" id="pmaBannerTxt"></span><button class="btn primary" type="button" id="pmaConfirm">確認</button></div>
+        </div>
+
+        <div class="grid2">
+          <div class="field" id="f-intub">
+            <span class="flabel req">挿管</span>
+            <div class="seg" id="intubSeg"></div>
+            <div class="muted small">挿管中は、週数にかかわらずB3を32週未満の基準で採点します</div>
+          </div>
+          <div class="field" id="f-sed">
+            <span class="flabel req">鎮静薬の投与</span>
+            <div class="seg" id="sedSeg"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="justify-content:flex-end; margin-bottom:-8px">
+        <button class="chip" type="button" id="expandAll">すべての基準を開く</button>
+      </div>
+      <section class="sec baby"><div class="sechead"><span class="tag">児の状態</span><h2>NWS-Baby</h2></div><div id="babyItems"></div></section>
+      <section class="sec care"><div class="sechead"><span class="tag">ケアの質</span><h2>NWS-Care</h2></div><div id="careItems"></div></section>
+      <div class="row" style="margin-top:20px">
+        <button class="btn danger" type="button" id="cancelForm">入力を破棄して戻る</button>
+      </div>
+    </main>
+    <div class="footer">
+      <div class="sum">
+        <div class="s b"><span class="k">Baby</span><span class="v" id="sumB">—</span><span class="d" id="sumBd">0/12</span><span class="refflag" id="refB" hidden>参考値</span></div>
+        <div class="s c"><span class="k">Care</span><span class="v" id="sumC">—</span><span class="d" id="sumCd">0/12</span><span class="refflag" id="refC" hidden>参考値</span></div>
+      </div>
+      <button class="btn primary" type="button" id="saveBtn" style="min-width:160px">保存</button>
+    </div>
   </div>
-</header>
 
-<main>
-  <!-- ===== HOME / SCHEDULE ===== -->
-  <section id="home" class="view active">
-    <div class="sec-label">タイムスケジュール</div>
-    <div class="card" id="schedule"></div>
+  <!-- LIST -->
+  <main id="v-list" class="wrap" hidden>
+    <div class="card"><div class="row" style="justify-content:space-between"><h2 style="margin:0">記録一覧</h2><button type="button" class="chip" id="toggleScores">点数を表示</button></div><p class="muted small" id="blindNote">2人で同じ勤務帯を採点するときは、もう1人の点数が見えないよう、点数は隠してあります。</p><div id="listBody"></div></div>
+  </main>
 
-    <div class="sec-label">本日のセッション</div>
-    <div class="card card-pad">
-      <p style="font-size:.85rem;">一般演題は全9演題。下のメニュー「<b>演題</b>」から各抄録をご覧いただけます。座長・演者の方はタイマーもご利用ください。</p>
-      <div style="margin-top:10px;">
-        <span class="pill">Ns 3演題</span>
-        <span class="pill">Dr 4演題</span>
-        <span class="pill">ME 2演題</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PROGRAM (talks) ===== -->
-  <section id="program" class="view">
-    <div class="sec-label">一般演題</div>
-    <div id="talk-list"></div>
-
-    <div class="sec-label" style="margin-top:22px;">特別講演・セミナー</div>
-    <div id="lecture-list"></div>
-  </section>
-
-  <!-- ===== ABSTRACT DETAIL ===== -->
-  <section id="detail" class="view">
-    <div class="view-inner" id="detail-inner"></div>
-  </section>
-
-  <!-- ===== TIMER ===== -->
-  <section id="timer" class="view">
-    <div class="view-inner">
-      <div class="sec-label">発表タイマー（カウントアップ）</div>
-      <div class="tm-talk" id="tm-talk">一般演題：発表6分 / 討論3分</div>
-      <div class="tm-phase present" id="tm-phase">経過時間</div>
-      <div class="clock-wrap">
-        <div class="tm-time" id="tm-time">0:00</div>
-        <div class="tm-of" id="tm-of">目標 6:00</div>
-      </div>
-      <div class="tm-presets" id="tm-presets">
-        <button class="preset on" data-min="6" data-alerts="5,6,9">一般演題 5/6/9分</button>
-        <button class="preset" data-min="14" data-alerts="12,14">FCC特別企画 12/14分</button>
-      </div>
-      <div class="tm-controls">
-        <button class="tm-btn start" id="tm-start">開始</button>
-        <button class="tm-btn reset" id="tm-reset">リセット</button>
-      </div>
-      <label style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:.82rem;color:var(--green-700);font-weight:700;">
-        <input type="checkbox" id="tm-sound" checked style="width:18px;height:18px;accent-color:var(--green-700);">音を鳴らす
-      </label>
-      <button id="tm-test" style="display:block;margin:12px auto 0;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-size:.8rem;font-weight:700;color:var(--green-700);cursor:pointer;">🔊 音をテスト</button>
-      <div class="tm-hint"><b style="color:var(--red);">音が鳴らないとき：</b>iPhone本体側面の<b>サイレント（マナー）スイッチをオフ</b>にし、音量を上げてから上の「音をテスト」を押してください。マナーモード中はWebの音は鳴りません。<br><br>一般演題は<b>5分（予鈴）・6分（発表終了）・9分（討論終了）</b>、FCC特別企画は<b>12分（予鈴）・14分（終了）</b>で画面フラッシュと音で合図します。画面はスリープさせずに点灯したままお使いください。</div>
-    </div>
-  </section>
-
-  <!-- ===== INFO ===== -->
-  <section id="info" class="view">
-    <div class="sec-label">会場・アクセス</div>
+  <!-- EXPORT -->
+  <main id="v-export" class="wrap" hidden>
     <div class="card">
-      <dl>
-        <div class="info-row"><dt>会場</dt><dd>大宮ソニックシティ 602号室<br><span style="color:var(--muted);font-size:.78rem;">〒330-0854 さいたま市大宮区桜木町1-7-5</span></dd></div>
-        <div class="info-row"><dt>アクセス</dt><dd>JR・東武「大宮駅」西口より徒歩約3分（歩行者デッキ直結）</dd></div>
-        <div class="info-row"><dt>駐車場</dt><dd>大宮ソニックシティ地下駐車場（有料）をご利用ください</dd></div>
-        <div class="info-row"><dt>世話人会</dt><dd>12:15–12:45　704号室（ハイブリッド開催）</dd></div>
-      </dl>
+      <h2>CSV出力</h2>
+      <p class="muted">CSVを作成して院内のPCへ送ります。Excelでそのまま開ける形式です。</p>
+      <div class="field">
+        <span class="flabel">送り方</span>
+        <div class="seg" id="expModeSeg"></div>
+        <div class="muted small" id="expModeNote" style="margin-top:6px"></div>
+      </div>
+      <div class="row">
+        <button class="btn primary" type="button" id="expUn">未出力の記録を出力</button>
+        <button class="btn secondary" type="button" id="expAll">すべての記録を出力</button>
+      </div>
     </div>
-
-    <div class="sec-label">特別企画（FCC）</div>
-    <div class="card card-pad">
-      <div style="font-weight:700;font-size:.92rem;margin-bottom:4px;">見て・語って・持ち帰る　NICUケア実践交流ラボ</div>
-      <p style="font-size:.82rem;color:var(--muted);margin-bottom:10px;">3グループに分かれて各ブースを14分ずつ巡回（移動時間含む）</p>
-      <div class="fcc-step"><span class="fcc-num">1</span><span class="fcc-txt">各施設のFCC自慢（3施設）</span></div>
-      <div class="fcc-step"><span class="fcc-num">2</span><span class="fcc-txt">アトムメディカル「家族とのコミュニケーションロールプレイ」</span></div>
-      <div class="fcc-step"><span class="fcc-num">3</span><span class="fcc-txt">がんばりっこブース　林さんとお話ししよう</span></div>
-    </div>
-
-    <div class="sec-label">あなたのグループを調べる</div>
-    <div class="card card-pad">
-      <p style="font-size:.82rem;color:var(--muted);margin-bottom:10px;">お名前を入力すると、特別企画でのグループ・リーダー・巡回ブースの順番が表示されます。</p>
-      <input type="text" id="gl-name" class="gl-input" placeholder="例：須賀 健一　/　すが" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <div class="gl-hint">姓だけ・名だけ・スペースの有無どちらでもOKです。</div>
-      <div class="gl-result" id="gl-result"></div>
-    </div>
-
-    <div class="sec-label">発表者の方へ</div>
-    <div class="card card-pad">
-      <ul class="clean">
-        <li>一般演題：<b>発表6分 / 質疑3分</b></li>
-        <li>PowerPoint・縦横比 16:9 推奨</li>
-        <li>スライドは <b>6/24まで</b> に事務局へメール送付</li>
-        <li>ノートPC持参時はHDMI確認のため発表30分前に来場</li>
-        <li>スライド冒頭でCOI（利益相反）を開示</li>
-        <li>症例報告は患者プライバシー保護・院内承認にご配慮ください</li>
-      </ul>
-    </div>
-
-    <div class="sec-label">懇親会</div>
     <div class="card">
-      <dl>
-        <div class="info-row"><dt>日時</dt><dd>6月27日(土) 18:00–20:00（予定）</dd></div>
-        <div class="info-row"><dt>会場</dt><dd>KICHIRI OMIYA WEST</dd></div>
-        <div class="info-row"><dt>会費</dt><dd>医師 7,000円 / コメディカル 5,000円（当日徴収）<br><span style="color:var(--muted);font-size:.76rem;">※会費は諸般の事情で変更しました</span></dd></div>
-        <div class="info-row"><dt>申込</dt><dd>ホームページのGoogleフォームよりご入力ください。懇親会のみの参加も大歓迎です。</dd></div>
-      </dl>
+      <h2>端末内のデータを消去</h2>
+      <p class="muted">院内PCに届いたことを確認してから消去してください。消去したデータは元に戻せません。</p>
+      <div class="row">
+        <button class="btn danger" type="button" id="delEx">出力済みの記録を消去</button>
+      </div>
     </div>
+  </main>
 
-    <div class="sec-label">共催・協賛</div>
-    <div class="card card-pad">
-      <p style="font-size:.84rem;">アトムメディカル株式会社<br>BioMarin Pharmaceutical Japan 株式会社</p>
-      <p class="note">本研究会は上記企業のご協賛により開催されます。心より御礼申し上げます。</p>
+  <!-- SETTINGS -->
+  <main id="v-settings" class="wrap" hidden>
+    <div class="card">
+      <h2>研究IDの接頭辞</h2>
+      <p class="muted">テスト期間は「NWS-test-」です。本運用に移るときに変更してください。英数字とハイフンのみ使えます。</p>
+      <div class="row"><input class="tin" id="prefixIn" maxlength="20" style="max-width:280px" autocomplete="off" spellcheck="false" autocapitalize="off"><button class="btn primary" type="button" id="prefixSave">保存</button></div>
     </div>
-
-    <div class="sec-label">事務局</div>
-    <div class="card card-pad">
-      <p style="font-size:.84rem;">自治医科大学附属さいたま医療センター 周産期科新生児部門　須賀 健一</p>
-      <p class="note">
-        〒330-8503 さいたま市大宮区天沼町1-847<br>
-        <a href="mailto:nicu.jichis@gmail.com">nicu.jichis@gmail.com</a><br>
-        <a href="https://sugarken0502-design.github.io/saitama-nicu-2026/" target="_blank" rel="noopener">研究会ホームページ</a>
-      </p>
+    <div class="card">
+      <h2>PINの変更</h2>
+      <p class="muted">5分間操作がないとき、または他のアプリに切り替えたときに自動でロックされます。</p>
+      <button class="btn secondary" type="button" id="pinChange">PINを変更する</button>
     </div>
-  </section>
-</main>
+    <div class="card">
+      <h2>すべてのデータを消去</h2>
+      <p class="muted">記録・設定・PINをすべて消去し、初期状態に戻します。未出力の記録も消えます。</p>
+      <button class="btn danger" type="button" id="wipeAll">すべて消去する</button>
+    </div>
+    <p class="muted small" id="verInfo"></p>
+  </main>
+</div>
 
-<nav>
-  <button class="nav-btn active" data-view="home">
-    <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>ホーム
-  </button>
-  <button class="nav-btn" data-view="program">
-    <svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>演題
-  </button>
-  <button class="nav-btn" data-view="timer">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13V9M9 2h6"/></svg>タイマー
-  </button>
-  <button class="nav-btn" data-view="info">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>案内
-  </button>
-</nav>
+<div id="modal" class="modal" hidden><div class="mbox"><h3 id="mTitle"></h3><div class="mbody" id="mBody"></div><div id="mExtra"></div><div class="mact" id="mAct"></div></div></div>
+<div id="toast" class="toast" hidden></div>
 
 <script>
-/* ============ DATA ============ */
-const SCHEDULE = [
-  {t:"12:50", title:"世話人会", sub:"704号室・ハイブリッド開催"},
-  {t:"12:55", title:"受付開始"},
-  {t:"13:15", title:"開会の挨拶"},
-  {t:"13:20", title:"一般演題 Ns session", sub:"座長 岩波 悠子（自治医大さいたま）", tag:"演題"},
-  {t:"13:50", title:"一般演題 Dr / ME session", sub:"座長 中張 惇子（自治医大さいたま）", tag:"演題"},
-  {t:"14:40", title:"休憩・企業展示案内"},
-  {t:"14:50", title:"共催スイーツセミナー", sub:"軟骨無形成症の早期診断と治療介入の意義について／松本 志郎 先生（熊本大学）　座長 須賀 健一", feature:true},
-  {t:"15:35", title:"セミナー", sub:"明日からのケアがちょっと変わる？！家族のホンネ／林 英美子 様", feature:true},
-  {t:"16:10", title:"FCC特別企画", sub:"見て・語って・持ち帰る NICUケア実践交流ラボ（3グループ巡回・各ブース14分）", feature:true},
-  {t:"16:52", title:"閉会の挨拶"},
-  {t:"18:00", title:"懇親会", sub:"KICHIRI OMIYA WEST"},
-];
+'use strict';
+const DATA = {"version": "案-6", "baby": [{"code": "A1", "label": "呼吸の安定性", "domain": "A. 生理的安定", "type": "累積", "window": ["勤務帯8時間", "（モニタ記録＋観察）"], "a2": "おだやかで自発呼吸が安定しており、SpO₂・呼吸数が生理的範囲を保っている（陥没呼吸なし）", "a1": "軽度〜中等度の呼吸困難や人工呼吸との非同調、時に頻呼吸・無呼吸を認める", "a0": "呼吸困難が強い、頻回の無呼吸、SpO₂低下が持続する", "note": "SpO₂・呼吸数・努力呼吸所見（陥没呼吸、鼻翼呼吸）・無呼吸の有無を勤務帯を通して評価し、最も頻度の高い状態を採点する"}, {"code": "A2", "label": "循環・体温の安定性", "domain": "A. 生理的安定", "type": "累積", "window": ["勤務帯8時間", "（モニタ記録＋観察）"], "a2": "心拍数・血圧が生理的範囲で安定し、皮膚色はピンク色であたたかい", "a1": "徐脈・頻脈などやや変動する、皮膚色がやや不良（軽度の末梢冷感等）", "a0": "バイタルサインが不良で変動が大きい、蒼白・網状チアノーゼ・冷感を認める", "note": "心拍数・血圧・皮膚色・末梢循環・体温を評価する。呼吸系はA1で採点し、本項目では重複させない"}, {"code": "A3", "label": "消化が順調", "domain": "A. 生理的安定", "type": "累積", "window": ["直近24時間", "（体重増加は直近7日を参照）"], "a2": "哺乳・経管栄養が計画通り進み、嘔吐・胃残・腹部膨満を認めない", "a1": "時に胃残・軽度嘔吐を認めるが、栄養は概ね計画通り進んでいる", "a0": "嘔吐・下痢・腹部膨満などが持続し、栄養の増量が停滞または中止されている", "note": "直近24時間の消化器症状と栄養の進行を主軸に採点する。体重増加は時間軸が異なる（数日単位）ため補助情報として参照するにとどめ、単独の採点根拠としない"}, {"code": "B1", "label": "表情の穏やかさ・リラックス度", "domain": "B. 苦痛・ストレスの最小化", "type": "スポット", "window": ["安静時観察", "勤務帯内3回以上", "※処置中〜処置後30分は評価対象外"], "a2": "表情がおだやかで、活気がある", "a1": "苦悶様（眉間のしわ）、不機嫌、あくびなどがみられる", "a0": "無欲様（表情の乏しさ）、反応の乏しさがみられる", "note": "安静時のベースライン表情を評価する。処置中に採点すると、児の状態ではなく処置の侵襲度を測ることになるため、処置中および処置終了後30分以内は除外する。処置に伴う痛みの反応はNIPS等で別途評価し、Care Ⅱ-1に反映させる。苦悶様表情は眉間のしわ・目を固く閉じる・鼻唇溝の深まり等を含む"}, {"code": "B2", "label": "睡眠の質と持続性", "domain": "B. 苦痛・ストレスの最小化", "type": "累積", "window": ["勤務帯8時間", "（睡眠記録）"], "a2": "まとまった睡眠（目安：1回60分以上）が複数回とれており、覚醒後も自力で再入眠できる", "a1": "睡眠は取れているが断片的で、覚醒からの再入眠に介助を要する", "a0": "十分な睡眠が確保できていない（まとまった睡眠がほとんど観察されない）", "note": "勤務帯8時間の睡眠記録に基づき、まとまった睡眠の回数・持続時間と覚醒中断の頻度を評価する。中断の原因（処置の集約不足等）はCare Ⅱ-2で採点するため、本項目では原因を問わず児の睡眠状態のみを見る（二重計上の回避）。60分の閾値は新生児の睡眠周期（約50〜60分）に基づく暫定値で、妥当性検証の対象とする。本欄の基準は修正37週以降に用いる。37週未満は「3. 修正週数帯別の採点基準」で採点する"}, {"code": "B3", "label": "ストレスサイン", "domain": "B. 苦痛・ストレスの最小化", "type": "累積", "window": ["勤務帯8時間"], "a2": "ストレスサインが少なく、啼泣も活気があり、なだめると速やかに落ち着く", "a1": "啼泣時間が長い、弱い啼泣、あくび・しゃっくり・くしゃみ等のストレスサインがみられる", "a0": "ほとんど泣かない、または啼泣が持続してなだめても落ち着かない", "note": "啼泣の様子に加え、あくび・しゃっくり・皮膚色変化などの自律神経系ストレスサインを、勤務帯を通した出現頻度で評価する。本欄の基準は修正37週以降に用いる。37週未満は「3. 修正週数帯別の採点基準」で採点する。挿管中の児は週数にかかわらず32週未満の基準を用いる"}, {"code": "C1", "label": "姿勢と運動の質", "domain": "C. 発達支援ケア", "type": "スポット", "window": ["安静時観察", "勤務帯内2回以上"], "a2": "おだやかな屈曲位を保持し、なめらかな動きがみられる", "a1": "落ち着きがない、緊張が強い", "a0": "ぐったりしている、だらんとしている", "note": "体幹・四肢の筋緊張と姿勢、自発運動のなめらかさを評価する。ポジショニング用具の使用状況はCare Ⅲ-1で評価し、本項目では児の状態のみを採点する。本欄の基準は修正37週以降に用いる。37週未満は「3. 修正週数帯別の採点基準」で採点する"}, {"code": "C2", "label": "落ち着きを取り戻すサイン", "domain": "C. 発達支援ケア", "type": "イベント依存", "window": ["ストレスイベント（処置・啼泣等）直後〜15分", "※該当イベントなし → NA"], "a2": "刺激やストレス後、自らの力で（または軽いなだめで）速やかに落ち着きを取り戻せる", "a1": "落ち着きを取り戻すまでにやや時間を要する", "a0": "落ち着きを取り戻すことが難しく、ストレス状態が遷延する", "note": "自己鎮静行動（手を口へ持っていく、把握反射でしがみつく等）の有無を含めて評価する。勤務帯内に複数回イベントがあった場合は最頻値を採る"}, {"code": "C3", "label": "覚醒状態の調整", "domain": "C. 発達支援ケア", "type": "累積", "window": ["勤務帯8時間"], "a2": "覚醒・睡眠の状態変化がなめらかで、明瞭な状態（深睡眠〜静穏覚醒等）が観察できる", "a1": "状態の変化がやや不安定である", "a0": "覚醒状態が不安定で、明瞭な状態の区別が難しい", "note": "睡眠・覚醒状態の分化度（NIDCAPの状態分類等を参考）を勤務帯を通して評価する。観察の要点は、眠っているか起きているかが見てすぐわかるか、眠りから急に泣き出さず段階を踏んで目覚めるか、の2点。睡眠の量とまとまりはB2で採点し、本項目では状態の明瞭さと移行のなめらかさのみを見る（二重計上の回避）。鎮静薬の投与中はその旨を併記する。本欄の基準は修正37週以降に用いる。37週未満は「3. 修正週数帯別の採点基準」で採点する"}, {"code": "D1", "label": "親の声・接触への反応", "domain": "D. 親との絆", "type": "イベント依存", "window": ["親の面会時", "※面会なし → NA"], "a2": "親の声かけや接触に対して、穏やかな反応（心拍・呼吸の安定化、表情の変化等）がみられる", "a1": "反応がみられるが一定しない", "a0": "親の声・接触への反応がほとんどみられない", "note": "親の声かけ・スキンタッチに対する生理的・行動的反応を評価する。面会がなかった場合を0点とすると社会的要因を児の得点として罰することになるため、必ずNAとする"}, {"code": "D2", "label": "カンガルーケア・抱っこでの安定性", "domain": "D. 親との絆", "type": "イベント依存", "window": ["カンガルーケア・抱っこ実施時", "※未実施 → NA"], "a2": "カンガルーケアや抱っこの間、バイタルサインが安定し穏やかに過ごせる", "a1": "概ね安定しているが、時に不安定になる", "a0": "カンガルーケア・抱っこ中にバイタルサインが不安定になる、または実施が困難である", "note": "実施中のバイタルサインの安定性を評価する。医学的理由による未実施と、機会が提供されなかった未実施を記録上区別する（後者はCare Ⅳ-1で減点される）"}, {"code": "D3", "label": "親への安らぎ", "domain": "D. 親との絆", "type": "イベント依存", "window": ["親の面会時", "※面会なし → NA"], "a2": "親のそばで穏やかに過ごし、安心している様子がみられる", "a1": "親のそばでも落ち着きにやや欠ける", "a0": "親のそばでも安らぎがみられない", "note": "親のそばにいるときの児の情緒的な安らぎの様子を評価する"}], "care": [{"code": "I-1", "disp": "Ⅰ-1", "label": "呼吸ケアの実践", "domain": "Ⅰ. バイタル安定化のケア実践", "window": ["勤務帯8時間", "（直接観察＋看護記録）"], "a2": "呼吸状態が継続的に観察され、変化時に体位調整・吸引などのケアと医師への報告・提案が速やかに行われ、指示された呼吸補助が確実に実施されている", "a1": "観察は行われているが、変化時のケアや医師への報告にやや遅れ・不足がある", "a0": "呼吸状態の観察や変化時の対応が不十分である", "note": "呼吸状態の観察、変化時のケア、医師への報告・提案、指示の実施という一連の看護実践を評価する。呼吸補助の設定そのもの（医師の指示内容）の適否は採点対象としない"}, {"code": "I-2", "disp": "Ⅰ-2", "label": "循環ケアの実践", "domain": "Ⅰ. バイタル安定化のケア実践", "window": ["勤務帯8時間", "（直接観察＋看護記録）"], "a2": "心拍数・血圧・末梢循環・体温が定期的に観察され、変動時に保温などのケアと医師への報告・提案が速やかに行われ、指示された輸液・薬剤が確実に実施されている", "a1": "観察は行われているが、変動時のケアや医師への報告にやや遅れ・不足がある", "a0": "循環状態・体温の観察や変動時の対応が不十分である", "note": "循環状態と体温の観察、変動時のケア、医師への報告・提案、指示の実施を評価する。輸液・昇圧薬の調整そのもの（医師の指示内容）の適否は採点対象としない。体温はBaby A2に含まれるため本項目に加えた"}, {"code": "I-3", "disp": "Ⅰ-3", "label": "授乳・栄養ケアの実践", "domain": "Ⅰ. バイタル安定化のケア実践", "window": ["勤務帯8時間", "（看護記録：哺乳時の様子・胃残・医師への報告）"], "a2": "児の空腹・満足のサインや消化症状（胃残・嘔吐・腹部膨満）を観察したうえで授乳・注入が行われ、必要に応じて量・間隔・方法の調整が医師に提案されている", "a1": "授乳・注入は指示どおり行われているが、児のサインの観察や医師への提案は限定的である", "a0": "児のサインや消化症状への配慮がなく、時間と量だけで機械的に行われている", "note": "児のサインを見て授乳・注入し、必要時に栄養計画の調整を医師へつなぐ実践を評価する。栄養計画そのものの適否は採点対象としない（計画どおり進んでいるかはBaby A3で捉える）。順調で調整が不要な場合は、提案がなくても2点とする。経管栄養中心で空腹・満足のサインが乏しい児では、消化症状の観察と報告を主な判断材料とする"}, {"code": "II-1", "disp": "Ⅱ-1", "label": "鎮痛ケアの実践と疼痛評価", "domain": "Ⅱ. 苦痛最小化のケア実践", "window": ["勤務帯8時間", "（処置記録・看護記録＋疼痛スコア記録）", "※痛みを伴う処置・持続痛を疑う状態なし → NA"], "a2": "標準化された痛みスコア（NIPS等）で定期的に評価し、その結果に基づいて鎮痛・非薬理学的介入が行われている", "a1": "鎮痛・非薬理学的介入は行われているが、標準化スコアによる評価に基づいていない、または介入がやや不十分・遅れる", "a0": "鎮痛・非薬理学的介入がほとんど、または全く行われていない（評価の有無を問わない）", "note": "鎮痛ケアの実施を主軸とし、評価に基づく介入を2点の条件とする。非薬理学的介入はショ糖、包み込み、ホールディング等を含む。評価記録がなくても鎮痛ケアが行われていれば1点、評価はあるが介入がほとんどなければ0点とする。解析のため評価の有無と介入の有無を別々に記録する。NAは持続痛を疑う状態（術後・人工呼吸管理中等）もない場合に限る。処置に伴う痛みの反応はBaby B1ではなく本項目で捕捉する"}, {"code": "II-2", "disp": "Ⅱ-2", "label": "処置・ケアの調整の実践", "domain": "Ⅱ. 苦痛最小化のケア実践", "window": ["勤務帯8時間", "（処置記録＋看護記録）"], "a2": "処置と看護ケアがまとめられ、児の睡眠・覚醒状態に合わせて時期が調整されて、まとまった安静時間が確保されている。必要に応じて処置の時期や同時実施が医師に提案されている", "a1": "一部配慮はあるが、処置・ケアが分散し、安静が中断されることがある", "a0": "児の状態やタイミングへの配慮がなく、処置・ケアが分散して行われている", "note": "看護師が調整できる範囲（看護ケアの集約、処置との同時実施、時期の調整と提案）を評価する。処置の要否や指示内容の適否は採点対象としない。検査結果を受けた追加検査など臨時の処置は「臨時」と記録し、減点根拠としない。安静時間の目安は介入のない時間が60分以上、修正37週未満では45分以上（Baby B2の週数帯別の閾値に対応、暫定値。37週未満の値は案-6で追記）。まとめすぎが児の負担になる場合は、分けることも配慮として評価する。処置による睡眠中断の責任は本項目で採点し、Baby B2では採点しない（二重計上の回避）"}, {"code": "II-3", "disp": "Ⅱ-3", "label": "環境調整の実践", "domain": "Ⅱ. 苦痛最小化のケア実践", "window": ["勤務帯8時間", "（環境の直接観察）"], "a2": "保育器カバー、減光・消灯、静音への配慮が徹底されている", "a1": "一部の配慮はあるが不十分である", "a0": "音・光環境への配慮がなされていない", "note": "NICU環境（照度・騒音）への配慮を評価する。可能であれば実測値（lx、dB）の併記が望ましい"}, {"code": "III-1", "disp": "Ⅲ-1", "label": "ポジショニングの実践", "domain": "Ⅲ. 発達促進ケアの実践", "window": ["勤務帯8時間", "（直接観察）"], "a2": "屈曲位の保持・境界（バウンダリー）の確保など適切なポジショニングが行われ、体位変換も定期的である", "a1": "ポジショニングは行われているが、不十分・不定期である", "a0": "ポジショニングへの配慮がなされていない", "note": "体位・ポジショニングによる身体的快適さへの配慮を評価する"}, {"code": "III-2", "disp": "Ⅲ-2", "label": "なだめケアの実践", "domain": "Ⅲ. 発達促進ケアの実践", "window": ["イベント依存：ストレス徴候の発生時", "※勤務帯内に徴候なし → NA"], "a2": "啼泣・ストレス徴候時に、抱っこ・タッチング・おしゃぶり等のなだめケアが速やかに行われている", "a1": "なだめケアは行われるが、対応にやや遅れがある", "a0": "なだめケアがほとんど、または全く行われていない", "note": "児のストレスサインに対する医療者・養育者の対応を評価する。Care側でNAが発生しうるのは本項目とⅡ-1のみ"}, {"code": "III-3", "disp": "Ⅲ-3", "label": "個別化ケアの実践", "domain": "Ⅲ. 発達促進ケアの実践", "window": ["直近24時間", "（ケア計画書＋実施記録）"], "a2": "修正週数・全身状態に応じたケア計画（刺激量の調整等）が個別に立てられ、実施されている", "a1": "個別化された配慮は一部にとどまる", "a0": "発達段階に応じた個別化がなされていない", "note": "ケア計画は勤務帯を超えて策定されるため、観察窓を24時間とする"}, {"code": "IV-1", "disp": "Ⅳ-1", "label": "親子接触促進の実践", "domain": "Ⅳ. 家族支援の実践", "window": ["直近24時間", "（面会・KC記録）"], "a2": "カンガルーケア・スキンタッチの機会が積極的に提供され、頻回に実施されている", "a1": "機会は提供されているが、頻度が少ない", "a0": "親子接触の機会がほとんど提供されていない", "note": "「機会が提供されたか」を評価するため、親が面会できなかった場合もNAとせず採点する（Baby D2との決定的な違い）"}, {"code": "IV-2", "disp": "Ⅳ-2", "label": "意思決定支援の実践", "domain": "Ⅳ. 家族支援の実践", "window": ["直近24時間", "（説明・面談記録）"], "a2": "回診やケア場面で親へ丁寧な説明が行われ、意思決定への参加が促されている", "a1": "説明はあるが、参加の機会が限定的である", "a0": "親への説明・ケアへの参加の機会がほとんどない", "note": "医療者から親への情報共有と、親のケア参加の機会を評価する。面会がない場合も電話等による代替手段の有無を含めて採点する"}, {"code": "IV-3", "disp": "Ⅳ-3", "label": "母乳育児支援の実践", "domain": "Ⅳ. 家族支援の実践", "window": ["直近24時間", "（授乳・搾乳記録）"], "a2": "搾乳指導・直接授乳支援が積極的かつ継続的に行われている", "a1": "支援は行われているが不十分である", "a0": "母乳育児への支援がなされていない", "note": "搾乳・直接授乳に対する支援体制を評価する"}], "bands": {"B2": {"lt32": {"band": "32週未満", "see": "睡眠ではなく「静穏な時間」を見る（体動・しかめ顔・バイタル変動が少ない状態）。行動観察で睡眠と覚醒を見分けにくいため", "a2": "介入のない時間の大半を静穏に過ごし、通常のポジショニング・包み込みで落ち着いている", "a1": "静穏な時間はあるが断片的で、落ち着くまでに追加のなだめを要する", "a0": "介入のない時間にも静穏がほとんど保てない"}, "b32_36": {"band": "32〜36週", "see": "まとまった睡眠を見る（目安：1回45分以上）。「自力で再入眠」は求めず、通常のポジショニング・包み込みで再入眠できればよい", "a2": "まとまった睡眠が複数回とれており、覚醒後も通常のポジショニング・包み込みで再入眠できる", "a1": "睡眠は取れているが断片的で、再入眠に追加のなだめを要する", "a0": "まとまった睡眠がほとんど観察されない"}}, "B3": {"lt32": {"band": "32週未満（挿管中の児は週数を問わない）", "see": "啼泣の有無は問わない。行動・自律神経系のストレスサイン（しかめ顔、手指を広げる、四肢の伸展、皮膚色変化、しゃっくり等）の頻度と、なだめへの反応を見る", "a2": "ストレスサインが少なく、みられても包み込み等で速やかに落ち着く", "a1": "ストレスサインがしばしばみられ、落ち着くまでに時間を要する", "a0": "ストレスサインが持続し、なだめても落ち着かない"}, "b32_36": {"band": "32〜36週", "see": "啼泣とストレスサインを見る。啼泣が弱い・少ないことだけを理由に減点しない", "a2": "ストレスサインが少なく、なだめると速やかに落ち着く", "a1": "ストレスサインがしばしばみられる、または落ち着くまでに時間を要する", "a0": "啼泣・ストレスサインが持続し、なだめても落ち着かない"}}, "C1": {"lt32": {"band": "32週未満", "see": "自力での屈曲位保持は求めない。ポジショニングで支持された状態での落ち着きと、動きの質を見る", "a2": "支持された屈曲位で落ち着いており、動きがゆっくりでなめらかである", "a1": "支持があっても落ち着きがなく、反り返り・四肢の突っ張り・振戦がみられる", "a0": "ぐったりして自発運動がほとんどみられない、または激しい体動・反り返りが続く"}, "b32_36": {"band": "32〜36週", "see": "屈曲位をとろうとする動きと、動きの質を見る。常時の保持は求めない", "a2": "支持があれば屈曲位を保ち、手を口や顔に持っていく動きがみられ、動きがなめらかである", "a1": "落ち着きがない、緊張が強い、振戦やぎこちない動きが目立つ", "a0": "ぐったりして自発運動が乏しい、または反り返りが続く"}}, "C3": {"lt32": {"band": "32週未満", "see": "状態の分化は求めない。状態の安定性を見る。NAとはしない", "a2": "静穏な状態が保たれ、刺激後も急に興奮したり、ぐったりしたりしない", "a1": "状態がやや変わりやすく、刺激で興奮したり、ぐったりしたりすることがある", "a0": "状態が短時間でめまぐるしく変わる、または刺激のたびに強く興奮する・ぐったりする"}, "b32_36": {"band": "32〜36週", "see": "睡眠と覚醒の区別がつくかを見る。深睡眠から静穏覚醒までの明瞭な分化は求めない", "a2": "眠っているか起きているかが見てわかり、短い静かな覚醒がみられる", "a1": "睡眠と覚醒の区別がつきにくい時間がある", "a0": "睡眠と覚醒の区別がほとんどつかない"}}}};
+const APP_VERSION = 'NWS採点アプリ 案-6 v1.0.3';
+const IS_ANDROID = /Android/i.test(navigator.userAgent);
+const IDLE_MS = 5 * 60 * 1000;
+const K = { rec: 'nws6.records', set: 'nws6.settings', draft: 'nws6.draft' };
+const SHIFTS = ['日勤', '準夜', '深夜'];
+const BAND_ITEMS = ['B2', 'B3', 'C1', 'C3'];
+const BAND_LABEL = { lt32: '32週未満の基準', b32_36: '32〜36週の基準', ge37: '37週以降（通常の基準）' };
+const BAND_SHORT = { lt32: '32週未満', b32_36: '32〜36週', ge37: '37週以降' };
+// items where 案-6 allows NA, with the NA reason recorded
+const NA_ALLOWED = { C2: 'ストレスイベントなし', D1: '面会なし', D2: null, D3: '面会なし', 'II-1': '痛みを伴う処置・持続痛なし', 'III-2': 'ストレス徴候なし' };
+const D2_REASONS = ['医学的理由で未実施', '機会が提供されなかった'];
+const $ = (id) => document.getElementById(id);
 
-const TALKS = [
-  {id:"Ns-1", ses:"Ns", title:"早産児をもつ父親の思いと看護師に望まれる支援",
-   auth:"多賀 千尋、小野崎 里沙、下島 巽、安村 春日", aff:"川口市立医療センター",
-   abs:[["目的","NICUに入院する早産児をもつ父親の思いを明らかにし、その結果から父親に望まれる支援を検討して、質の高い家族看護につなげることを目的とする。"],
-        ["方法","質的記述的研究として、質的内容分析の手法を用いた。2025年6〜8月、在胎26〜34週で出生した早産児をもつ父親8名を対象に半構成的面接を実施した。面接時期は退院1週間前〜退院当日とした。逐語録から父親の思いと支援ニーズを抽出・コード化し、類似性に基づきカテゴリ化した。"],
-        ["結果","90コード、16サブカテゴリ、6カテゴリを抽出した。カテゴリは【児の成長や発達に対する不安】【児の成長や存在を実感できた喜び】【育児を実践して感じる困難さ】【父親になった責任感】【看護師の対応への満足感】【面会に行くことの大変さ】であった。父親は不安を抱く一方、ケア体験を通して児の存在を実感し、前向きな感情へ移行していた。また、育児への意欲が高まる一方、練習機会不足や仕事と面会の両立困難も語られた。"],
-        ["考察","父親支援では、危機段階に応じた心理的支援に加え、NICU入院期間を①接触②基礎ケア③育児技術習得④振り返りの4段階と捉え、段階的にケア参加を促すことが重要であると考えた。経験を積み重ねることで不安軽減や成功体験の形成につながり、父親としての主体性や育児への自信を高めると考える。また、勤務状況への配慮や育児練習機会の確保、情報共有体制の整備は、家族中心ケアの推進に寄与すると考える。"]]},
-  {id:"Ns-2", ses:"Ns", title:"全前脳胞症の児の家族へ実践した家族看護 〜家族看護エンパワーメントモデルを用いて〜",
-   auth:"笹森 明穂、遠江 里莉、岩波 悠子", aff:"自治医科大学附属さいたま医療センター",
-   abs:[["目的／意図","新生児領域で家族看護実践をする時、皆さまは家族の持つ力を高めるためにどのような関わりをしていますか？本企画では、胎児期に生命予後が短いと診断されたＡ君と、積極的治療を選択せず本人の生きる力を信じ自宅で家族と過ごしたいと希望したご両親へ「家族看護エンパワーメントモデル」を用いて実践した家族看護について症例報告します。"],
-        ["内容","自宅退院のために退院調整目的で当院へ転院となったＡ君家族の「病気体験の理解」「家族の日常生活・セルフケア強化」「家族危機への働きかけ」の看護介入を振り返り、Ａ君家族の持っている力を高める関わりができたのか、症例報告をもとに会場の皆様と考える機会とすることを目的としています。皆さまのご参加をお待ちしております。"]]},
-  {id:"Ns-3", ses:"Ns", title:"CCHSの在宅移行支援 〜はじめての在宅移行支援で見えた課題〜",
-   auth:"平間 ひとみ、山田 ゆかり", aff:"独立行政法人 国立病院機構 埼玉病院",
-   abs:[["経過","在胎41週にて他院産科施設で出生した児、酸素化不良・無呼吸発作を主訴に新生児搬送となった。当院入院後の経過・検査にて先天性中枢性低換気症候群（CCHS）とヒルシュスプルング病疑いのため、BIPAP管理・腹部ケアが行われた。生後1ヶ月で遺伝子検査の結果よりCCHSの診断あり。日齢78に気管切開術を行い、人工呼吸器管理となった。気管切開の必要がある旨の説明を実施した際に母親は流涙する姿が見られ、「声を出すことはできませんか？」などの発言が聞かれた。この家族に対し、面会時は家族の意向に合わせて月誕生日の写真撮影を行うことや、面会時間外でも喃語の動画撮影などを行うなど取り組んだ。"],
-        ["考察","NICU経験3年目であり、人工呼吸器管理の児を受け持つことや在宅移行支援を行うことは初めてであったが、先輩看護師からの助言を得ながら家族への支援を行った。その中でも家族の意向を汲み取り、家族の希望に合わせた支援をすることや密にコミュニケーションをとることで、家族と信頼関係の構築が行えたと考える。初めての在宅移行支援ではあったが、家族の思いに寄り添い、家族の意思決定を支援すること、ファミリーセンタードケアの実践が重要であることを痛感した。今回は家族との関わりについて振り返る。"]]},
-  {id:"Dr-1", ses:"Dr", title:"顔面形成異常と妊娠初期イソトレチノイン曝露との関連が疑われた症例",
-   auth:"〇上戸鎖 勇悟、伊藤 璃津子、今西 利之、伊元 栄人、竹林 寛史、四宮田 萌々子、中川 遼太、齋藤 光里、齋藤 真知子、岩谷 綾香、角谷 和歌子、伊藤 一之、玉置 祥子、閑野 知佳、閑野 将行、釆元 純、菅野 雅美、川畑 建", aff:"埼玉県立小児医療センター 総合周産期母子医療センター 新生児科",
-   abs:[["緒言","ビタミンA誘導体であるイソトレチノインは、難治性の痤瘡に対して有効性が示されている経口レチノイド製剤であるが、本邦では薬事承認を得ていない未承認薬である。妊娠初期の曝露による頭蓋顔面、心血管系などの先天異常が報告されており、欧米では胎児曝露防止のため妊娠検査や避妊指導を含む管理プログラムのもと処方されている。一方、本邦では自由診療などを通じて入手可能であるが、妊娠可能年齢女性への注意喚起が不十分である。"],
-        ["症例","母体は23歳の初産婦で、催奇形性を有する未承認薬であることを把握せず、妊娠6週頃まで約半年間イソトレチノインを内服していた。児は在胎41週2日2,576 gで出生し、両側外耳道閉鎖、耳介低形成、小顎、開口障害などの第一・第二鰓弓由来構造の形成異常を認め、呼吸および哺乳障害を認め入院管理を要した。"],
-        ["考察","レチノイン酸は胎児期の頭頸部形成に重要な役割を担い、特に妊娠初期の過剰曝露は神経堤細胞の遊走や第一・第二鰓弓形成に影響を及ぼす。本症例で認めた両側外耳道閉鎖、耳介低形成、小顎などはレチノイン胎芽病の特徴と一致しており、妊娠初期の母体イソトレチノイン曝露との関連が疑われた。妊娠可能年齢の女性に対するイソトレチノイン処方時には、催奇形性に関する十分な説明と確実な避妊指導が不可欠であり、未承認薬の流通・使用に対する啓発や管理体制の整備が求められる。"]]},
-  {id:"Dr-2", ses:"Dr", title:"新生児期発症の遷延性高インスリン血性低血糖症を契機に診断したKDM6A関連歌舞伎症候群の女児例",
-   auth:"〇伊藤 璃津子、伊元 栄人、竹林 寛史、四宮田 萌々子、中川 遼太、齋藤 光里、齋藤 真知子、岩谷 綾香、角谷 和歌子、伊藤 一之、今西 利之、玉置 祥子、閑野 知佳、閑野 将行、釆元 純、菅野 雅美、川畑 建", aff:"埼玉県立小児医療センター 総合周産期母子医療センター 新生児科",
-   abs:[["緒言","歌舞伎症候群は特徴的顔貌、発達遅滞、成長障害、先天性心疾患、摂食障害などを呈する先天異常症候群であり、KMT2DおよびKDM6Aが原因遺伝子として知られている。KDM6A関連例はX連鎖性のため、特に女児では症状が軽度または非典型的となり、早期診断が困難な場合がある。"],
-        ["症例","在胎38週2日、3,166 gで出生した女児。日齢1に心雑音を主訴に入院した。後頸部余剰皮膚と高口蓋を認め、心臓超音波検査で大動脈弁狭窄症と診断した。入院時より低血糖を認め、経腸栄養確立後も遷延した。日齢14に血糖47 mg/dL、インスリン3.7 µU/mLであり、高インスリン血性低血糖症と診断した。輸液離脱困難のため日齢16からジアゾキシドの内服を開始した。遷延する高インスリン血性低血糖症の背景疾患の精査として日齢75に全エクソーム解析を実施し、KDM6A遺伝子に病的変異を認め、歌舞伎症候群と診断した。哺乳確立困難のため日齢100に在宅経管栄養で退院した。月齢8か月時点で体格は年齢相当であり、明らかな粗大運動発達の遅れはないが、経口摂取困難が持続している。"],
-        ["考察","KDM6A関連歌舞伎症候群では、典型的顔貌や発達遅滞が明らかでない場合がある。本症例のように症候群像が不明瞭であっても、遷延する高インスリン血性低血糖症を認める場合には本症を鑑別に含め、早期に遺伝学的検査を検討することが重要である。"]]},
-  {id:"Dr-3", ses:"Dr", title:"新生児期に手術を行った肺葉外肺分画症の1例",
-   auth:"〇芝大樹1)、渡邊慶太1)、竪山碧生1)、加藤清香1)、秋山めぐみ1)、石原温子1)、中張惇子1)、市川知佳2)、牛嶋順子2)、長崎瑛里3)、後藤俊平3)、大城久4)、中田和佳5)、桑田知之2)、池田太郎3)、須賀健一1)", aff:"自治医科大学附属さいたま医療センター 1)周産期科新生児部門, 2)産科部門, 3)小児外科部門, 4)病理診断科／5)自治医科大学とちぎ子ども医療センター画像診断部",
-   abs:[["緒言","先天性嚢胞性肺疾患にはCPAM、肺分画症、気管支閉鎖などが含まれ、肺の異なる発生段階での異なる部位の異常によって病態がわかれる。肺葉外肺分画症は多くは無症状で経過し、成人期に発見されて手術に至る例も多く報告されている。今回は新生児期に手術を行った肺葉外肺分画症の1例を経験したので報告する。"],
-        ["症例","症例は日齢0の男児。妊娠中期には左肺の大部分をしめるCPAM type3と考えられていたが、妊娠35週の胎児MRIで体循環からの流入血管があり左肺分画症が疑われた。在胎38週1日に出生し、人工呼吸管理を要したが日齢1に抜管した。超音波検査で左胸腔内に54×33×58 mmの腫瘤を認め、胸部大動脈からの流入血管を確認した。造影CTでは流出静脈が半奇静脈から奇静脈系へ連続していた。抜管後も哺乳時の酸素需要が残存したため、日齢18に腫瘤摘出術を施行した。術後4日目に抜管し、室内気で哺乳良好だったため日齢30に自宅退院した。摘出標本では病変は正常肺と独立し、胸膜に覆われており、一部には肺胞様構造も認め、肺葉外肺分画症と診断した。"],
-        ["考察","本症例では哺乳時の酸素需要が残存しており、大きな左下肺の腫瘤により左肺が圧排されている影響と考えられた。摘出術後は速やかに左肺も拡張し、酸素需要は消失した。"],
-        ["結語","肺葉外肺分画症は新生児期に症状をきたすこともあるため注意して経過観察する必要がある。"]]},
-  {id:"Dr-4", ses:"Dr", title:"鼻腔への著明な逆流により経口哺乳が困難である先天性鼻咽腔閉鎖不全症の1例",
-   auth:"田中 萌子、水本 崚允、堀田 奈緒美、櫻井 隼人、本島 由紀子、國方 徹也", aff:"埼玉医科大学病院 新生児科",
-   abs:[["緒言","新生児における鼻咽腔閉鎖不全の頻度の高い原因として、口蓋裂や粘膜下口蓋裂が挙げられる。今回、これらの形態異常を認めないものの、著明な鼻腔逆流により経口哺乳が困難であり、原因として短口蓋が疑われる鼻咽腔閉鎖不全症の1例を経験したため報告する。"],
-        ["症例","生後2か月の女児。母は24歳、2妊0産（人工流産1回）。妊娠33週頃より軽度羊水過多（AFI約25 cm）を認めたが、胎児の構造異常は指摘されなかった。妊娠38週5日に計画分娩となり、吸引分娩で出生した。出生時身長50.5 cm（1.0 SD）、体重2,810 g（0 SD）、頭囲30.5 cm（−2.0 SD）で、Apgar score 9点/10点。全身状態は良好であったが、口腔内分泌物が多く頻回の吸引を要し、出生5時間に当院へ搬送された。口腔内を含む全身診察で異常所見は認めず、胸腹部X線検査および血液検査でも異常所見を認めなかった。哺乳開始後、多量の鼻腔逆流とむせ込みを認めた。一方、経管栄養は問題なく施行可能であった。鼻咽腔内視鏡検査では口蓋裂および粘膜下口蓋裂を認めなかった。嚥下造影検査でミルクの著明な鼻腔逆流を確認し、鼻咽腔閉鎖不全症と診断した。MRI検査およびCT検査では短口蓋を認め、原因である可能性を考えている。現在、在宅経管栄養導入に向けて指導を行っている。"],
-        ["考察","高度の鼻腔逆流を認める症例において、鼻咽腔閉鎖不全症の原因精査のため上述の画像検査を行った。皆様のご意見を伺いたい。"]]},
-  {id:"ME-1", ses:"ME", title:"当院における新生児上り搬送の変遷",
-   auth:"梅田 千典、安田 徹、小藤 誠也、岡田 ひとみ、楠本 雅哉、永田 夏海、吉田 澄枝、塩野 憧、百瀬 直樹、草浦 理恵", aff:"自治医科大学附属さいたま医療センター 臨床工学部",
-   abs:[["背景","重症患者搬送において、当院では成人症例だけでなく新生児領域にも臨床工学技士が関与している。当初は消防局の救急車に依頼していた新生児上り搬送であったが、民間救急車を使用せざるを得なかった症例もあった。現在は当院のECMO搬送用救急車（以下ECMOカー）の導入に伴い、より安全な搬送方法が確立してきている。今回、呼吸補助デバイスを装着した新生児搬送に関して、成人症例との比較、使用中の呼吸デバイスによる注意点、使用する車体によって注意しなければならなかった点、新機種導入による新たな問題点について検討したので報告する。"],
-        ["対象","2021年から2026年にかけて当院から他院へ呼吸補助デバイスを装着し搬送された、新生児上り搬送症例7例。"],
-        ["問題点と解決方法","保育器V-808（アトムメディカル社）設置の問題点：消防局救急車ではストレッチャーの上に保育器を固定し、長いロープで固定せざるを得なかった。民間救急車によっては救急車のストレッチャーを外し、V-808の架台ごと積載できる車種があった。ECMOカーではV-808の架台固定用のステーを作成し、ワンタッチで固定できるようになった。呼吸補助デバイスの違いによる問題点：NHF使用症例では使用するブレンダによってボンベ残圧が急速に消費してしまう事例があった。現在は新生児オプションを搭載したハミルトンT1（ハミルトン・メディカル社）を使用し、挿管症例だけでなくNPPV症例にも対応が可能となったが、使用するマスクデバイスによっては気道内圧がかからないものもあった。"],
-        ["考察","限られた医療資源の中で重症症例を搬送すること自体がリスクではあるが、医療機器を熟知した臨床工学技士が関わることでより安全な搬送に寄与することができる。新たな機器を導入した際には事前の入念なシミュレーションが必要である。"]]},
-  {id:"ME-2", ses:"ME", title:"低圧持続吸引装置の間欠開放コントローラの開発",
-   auth:"梅田 千典 1)、柳沢 充延 2)、草浦 理恵 1)、百瀬 直樹 1)", aff:"自治医科大学附属さいたま医療センター 臨床工学部 1)／ビックワイズ 2)",
-   abs:[["背景","低圧持続吸引器が必要な症例では、吸引チューブが組織に先当たりし吸着状態が続くことで粘膜が損傷してしまう。そのため、吸引チューブが先当たりしていないかを常に観察する必要があり、先当たりしていれば一時的に開放しなければならない。そこで我々は間欠的に吸引チューブを開放できる装置（開放コントローラ）を開発したので報告する。"],
-        ["方法","直動式二方弁の電磁弁（CKD社製）に2極のリレー（オムロン社製）を接続し、タイマーに開放時間と閉鎖時間をプログラムしたものを実装した。実験用回路に接続し、吸引時間がコントロールできているかを確認した。"],
-        ["結果","壁吸引圧を−10〜−20 cmH2Oとした。開放コントローラが「閉鎖」の状態で吸引カテーテル先端圧は−20 cmH2Oを示し、「開放」の状態でカテーテル先端圧は0 cmH2Oを示した。"],
-        ["考察","従来の低圧持続吸引装置は持続で吸引圧をかけることを目的としているため、開放の時間が設定されていない。そのため背景のような問題が生じているが、開放コントローラでは結果に示す通り、「開放」の状態でカテーテル先端が大気開放される時間を確保することができ、粘膜の損傷を回避できる可能性が示唆された。さらに看護スタッフの労務軽減に繋がると考える。"],
-        ["結語","間欠開放コントローラを作成し、実験的にその有用性を検証できた。今後、実臨床に出せるような仕様に改良を重ねたい。"]]},
-];
+// ---------- storage ----------
+function load(key, fallback) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; } }
+function store(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); return true; } catch (e) { alertModal('保存できませんでした', '端末の空き容量を確認してください。\n' + e.message); return false; } }
+function drop(key) { try { localStorage.removeItem(key); } catch (e) {} }
+let settings = Object.assign({ idPrefix: 'NWS-test-', pinHash: null, pinSalt: null, expMode: 'share' }, load(K.set, {}));
+let records = load(K.rec, []);
+const saveSettings = () => store(K.set, settings);
+const saveRecords = () => store(K.rec, records);
+try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
 
-const LECTURES = [
-  {id:"LEC-1", kind:"共催スイーツセミナー", title:"軟骨無形成症の早期診断と治療介入の意義について",
-   auth:"松本 志郎 先生", aff:"熊本大学小児科 特任教授",
-   meta:"座長：須賀 健一（自治医科大学附属さいたま医療センター）／協賛：BioMarin Pharmaceutical Japan 株式会社",
-   abs:[["抄録","軟骨無形成症は線維芽細胞増殖因子の３型受容体（FGFR3）の機能獲得型変異により、持続的に活性化されることで発症する。FGF受容体のシグナルは、その下流の細胞内シグナル伝達分子のRaf/MEK/ERKおよびStat1の活性化を引き起こし、その結果、軟骨細胞の分化、軟骨基質の産生および増殖が抑制される。内軟骨性骨化が障害されるため、長管骨の伸長が不良となり、四肢短縮性低身長を呈する。椎体や頭蓋底を構成する骨の大部分も内軟骨性骨化によって形成されるため、大後頭孔狭窄、脳脊髄液の還流不良による脳室拡大・水頭症、脊柱管狭窄などが生じると考えられている。"],
-        ["治療","この疾患に対して、2022年からバイオマリンが開発した軟骨無形成症治療薬（ボソリチド）が国内承認された。ボソリチド（薬品名：ボックスゾゴ）は、C型ナトリウム利尿ペプチド（CNP）類縁体であり、CNP受容体Bに結合し、軟骨無形成症にて異常に活性化されるFGFR3の下流のシグナル伝達を拮抗的に阻害し、軟骨内骨化による骨形成を改善し、病態の根本を改善することが期待できる。"],
-        ["早期介入の意義","一方で、治験の中心が5歳以上だったこともあり、呼吸障害が特に課題となる乳幼児についての情報が限定されている。我が国は世界に先駆けて０歳児からの投与が可能となったことから、早期使用の重要性の報告は我が国から発出されている。そのため、この疾患の早期診断と早期治療には周産期医療チームの役割は大きいと言える。熊本大学病院では、胎児エコーで軟骨無形成症が疑われた症例については、低線量CT（場合によりMRI）を実施し、骨系統疾患コンソーシアムにコンサルトすることで胎児（画像）診断を行い、出生後に速やかに診断を確定させる基盤を構築している。出生前診断による早期介入の意義とその効果について、実際の症例を交えて情報共有したい。"]],
-   bio:[["平成10年3月","熊本大学医学部 卒業"],
-        ["平成19年3月","博士（医学）（熊本大学）"],
-        ["平成19年4月","熊本大学医学部附属病院 総合周産期母子医療センター 診療助手"],
-        ["平成20年1月","熊本大学医学部附属病院 新生児学寄附講座 特任助教"],
-        ["平成21年4月","熊本大学医学部附属病院 総合周産期母子医療センター 助教"],
-        ["平成22年4月","ドイツ・ハイデルベルグ小児病院 新生児・代謝内分泌診療チーム所属"],
-        ["平成26年5月","熊本大学医学部附属病院 総合周産期母子医療センター 講師"],
-        ["平成30年1月","熊本大学大学院生命科学研究部小児科学分野 准教授"],
-        ["令和6年4月","熊本大学病院 新生児学寄附講座 特任教授"]],
-   society:"日本小児科学会（代議員・専門医・指導医）、日本先天代謝異常学会（評議員）、日本アミノ酸学会（評議員）、日本マススクリーニング学会（コンサルタント専門医師団メンバー）、日本新生児成育医学会、日本周産期・新生児医学会、日本小児内分泌学会、日本分子生物学会、日本再生医療学会、日本肝臓学会、九州学校保健協議会内分泌専門委員会委員、ヨーロッパ先天代謝異常学会（ガイドライン策定員）、米国先天代謝異常学会、米国臨床遺伝学会（ACMG）",
-   note:"※ 抄録は仮の内容です（演者と確認中）。"},
-  {id:"LEC-2", kind:"セミナー", title:"明日からのケアがちょっと変わる？！家族のホンネ",
-   auth:"林 英美子 様", aff:"一般社団法人 未熟児家族支援がんばりっこ 代表",
-   meta:"座長：関根 綾香（自治医科大学附属さいたま医療センター）",
-   abs:[["抄録","NICUや小児医療の現場では、子どもと家族のためを思って行われているケアであっても、その受け止め方は家族によってさまざまである。本講演では、22週542gで生まれた息子の子育て経験と、未熟児家族支援・がんばりっこの活動を通して出会った多くの家族の声をもとに、「家族のホンネ」について考える。"],
-        ["家族の声から","全国の未熟児・病児・障害児・お空に旅立った子どもの家族を対象に実施したアンケートには、約100家族から声が寄せられた。そこには医療者への感謝とともに、不安や戸惑い、遠慮からホンネを伝えられなかった経験や、退院後の生活の中で初めて気づいた思いが語られている。この「家族のホンネ」の講演内容は、これまでに国立成育医療研究センター、札幌医科大学、熊本市民病院においてNICUスタッフ向けに実施してきた。参加した医療者からは「聴いていたつもりで聞けていなかった」「退院後の暮らしをもっと想像したいと思った」などの感想が寄せられ、家族と医療者の間にある認識の違いや支援の可能性について新たな気づきが共有された。"],
-        ["医療と社会をつなぐ","講演では、アンケートに寄せられた家族の声を紹介しながら、支援の中で生じるすれ違いや、家族が本当に求めている関わりについて考える。また、退院後の暮らしや成長の先にある生活にも触れながら、医療と社会をつなぐ視点について共有したい。家族と医療者は、ともに子どもの育ちを支える仲間である。本講演が、ファミリーセンタードケアを家族の視点から改めて考え、明日からのケアが少し変わる時間となれば幸いである。"]],
-   bio:[],
-   profile:"【林 英美子（はやし えみこ）／太陽ママ】一般社団法人 未熟児家族支援・がんばりっこ 代表理事。2004年、22週542gで息子・太陽を出産。同年12月に未熟児家族の交流の場として「がんばりっこ仲間」の活動を開始し、2022年に「一般社団法人 未熟児家族支援・がんばりっこ」を設立。現在は、未熟児（低出生体重児・早産児）をはじめ、病児・障害児・お空っこ家族と、その家族を支える医療者・支援者をつなぐ活動を行っている。全国約2,000家族、医療・専門職を中心とした約250名の応援団が登録。痛みの緩和ケアガイドライン、NICU診療ガイドライン等の作成に家族の立場から参画。子どもたちの声や育ちの先にある暮らしを学ぶため、小学校の体育講師や相談員としても活動している。",
-   society:"", note:""},
-];
+// ---------- utils ----------
+const pad3 = (n) => String(n).padStart(3, '0');
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function todayStr() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function nowStr() { const d = new Date(); return todayStr() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0') + ':' + String(d.getSeconds()).padStart(2, '0'); }
+function dayDiff(a, b) { const pa = Date.UTC(+a.slice(0, 4), +a.slice(5, 7) - 1, +a.slice(8, 10)); const pb = Date.UTC(+b.slice(0, 4), +b.slice(5, 7) - 1, +b.slice(8, 10)); return Math.round((pb - pa) / 86400000); }
+function uid() { const a = new Uint8Array(8); (window.crypto || {}).getRandomValues ? crypto.getRandomValues(a) : a.forEach((_, i) => a[i] = Math.random() * 256); return Array.from(a, (b) => b.toString(16).padStart(2, '0')).join(''); }
+function bandOf(totalDays) { if (totalDays == null) return null; if (totalDays < 32 * 7) return 'lt32'; if (totalDays < 37 * 7) return 'b32_36'; return 'ge37'; }
+function pmaText(w, d) { return w == null ? '—' : `${w}週${d}日`; }
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => (t.hidden = true), 2200); }
 
-/* ============ RENDER: schedule ============ */
-const schedEl = document.getElementById('schedule');
-schedEl.innerHTML = SCHEDULE.map(s=>`
-  <div class="slot ${s.feature?'feature':''}">
-    <div class="slot-time">${s.t}</div>
-    <div class="slot-body">
-      <div class="slot-title">${s.title}</div>
-      ${s.sub?`<div class="slot-sub">${s.sub}</div>`:''}
-      ${s.tag?`<span class="tag-mini">${s.tag}</span>`:''}
-    </div>
-  </div>`).join('');
-
-/* ============ RENDER: talk list ============ */
-const sesMeta = {Ns:{name:"Ns session",chair:"座長 岩波 悠子",cls:""},
-                 Dr:{name:"Dr session",chair:"座長 中張 惇子",cls:"dr"},
-                 ME:{name:"ME session",chair:"座長 中張 惇子",cls:"me"}};
-const listEl = document.getElementById('talk-list');
-let html="";
-["Ns","Dr","ME"].forEach(key=>{
-  const m=sesMeta[key];
-  html+=`<div class="ses-head"><span class="ses-badge ${m.cls}">${m.name}</span><span class="ses-chair">${m.chair}</span></div>`;
-  TALKS.filter(t=>t.ses===key).forEach((t,i)=>{
-    html+=`<button class="talk" onclick="openDetail('${t.id}')">
-      <span class="talk-no ${m.cls}">${i+1}</span>
-      <span class="talk-main">
-        <span class="talk-ttl">${t.title}</span>
-        <span class="talk-aff">${t.aff}</span>
-      </span>
-      <span class="chev">›</span>
-    </button>`;
+// ---------- modal ----------
+function modal({ title, body = '', extra = null, actions }) {
+  return new Promise((resolve) => {
+    $('mTitle').textContent = title; $('mBody').textContent = body;
+    const ex = $('mExtra'); ex.innerHTML = ''; if (extra) ex.appendChild(extra);
+    const act = $('mAct'); act.innerHTML = '';
+    actions.forEach((a) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ' + (a.cls || 'secondary'); b.textContent = a.label;
+      b.onclick = () => { if (a.check && !a.check()) return; $('modal').hidden = true; resolve(a.value); };
+      act.appendChild(b);
+    });
+    $('modal').hidden = false;
   });
-});
-listEl.innerHTML=html;
-
-/* ============ RENDER: lecture list ============ */
-const lecEl = document.getElementById('lecture-list');
-lecEl.innerHTML = LECTURES.map(l=>`
-  <button class="talk" onclick="openLecture('${l.id}')">
-    <span class="talk-no me">★</span>
-    <span class="talk-main">
-      <span class="talk-ttl">${l.title}</span>
-      <span class="talk-aff">${l.kind}　${l.auth}（${l.aff}）</span>
-    </span>
-    <span class="chev">›</span>
-  </button>`).join('');
-
-/* ============ DETAIL: talk ============ */
-const sesFull={Ns:"Ns session｜Nursing",Dr:"Dr session｜Doctor",ME:"ME session｜Clinical Engineering"};
-function openDetail(id){
-  const t=TALKS.find(x=>x.id===id);
-  document.getElementById('detail-inner').innerHTML=`
-    <button class="back-btn" onclick="show('program')">‹ 演題一覧へ戻る</button>
-    <div class="detail-head">
-      <div class="kicker">${t.id}　${sesFull[t.ses]}</div>
-      <h2>${t.title}</h2>
-      <div class="auth">${t.auth}</div>
-      <div class="aff">${t.aff}</div>
-    </div>
-    ${t.abs.map(([h,p])=>`<div class="abs-block"><div class="abs-h">【${h}】</div><div class="abs-p">${p}</div></div>`).join('')}
-    <button class="timer-launch" onclick="prefillTimer('${t.id}')">
-      ⏱ この演題でタイマーを開く（発表6分 / 討論3分）
-    </button>
-  `;
-  show('detail');
-  window.scrollTo({top:0});
 }
+const alertModal = (title, body) => modal({ title, body, actions: [{ label: 'OK', value: true, cls: 'primary' }] });
 
-/* ============ DETAIL: lecture ============ */
-function openLecture(id){
-  const l=LECTURES.find(x=>x.id===id);
-  let bioHtml='';
-  if(l.bio && l.bio.length){
-    bioHtml=`<div class="bio-block"><div class="abs-h">【略歴】</div>${l.bio.map(([y,t])=>`<div class="bio-row"><span class="y">${y}</span><span>${t}</span></div>`).join('')}</div>`;
+// ---------- PIN / lock ----------
+async function hashPin(pin, salt) {
+  const msg = 'nws6:' + salt + ':' + pin;
+  if (window.crypto && crypto.subtle && window.isSecureContext) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+    return 'sha256:' + Array.from(new Uint8Array(buf), (b) => b.toString(16).padStart(2, '0')).join('');
   }
-  let socHtml = l.society ? `<div class="abs-block"><div class="abs-h">【所属学会等】</div><div class="abs-p">${l.society}</div></div>` : '';
-  let profHtml = l.profile ? `<div class="abs-block"><div class="abs-p" style="background:var(--green-100);border-radius:12px;padding:13px 14px;font-size:.82rem;">${l.profile}</div></div>` : '';
-  let noteHtml = l.note ? `<p class="note">${l.note}</p>` : '';
-  let bodyHtml = l.abs.length ? l.abs.map(([h,p])=>`<div class="abs-block"><div class="abs-h">【${h}】</div><div class="abs-p">${p}</div></div>`).join('')
-                              : `<p class="abs-p" style="color:var(--muted);">抄録準備中</p>`;
-  document.getElementById('detail-inner').innerHTML=`
-    <button class="back-btn" onclick="show('program')">‹ 演題一覧へ戻る</button>
-    <div class="detail-head">
-      <div class="kicker">${l.kind}</div>
-      <h2>${l.title}</h2>
-      <div class="auth">${l.auth}</div>
-      <div class="aff">${l.aff}</div>
-    </div>
-    ${l.meta?`<p class="note" style="margin-top:0;margin-bottom:12px;">${l.meta}</p>`:''}
-    ${bodyHtml}
-    ${profHtml}
-    ${socHtml}
-    ${bioHtml}
-    ${noteHtml}
-  `;
-  show('detail');
-  window.scrollTo({top:0});
+  let h = 0x811c9dc5; for (let r = 0; r < 2000; r++) for (let i = 0; i < msg.length; i++) { h ^= msg.charCodeAt(i) + r; h = Math.imul(h, 0x01000193) >>> 0; }
+  return 'fnv:' + h.toString(16);
 }
-
-/* ============ NAV ============ */
-function show(view){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById(view).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b=>{
-    b.classList.toggle('active', b.dataset.view===view);
+const lockState = { mode: 'unlock', buf: '', first: '', fails: 0, until: 0 };
+let unlocked = false;
+let lastActivity = Date.now();
+let sharing = false; // Android: the system share sheet hides the page; do not lock while it is open
+function buildPad() {
+  const pad = $('pad'); pad.innerHTML = '';
+  ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'clear', '0', 'back'].forEach((k) => {
+    const b = document.createElement('button'); b.type = 'button';
+    if (k === 'clear') { b.textContent = 'クリア'; b.className = 'fn'; b.onclick = () => { lockState.buf = ''; drawDots(); }; }
+    else if (k === 'back') { b.textContent = '削除'; b.className = 'fn'; b.onclick = () => { lockState.buf = lockState.buf.slice(0, -1); drawDots(); }; }
+    else { b.textContent = k; b.onclick = () => pinKey(k); }
+    pad.appendChild(b);
   });
-  if(view!=='detail') window.scrollTo({top:0});
 }
-document.querySelectorAll('.nav-btn').forEach(b=>{
-  b.addEventListener('click',()=>show(b.dataset.view));
+function drawDots() { Array.from($('dots').children).forEach((s, i) => s.classList.toggle('f', i < lockState.buf.length)); }
+function setLockMode(mode, msg = '') {
+  lockState.mode = mode; lockState.buf = ''; drawDots();
+  const t = { setup1: '新しいPINを設定（4桁）', setup2: '確認のため、もう一度入力', unlock: 'PINを入力', changeOld: '現在のPINを入力', change1: '新しいPINを入力（4桁）', change2: '確認のため、もう一度入力' }[mode];
+  $('lockTitle').textContent = t; $('lockMsg').textContent = msg;
+  $('forgotBtn').hidden = !(mode === 'unlock' && settings.pinHash);
+}
+function showLock(mode) {
+  unlocked = false; $('app').hidden = true; $('lock').hidden = false;
+  setLockMode(mode || (settings.pinHash ? 'unlock' : 'setup1'), mode === 'setup1' && !settings.pinHash ? '初回はPINを設定してください' : '');
+}
+function lockNow() { if (!unlocked || sharing) return; if (curView === 'form') saveDraft(); showLock('unlock'); }
+function unlockApp() { unlocked = true; lastActivity = Date.now(); $('lock').hidden = true; $('app').hidden = false; render(); }
+async function pinKey(k) {
+  if (Date.now() < lockState.until) return;
+  if (lockState.buf.length >= 4) return;
+  lockState.buf += k; drawDots();
+  if (lockState.buf.length < 4) return;
+  const pin = lockState.buf; const m = lockState.mode;
+  await new Promise((r) => setTimeout(r, 120));
+  if (m === 'setup1' || m === 'change1') { lockState.first = pin; setLockMode(m === 'setup1' ? 'setup2' : 'change2'); return; }
+  if (m === 'setup2' || m === 'change2') {
+    if (pin !== lockState.first) { setLockMode(m === 'setup2' ? 'setup1' : 'change1', '一致しませんでした。最初から入力してください'); return; }
+    settings.pinSalt = uid(); settings.pinHash = await hashPin(pin, settings.pinSalt); saveSettings();
+    if (m === 'change2') toast('PINを変更しました');
+    unlockApp(); return;
+  }
+  const ok = (await hashPin(pin, settings.pinSalt)) === settings.pinHash;
+  if (m === 'changeOld') { if (ok) setLockMode('change1'); else { unlockApp(); toast('PINが違います'); } return; }
+  if (ok) { lockState.fails = 0; unlockApp(); return; }
+  lockState.fails++;
+  if (lockState.fails >= 5) { lockState.until = Date.now() + 30000; lockState.fails = 0; setLockMode('unlock', '5回間違えました。30秒お待ちください'); setTimeout(() => setLockMode('unlock'), 30000); }
+  else setLockMode('unlock', `PINが違います（${lockState.fails}/5）`);
+}
+$('forgotBtn').onclick = async () => {
+  const inp = document.createElement('input'); inp.className = 'tin'; inp.placeholder = '「消去」と入力'; inp.autocomplete = 'off';
+  $('lock').hidden = true;
+  const v = await modal({ title: 'PINを忘れた場合', body: 'PINを再設定するには、この端末内のNWSデータ（記録・設定）をすべて消去する必要があります。未出力の記録も消えます。\n続ける場合は「消去」と入力してください。', extra: inp,
+    actions: [{ label: 'やめる', value: false }, { label: 'すべて消去して再設定', value: true, cls: 'danger fill', check: () => inp.value.trim() === '消去' }] });
+  if (v) wipeEverything(); else showLock('unlock');
+};
+['pointerdown', 'keydown', 'input', 'touchstart'].forEach((ev) => document.addEventListener(ev, () => { lastActivity = Date.now(); }, { passive: true, capture: true }));
+document.addEventListener('scroll', () => { lastActivity = Date.now(); }, { passive: true, capture: true });
+setInterval(() => { if (unlocked && Date.now() - lastActivity > IDLE_MS) lockNow(); }, 10000);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') lockNow(); });
+window.addEventListener('pagehide', () => lockNow());
+$('lockBtn').onclick = () => lockNow();
+
+function wipeEverything() {
+  drop(K.rec); drop(K.set); drop(K.draft);
+  records = []; settings = { idPrefix: 'NWS-test-', pinHash: null, pinSalt: null, expMode: 'share' };
+  showLock('setup1'); $('lockMsg').textContent = 'データを消去しました。新しいPINを設定してください';
+}
+
+// ---------- views ----------
+let curView = 'home';
+function show(v) {
+  curView = v;
+  // Android back button: sub-screens get one history entry so "back" returns to home instead of closing the app
+  try { if (v !== 'home' && !(history.state && history.state.nws === 'sub')) history.pushState({ nws: 'sub' }, ''); } catch (e) {}
+  ['home', 'form', 'list', 'export', 'settings'].forEach((x) => ($('v-' + x).hidden = x !== v));
+  $('homeBtn').hidden = v === 'home';
+  $('title').innerHTML = { home: 'NWS 採点<small>案-6</small>', form: 'NWS 採点<small>案-6</small>', list: '記録一覧', export: 'CSV出力・消去', settings: '設定' }[v];
+  window.scrollTo(0, 0);
+  render();
+}
+function render() {
+  const un = records.filter((r) => !r.exported).length, ex = records.length - un;
+  $('nUn').textContent = un; $('nEx').textContent = ex; $('statUn').classList.toggle('alert', un > 0);
+  let note = '';
+  if (un > 0) {
+    const oldest = records.filter((r) => !r.exported).map((r) => r.date).sort()[0];
+    const days = oldest ? dayDiff(oldest, todayStr()) : 0;
+    note = `<div class="notice ${days >= 2 ? 'red' : ''}">未出力の記録が ${un} 件あります。${days >= 2 ? `最も古い記録は ${days} 日前です。` : ''}勤務の終わりにCSV出力してください。</div>`;
+  }
+  $('homeNotice').innerHTML = note;
+  $('expUn').textContent = `未出力の記録を出力（${un}件）`; $('expUn').disabled = un === 0;
+  $('expAll').textContent = `すべての記録を出力（${records.length}件）`; $('expAll').disabled = records.length === 0;
+  $('delEx').textContent = `出力済みの記録を消去（${ex}件）`; $('delEx').disabled = ex === 0;
+  if (curView === 'list') renderList();
+  if (curView === 'export') syncExpMode();
+  if (curView === 'settings') { $('prefixIn').value = settings.idPrefix; $('verInfo').textContent = APP_VERSION; }
+}
+function goHome() { try { if (history.state && history.state.nws === 'sub') { history.back(); return; } } catch (e) {} show('home'); }
+window.addEventListener('popstate', () => {
+  if (!unlocked) return;
+  if (!$('modal').hidden) { try { history.pushState({ nws: 'sub' }, ''); } catch (e) {} return; }
+  if (curView === 'home') return;
+  if (curView === 'form') saveDraft();
+  show('home');
 });
+$('homeBtn').onclick = async () => { if (curView === 'form') saveDraft(); goHome(); };
+$('goList').onclick = () => { showScores = false; show('list'); };
+$('goExport').onclick = () => show('export');
+$('goSettings').onclick = () => show('settings');
 
-/* ============ TIMER (count-up) ============ */
-let alertPoints=[5*60,6*60,9*60];
-let elapsed=0;
-let fired={};
-let running=false, tick=null;
+// ---------- scoring form ----------
+let F = null; // current form state
+function emptyForm() {
+  return { editId: null, idNum: '', rater: '', date: todayStr(), shift: '', pmaW: null, pmaD: null, pmaConfirmed: false, pmaAuto: null,
+    intubated: null, sedation: null, scores: {}, d2Reason: '', painAssessed: null, analgesia: null, extraProc: null };
+}
+function studyId(f = F) { return f.idNum ? settings.idPrefix + pad3(+f.idNum) : ''; }
+function pmaTotal(f = F) { return f.pmaW == null || f.pmaD == null ? null : f.pmaW * 7 + f.pmaD; }
+function curBand() { return bandOf(pmaTotal()); }
+function effBand(code) { if (!BAND_ITEMS.includes(code)) return null; if (code === 'B3' && F.intubated === true) return 'lt32'; return curBand(); }
+function saveDraft() { if (F) store(K.draft, F); }
 
-const elTime=document.getElementById('tm-time');
-const elOf=document.getElementById('tm-of');
-const elPhase=document.getElementById('tm-phase');
-const elTalk=document.getElementById('tm-talk');
-const btnStart=document.getElementById('tm-start');
+const ITEMS = [...DATA.baby.map((x) => ({ ...x, scale: 'baby' })), ...DATA.care.map((x) => ({ ...x, scale: 'care' }))];
 
-function fmt(s){const m=Math.floor(s/60),x=s%60;return m+':'+String(x).padStart(2,'0');}
-function lastPoint(){return alertPoints[alertPoints.length-1];}
-function pointsLabel(){return alertPoints.map(fmt).join(' / ');}
-function paint(){
-  elTime.textContent=fmt(elapsed);
-  elOf.textContent='合図 '+pointsLabel();
-  const over = elapsed>=lastPoint();
-  if(over){
-    elPhase.textContent='終了時間・超過'; elPhase.className='tm-phase over';
-    elTime.style.color='var(--red)';
-  }else{
-    elPhase.textContent='経過時間'; elPhase.className='tm-phase present';
-    elTime.style.color='var(--green-700)';
-  }
+function seg(el, options, get, set) {
+  el.innerHTML = '';
+  options.forEach(([val, label]) => {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.dataset.v = String(val);
+    b.onclick = () => { set(get() === val ? null : val); onChange(); };
+    el.appendChild(b);
+  });
+  el._sync = () => Array.from(el.children).forEach((b) => b.classList.toggle('on', b.dataset.v === String(get())));
 }
-let audioCtx=null, soundOn=true, audioUnlocked=false;
-function ensureAudio(){
-  if(!audioCtx){
-    try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ audioCtx=null; }
-  }
-  if(audioCtx && audioCtx.state==='suspended'){ audioCtx.resume(); }
-  // iOS requires a sound to actually play during a user gesture to unlock audio.
-  if(audioCtx && !audioUnlocked){
-    try{
-      const buf=audioCtx.createBuffer(1,1,22050);
-      const src=audioCtx.createBufferSource();
-      src.buffer=buf; src.connect(audioCtx.destination); src.start(0);
-      audioUnlocked=true;
-    }catch(e){}
-  }
+
+function buildForm() {
+  seg($('shiftSeg'), SHIFTS.map((s) => [s, s]), () => F.shift, (v) => (F.shift = v || ''));
+  seg($('intubSeg'), [[true, 'あり'], [false, 'なし']], () => F.intubated, (v) => (F.intubated = v));
+  seg($('sedSeg'), [[true, 'あり'], [false, 'なし']], () => F.sedation, (v) => (F.sedation = v));
+  const ds = $('daySeg'); ds.innerHTML = '';
+  for (let i = 0; i <= 6; i++) { const b = document.createElement('button'); b.type = 'button'; b.textContent = i; b.dataset.v = i; b.onclick = () => { F.pmaD = i; F.pmaConfirmed = true; onChange(); }; ds.appendChild(b); }
+  ds._sync = () => Array.from(ds.children).forEach((b) => b.classList.toggle('on', +b.dataset.v === F.pmaD));
+
+  const mk = (scale, host) => {
+    host.innerHTML = '';
+    let dom = '';
+    ITEMS.filter((it) => it.scale === scale).forEach((it) => {
+      if (it.domain !== dom) { dom = it.domain; const h = document.createElement('div'); h.className = 'domain'; h.textContent = dom; host.appendChild(h); }
+      const box = document.createElement('div'); box.className = 'item'; box.id = 'item-' + it.code;
+      const disp = it.disp || it.code;
+      box.innerHTML = `<div class="itemmain"><button type="button" class="ihead" aria-expanded="false"><span class="code">${esc(disp)}</span><span class="lab">${esc(it.label)}</span><span class="ibadge" hidden></span><span class="more">基準を見る ▾</span></button><div class="scores"></div></div><div class="crit" hidden></div><div class="extra" hidden></div>`;
+      const sc = box.querySelector('.scores');
+      ['2', '1', '0', 'NA'].forEach((v) => {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'sb ' + (v === 'NA' ? 'na' : 's' + v); b.textContent = v; b.dataset.v = v;
+        if (v === 'NA' && !(it.code in NA_ALLOWED)) { b.classList.add('placeholder'); b.disabled = true; b.tabIndex = -1; b.setAttribute('aria-hidden', 'true'); }
+        else b.onclick = () => { F.scores[it.code] = F.scores[it.code] === v ? undefined : v; box.classList.remove('missing'); onChange(); };
+        sc.appendChild(b);
+      });
+      const head = box.querySelector('.ihead');
+      head.onclick = () => { const c = box.querySelector('.crit'); c.hidden = !c.hidden; head.setAttribute('aria-expanded', String(!c.hidden)); head.querySelector('.more').textContent = c.hidden ? '基準を見る ▾' : '閉じる ▴'; if (!c.hidden) fillCrit(it, c); };
+      host.appendChild(box);
+    });
+  };
+  mk('baby', $('babyItems')); mk('care', $('careItems'));
 }
-function beep(times){
-  if(!soundOn || !audioCtx) return;
-  if(audioCtx.state==='suspended'){ audioCtx.resume(); }
-  const now=audioCtx.currentTime;
-  for(let i=0;i<times;i++){
-    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-    o.type='square';
-    o.connect(g); g.connect(audioCtx.destination);
-    o.frequency.setValueAtTime(880, now);
-    const t=now+i*0.32;
-    // Linear ramps (not exponential to ~0) – iOS Safari renders these reliably.
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(0.6, t+0.02);
-    g.gain.setValueAtTime(0.6, t+0.22);
-    g.gain.linearRampToValueAtTime(0, t+0.3);
-    o.start(t); o.stop(t+0.32);
+
+function fillCrit(it, el) {
+  const eb = effBand(it.code);
+  let src = it, see = '', note = it.note;
+  if (eb && eb !== 'ge37') { src = DATA.bands[it.code][eb]; see = src.see; note = ''; }
+  const head = BAND_ITEMS.includes(it.code)
+    ? `<div class="see"><b>${esc(eb ? BAND_LABEL[eb] : '修正週数が未入力です（通常の基準を表示）')}</b>${it.code === 'B3' && F.intubated === true && curBand() !== 'lt32' ? '（挿管中のため）' : ''}${see ? '<br>見るもの：' + esc(see) : ''}</div>` : '';
+  const meta = [it.type ? '型：' + it.type : '', '観察窓：' + it.window.join(' ')].filter(Boolean).join('　');
+  el.innerHTML = head + ['2', '1', '0'].map((p) => `<div class="lv"><span class="p p${p}">${p}</span><span>${esc(src['a' + p])}</span></div>`).join('') +
+    `<div class="meta">${esc(meta)}</div>` + (note ? `<div class="meta">注意：${esc(note)}</div>` : '');
+}
+
+function syncExtras() {
+  // D2 NA reason
+  const d2 = $('item-D2').querySelector('.extra');
+  if (F.scores.D2 === 'NA') {
+    if (!d2._built) { d2.innerHTML = '<div class="q"><span class="ql">未実施の理由</span><div class="seg"></div></div>'; seg(d2.querySelector('.seg'), D2_REASONS.map((r) => [r, r]), () => F.d2Reason, (v) => (F.d2Reason = v || '')); d2._built = true; }
+    d2.hidden = false; d2.querySelector('.seg')._sync();
+  } else d2.hidden = true;
+  // II-1 pain assessment / analgesia
+  const p = $('item-II-1').querySelector('.extra');
+  if (!p._built) {
+    p.innerHTML = '<div class="q"><span class="ql">痛みスコア（NIPS等）での評価</span><div class="seg" data-k="pa"></div></div><div class="q"><span class="ql">鎮痛ケア（ショ糖・包み込み・ホールディング・鎮痛薬 等）</span><div class="seg" data-k="an"></div></div><div class="hint"></div>';
+    seg(p.querySelector('[data-k=pa]'), [[true, 'した'], [false, 'しなかった']], () => F.painAssessed, (v) => (F.painAssessed = v));
+    seg(p.querySelector('[data-k=an]'), [[true, 'した'], [false, 'しなかった']], () => F.analgesia, (v) => (F.analgesia = v));
+    p._built = true;
   }
+  p.hidden = false; p.querySelectorAll('.seg').forEach((s) => s._sync());
+  let hint = '評価とケアの有無を選ぶと、目安の点数を表示します。痛みを伴う処置も持続痛を疑う状態もなければ NA です。';
+  if (F.analgesia === false) hint = '目安：0点（評価の有無を問わず、介入がほとんどなければ0点）';
+  else if (F.analgesia === true && F.painAssessed === true) hint = '目安：2点（評価に基づいて介入した場合）。介入がやや不十分・遅れた場合は1点';
+  else if (F.analgesia === true && F.painAssessed === false) hint = '目安：1点（評価の記録はないが、鎮痛ケアをした）';
+  if (F.scores['II-1'] === 'NA') hint = 'NA：痛みを伴う処置も、持続痛を疑う状態もない勤務帯';
+  p.querySelector('.hint').textContent = hint;
+  // II-2 extra procedure
+  const q = $('item-II-2').querySelector('.extra');
+  if (!q._built) {
+    q.innerHTML = '<div class="q"><span class="ql">臨時に追加された処置</span><div class="seg"></div></div><div class="hint">臨時の処置は記録するだけで、減点しません。必要だったかどうかの判断は不要です。</div>';
+    seg(q.querySelector('.seg'), [[true, 'あり'], [false, 'なし']], () => F.extraProc, (v) => (F.extraProc = v)); q._built = true;
+  }
+  q.hidden = false; q.querySelector('.seg')._sync();
 }
-function buzz(ms){ if(navigator.vibrate) navigator.vibrate(ms); }
-const elFlash=document.getElementById('flash');
-function flash(kind,label){
-  elFlash.className=''; void elFlash.offsetWidth;
-  elFlash.textContent=label;
-  elFlash.classList.add('show', kind);
-  setTimeout(()=>{ elFlash.className=''; }, 1700);
+
+function tally(scale) {
+  let sum = 0, n = 0, na = 0, filled = 0;
+  ITEMS.filter((it) => it.scale === scale).forEach((it) => {
+    const v = F ? F.scores[it.code] : undefined;
+    if (v === undefined || v === null) return;
+    filled++;
+    if (v === 'NA') na++; else { sum += +v; n++; }
+  });
+  const conv = n > 0 ? Math.round((sum / (n * 2)) * 24 * 10) / 10 : null;
+  return { sum, n, na, filled, conv, ref: na >= 5 };
 }
-function step(){
-  elapsed++;
-  for(const pt of alertPoints){
-    if(!fired[pt] && elapsed>=pt){
-      fired[pt]=true;
-      const isLast = pt===lastPoint();
-      buzz(isLast?[400,120,400]:[200,80,200]);
-      beep(isLast?4:2);
-      flash(isLast?'time-up':'present-end', fmt(pt)+' 経過');
+function tallyOf(rec, scale) { const keep = F; F = rec; const t = tally(scale); F = keep; return t; }
+
+function previousRecord() {
+  const sid = studyId(); if (!sid || !F.date) return null;
+  const order = (r) => r.date + ':' + SHIFTS.indexOf(r.shift);
+  const cur = F.date + ':' + (F.shift ? SHIFTS.indexOf(F.shift) : 9);
+  const cand = records.filter((r) => r.studyId === sid && r.id !== F.editId && r.pmaW != null && order(r) <= cur).sort((a, b) => (order(a) < order(b) ? 1 : -1));
+  return cand[0] || null;
+}
+function autoPma() {
+  if (F.pmaConfirmed || F.editId) return;
+  const prev = previousRecord();
+  if (!prev) { if (F.pmaAuto) { F.pmaW = null; F.pmaD = null; } F.pmaAuto = null; return; }
+  const total = prev.pmaW * 7 + prev.pmaD + dayDiff(prev.date, F.date);
+  F.pmaW = Math.floor(total / 7); F.pmaD = total % 7;
+  F.pmaAuto = { date: prev.date, shift: prev.shift, w: prev.pmaW, d: prev.pmaD };
+}
+
+function onChange() {
+  autoPma();
+  // basic fields
+  $('idPrefix').textContent = settings.idPrefix;
+  if (document.activeElement !== $('idNum')) $('idNum').value = F.idNum;
+  if (document.activeElement !== $('rater')) $('rater').value = F.rater;
+  $('date').value = F.date;
+  if (document.activeElement !== $('pmaW')) $('pmaW').value = F.pmaW ?? '';
+  ['shiftSeg', 'intubSeg', 'sedSeg', 'daySeg'].forEach((id) => $(id)._sync());
+  const band = curBand();
+  const bb = $('bandBadge'); bb.className = 'bandbadge ' + (band || ''); bb.textContent = band ? '→ ' + BAND_LABEL[band] : '修正週数を入力してください';
+  const ban = $('pmaBanner');
+  if (F.pmaAuto && !F.editId) {
+    ban.hidden = false; ban.classList.toggle('done', F.pmaConfirmed);
+    $('pmaBannerTxt').textContent = F.pmaConfirmed ? `修正週数 ${pmaText(F.pmaW, F.pmaD)} を確認しました` : `前回の記録（${F.pmaAuto.date} ${F.pmaAuto.shift}・${pmaText(F.pmaAuto.w, F.pmaAuto.d)}）から ${pmaText(F.pmaW, F.pmaD)} と自動計算しました。正しければ「確認」を押してください`;
+    $('pmaConfirm').hidden = F.pmaConfirmed;
+  } else ban.hidden = true;
+  const others = records.filter((r) => r.id !== F.editId && r.studyId === studyId() && r.date === F.date && F.shift && r.shift === F.shift && r.form.rater !== F.rater).length;
+  $('otherNote').hidden = !others; $('otherNote').textContent = `この勤務帯には、他の評価者の記録が ${others} 件あります（内容は表示しません）。前の評価者の点数は見ずに、独立して採点してください。`;
+  // id chips
+  const ids = [...new Set(records.slice().sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1)).map((r) => r.studyId))].filter((s) => s.startsWith(settings.idPrefix)).slice(0, 8);
+  $('idChips').innerHTML = ids.map((s) => `<button type="button" class="chip" data-n="${esc(s.slice(settings.idPrefix.length))}">${esc(s)}</button>`).join('');
+  $('idChips').querySelectorAll('button').forEach((b) => (b.onclick = () => { F.idNum = String(+b.dataset.n); if (!F.editId) { F.pmaConfirmed = false; } onChange(); }));
+  // items
+  ITEMS.forEach((it) => {
+    const box = $('item-' + it.code);
+    box.querySelectorAll('.sb').forEach((b) => b.classList.toggle('on', F.scores[it.code] === b.dataset.v));
+    const badge = box.querySelector('.ibadge');
+    if (BAND_ITEMS.includes(it.code)) {
+      const eb = effBand(it.code); badge.hidden = false;
+      badge.className = 'ibadge ' + (eb || 'nopma');
+      badge.textContent = eb ? BAND_SHORT[eb] + (it.code === 'B3' && F.intubated === true && band !== 'lt32' ? '（挿管中）' : '') + 'の基準' : '週数未入力';
     }
-  }
-  paint();
+    const c = box.querySelector('.crit'); if (!c.hidden) fillCrit(it, c);
+  });
+  syncExtras();
+  // footer
+  const b = tally('baby'), c = tally('care');
+  $('sumB').textContent = b.conv == null ? '—' : b.conv.toFixed(1); $('sumBd').textContent = `入力 ${b.filled}/12・NA ${b.na}`; $('refB').hidden = !b.ref;
+  $('sumC').textContent = c.conv == null ? '—' : c.conv.toFixed(1); $('sumCd').textContent = `入力 ${c.filled}/12・NA ${c.na}`; $('refC').hidden = !c.ref;
+  saveDraft();
 }
-function start(){
-  ensureAudio();
-  if(running){
-    running=false; clearInterval(tick); btnStart.textContent='再開';
+
+$('idNum').addEventListener('blur', () => setTimeout(() => { $('idNum').value = F && F.idNum ? pad3(+F.idNum) : ''; }, 0));
+// Japanese IME (PC / iPad / Android) produces full-width characters and fires input events mid-composition:
+// wait for the composition to finish, then convert full-width to half-width (NFKC) before filtering.
+function asciiInput(el, filter, apply) {
+  const run = () => { const v = filter(el.value.normalize('NFKC')); if (el.value !== v) el.value = v; apply(v); };
+  el.addEventListener('input', (e) => { if (e.isComposing) return; run(); });
+  el.addEventListener('compositionend', () => setTimeout(run, 0));
+  el.addEventListener('blur', run);
+}
+asciiInput($('idNum'), (s) => s.replace(/[^0-9]/g, '').slice(0, 3), (v) => { const n = v ? String(+v) : ''; if (n === F.idNum) return; F.idNum = n; if (!F.editId) F.pmaConfirmed = false; onChange(); });
+asciiInput($('rater'), (s) => s.toUpperCase().replace(/[^0-9A-Z]/g, '').slice(0, 12), (v) => { if (v === F.rater) return; F.rater = v; saveDraft(); });
+asciiInput($('pmaW'), (s) => s.replace(/[^0-9]/g, '').slice(0, 2), (v) => { const n = v ? +v : null; if (n === F.pmaW) return; F.pmaW = n; if (F.pmaD == null && v) F.pmaD = 0; F.pmaConfirmed = true; onChange(); });
+$('date').addEventListener('change', (e) => { F.date = e.target.value || todayStr(); if (!F.editId) F.pmaConfirmed = false; onChange(); });
+$('wMinus').onclick = () => { F.pmaW = Math.max(22, (F.pmaW ?? 33) - 1); if (F.pmaD == null) F.pmaD = 0; F.pmaConfirmed = true; onChange(); };
+$('wPlus').onclick = () => { F.pmaW = Math.min(52, (F.pmaW ?? 31) + 1); if (F.pmaD == null) F.pmaD = 0; F.pmaConfirmed = true; onChange(); };
+$('pmaConfirm').onclick = () => { F.pmaConfirmed = true; onChange(); };
+$('expandAll').onclick = () => {
+  const open = $('expandAll').dataset.open !== '1';
+  ITEMS.forEach((it) => { const box = $('item-' + it.code); const c = box.querySelector('.crit'); c.hidden = !open; const h = box.querySelector('.ihead'); h.setAttribute('aria-expanded', String(open)); h.querySelector('.more').textContent = open ? '閉じる ▴' : '基準を見る ▾'; if (open) fillCrit(it, c); });
+  $('expandAll').dataset.open = open ? '1' : '0'; $('expandAll').textContent = open ? 'すべての基準を閉じる' : 'すべての基準を開く';
+};
+
+async function openForm(rec) {
+  if (!rec) {
+    const draft = load(K.draft, null);
+    if (draft && !draft.editId) {
+      const v = await modal({ title: '入力途中の採点があります', body: `${draft.idNum ? settings.idPrefix + pad3(+draft.idNum) : '研究ID未入力'}・${draft.date} ${draft.shift || ''}\n続きから入力しますか？`,
+        actions: [{ label: '破棄して新規', value: 'new', cls: 'danger' }, { label: '続きから入力', value: 'resume', cls: 'primary' }] });
+      F = v === 'resume' ? Object.assign(emptyForm(), draft) : emptyForm();
+    } else F = emptyForm();
+  } else {
+    F = Object.assign(emptyForm(), JSON.parse(JSON.stringify(rec.form)), { editId: rec.id, pmaConfirmed: true, pmaAuto: null });
+  }
+  $('formTitle').textContent = F.editId ? '記録の修正' : '新規採点';
+  document.querySelectorAll('.item').forEach((b) => b.classList.remove('missing'));
+  document.querySelectorAll('.field').forEach((b) => b.classList.remove('missing'));
+  show('form'); onChange();
+}
+$('goNew').onclick = () => openForm(null);
+$('cancelForm').onclick = async () => {
+  const v = await modal({ title: '入力を破棄しますか？', body: F.editId ? '修正内容は保存されません。' : 'この採点の入力内容は保存されません。', actions: [{ label: '入力に戻る', value: false }, { label: '破棄する', value: true, cls: 'danger fill' }] });
+  if (v) { drop(K.draft); F = null; goHome(); }
+};
+
+function validate() {
+  const miss = [];
+  const mark = (id, label) => { miss.push({ id, label }); };
+  if (!F.idNum || +F.idNum < 1) mark('f-id', '研究ID');
+  if (!F.rater) mark('f-rater', '職員コード');
+  if (!F.date) mark('f-date', '日付');
+  if (!F.shift) mark('f-shift', '勤務帯');
+  if (F.pmaW == null || F.pmaD == null) mark('f-pma', '修正週数');
+  else if (F.pmaW < 22 || F.pmaW > 52) mark('f-pma', '修正週数（22〜52週の範囲で入力）');
+  else if (F.pmaAuto && !F.pmaConfirmed) mark('f-pma', '修正週数の確認（「確認」を押す）');
+  if (F.intubated == null) mark('f-intub', '挿管の有無');
+  if (F.sedation == null) mark('f-sed', '鎮静薬の投与の有無');
+  ITEMS.forEach((it) => { if (F.scores[it.code] === undefined || F.scores[it.code] === null) mark('item-' + it.code, (it.disp || it.code) + ' ' + it.label); });
+  if (F.scores.D2 === 'NA' && !F.d2Reason) mark('item-D2', 'D2 未実施の理由');
+  if (F.scores['II-1'] !== 'NA' && (F.painAssessed == null || F.analgesia == null)) mark('item-II-1', 'Ⅱ-1 痛みの評価・鎮痛ケアの有無');
+  if (F.extraProc == null) mark('item-II-2', 'Ⅱ-2 臨時の処置の有無');
+  return miss;
+}
+$('saveBtn').onclick = async () => {
+  document.querySelectorAll('.missing').forEach((b) => b.classList.remove('missing'));
+  const miss = validate();
+  if (miss.length) {
+    miss.forEach((m) => $(m.id) && $(m.id).classList.add('missing'));
+    await modal({ title: `未入力が ${miss.length} 件あります`, body: miss.slice(0, 12).map((m) => '・' + m.label).join('\n') + (miss.length > 12 ? `\n…ほか ${miss.length - 12} 件` : ''), actions: [{ label: '入力に戻る', value: true, cls: 'primary' }] });
+    const first = $(miss[0].id); if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
-  running=true; btnStart.textContent='一時停止';
-  tick=setInterval(step,1000);
-}
-function reset(){
-  running=false; clearInterval(tick);
-  elapsed=0; fired={};
-  btnStart.textContent='開始'; paint();
-}
-btnStart.addEventListener('click',start);
-document.getElementById('tm-reset').addEventListener('click',reset);
-document.getElementById('tm-sound').addEventListener('change',e=>{ soundOn=e.target.checked; });
-document.getElementById('tm-test').addEventListener('click',()=>{
-  ensureAudio();
-  const wasOn=soundOn; soundOn=true;
-  beep(2);
-  soundOn=wasOn;
-  flash('present-end','♪ テスト');
-});
-
-document.querySelectorAll('.preset').forEach(p=>{
-  p.addEventListener('click',()=>{
-    document.querySelectorAll('.preset').forEach(x=>x.classList.remove('on'));
-    p.classList.add('on');
-    alertPoints=p.dataset.alerts.split(',').map(n=>parseInt(n)*60).sort((a,b)=>a-b);
-    reset();
-  });
-});
-
-function prefillTimer(id){
-  const t=TALKS.find(x=>x.id===id);
-  elTalk.textContent=`${t.id}　${t.title}`;
-  reset();
-  show('timer');
-}
-
-/* ============ FCC GROUP LOOKUP ============ */
-const BOOTHS = {
-  1:"各施設のFCC自慢（3施設）",
-  2:"アトムメディカル ロールプレイ",
-  3:"がんばりっこブース（林さんとお話し）",
-};
-const GROUP_META = {
-  A:{leaders:"中張惇子", count:17, route:[1,2,3]},
-  B:{leaders:"秋山めぐみ・児玉美紀", count:17, route:[2,3,1]},
-  C:{leaders:"川畑建・芝大樹・杉山美峰", count:21, route:[3,1,2]},
-};
-const STAFF = [
-  {n:"須賀健一", role:"総監督", desc:"全体を見回り・進行を統括します。"},
-  {n:"山田ゆかり", role:"写真展ブース", desc:"看護写真展示ブースを担当します。"},
-  {n:"石井順子", role:"写真展ブース", desc:"看護写真展示ブースを担当します。"},
-  {n:"柏ゆかり", role:"写真展ブース", desc:"看護写真展示ブースを担当します。"},
-  {n:"関根綾香", role:"写真展ブース", desc:"看護写真展示ブースを担当します。"},
-];
-const ROSTER = [
-  {n:"野中航仁",g:"A"},{n:"加部一彦",g:"A"},{n:"岩谷綾香",g:"A"},{n:"中張惇子",g:"A"},
-  {n:"采元純",g:"A"},{n:"鈴木淑代",g:"A"},{n:"城戸京香",g:"A"},{n:"夏目雅美",g:"A"},
-  {n:"廣兼裕美",g:"A"},{n:"岩波悠子",g:"A"},{n:"多賀千尋",g:"A"},
-  {n:"宮下亜香里",g:"A"},{n:"福富宏美",g:"A"},{n:"笹森明穂",g:"A"},{n:"東山葵",g:"A"},
-  {n:"平間ひとみ",g:"A"},{n:"加藤清美",g:"A"},
-  {n:"秋山めぐみ",g:"B"},{n:"渡邉慶太",g:"B"},{n:"國方徹也",g:"B"},{n:"金隆根",g:"B"},
-  {n:"佐藤千穂",g:"B"},{n:"今西利之",g:"B"},{n:"菅野雅美",g:"B"},{n:"児玉美紀",g:"B"},
-  {n:"遠江里莉",g:"B"},{n:"生方歌織",g:"B"},{n:"関口六月",g:"B"},{n:"梅田千典",g:"B"},
-  {n:"寺田悠斗",g:"B"},{n:"黒図しおり",g:"B"},{n:"戸田花音",g:"B"},{n:"本間麗芽",g:"B"},
-  {n:"梅澤麻紀子",g:"B"},
-  {n:"川畑建",g:"C"},{n:"飛彈麻里子",g:"C"},{n:"田中萌子",g:"C"},{n:"長崎瑛里",g:"C"},
-  {n:"森田翔",g:"C"},{n:"伊藤璃津子",g:"C"},{n:"芝大樹",g:"C"},{n:"新井聡美",g:"C"},
-  {n:"野口祐子",g:"C"},{n:"永野亜希子",g:"C"},{n:"安村春日",g:"C"},
-  {n:"戸舘美憂",g:"C"},{n:"杉山美峰",g:"C"},{n:"林珠巨",g:"C"},{n:"岡安優奈",g:"C"},
-  {n:"佐藤文",g:"C"},{n:"石川敦子",g:"C"},{n:"萩原優花",g:"C"},{n:"廣本柚帆",g:"C"},
-  {n:"小林清香",g:"C"},{n:"姫島美幸",g:"C"},
-];
-const YOMI = {
-  "須賀健一":"すがけんいち","中張惇子":"なかはりあつこ","秋山めぐみ":"あきやまめぐみ",
-  "児玉美紀":"こだまみき","川畑建":"かわばたけん","芝大樹":"しばだいき","杉山美峰":"すぎやまみほ",
-  "関根綾香":"せきねあやか","山田ゆかり":"やまだゆかり",
-};
-const glStripSp = s => (s||"").replace(/[\s\u3000]/g,"");
-function glNorm(s){
-  return glStripSp(s).toLowerCase()
-    .replace(/[ァ-ン]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60));
-}
-function glRouteHtml(route){
-  return `<div class="gl-route">${route.map((b,i)=>
-    `<div class="gl-stop"><span class="seq">${i+1}</span><span>${BOOTHS[b]}</span></div>`).join('')}</div>`;
-}
-function glParticipantCard(name, g){
-  const m = GROUP_META[g];
-  return `<div class="gl-card">
-    <div class="gl-band">
-      <div class="gl-badge">${g}</div>
-      <div><div class="who">${name} さん</div><div class="grp">グループ ${g}（${m.count}名）</div></div>
-    </div>
-    <div class="gl-body">
-      <div class="gl-row"><span class="lbl">リーダー</span><span class="val">${m.leaders}</span></div>
-      <div class="gl-row"><span class="lbl">巡回の順番</span><span class="val">${glRouteHtml(m.route)}</span></div>
-      <div class="gl-row"><span class="lbl">めやす</span><span class="val">各ブース14分ずつ。リーダーの誘導に従ってご移動ください。</span></div>
-    </div>
-  </div>`;
-}
-function glStaffCard(s){
-  return `<div class="gl-card">
-    <div class="gl-band" style="background:linear-gradient(135deg,var(--amber),#e0a64e);">
-      <div class="gl-badge">★</div>
-      <div><div class="who">${s.n} さん</div><div class="grp">${s.role}</div></div>
-    </div>
-    <div class="gl-body"><div class="gl-row" style="border:none;"><span class="val">${s.desc}<br>特別企画では巡回グループには入りません。</span></div></div>
-  </div>`;
-}
-const glInput = document.getElementById('gl-name');
-const glResult = document.getElementById('gl-result');
-function glSearch(q){
-  const nq = glNorm(q);
-  if(nq.length < 1){ glResult.className='gl-result'; glResult.innerHTML=''; return; }
-  const staffHit = STAFF.filter(s=> glNorm(s.n).includes(nq) || (YOMI[glStripSp(s.n)]||'').includes(nq));
-  const seen={};
-  const partHit = ROSTER.filter(p=>{
-    const key=p.n+p.g; if(seen[key]) return false;
-    const hit = glNorm(p.n).includes(nq) || (YOMI[p.n]||'').includes(nq);
-    if(hit){ seen[key]=1; return true; } return false;
-  });
-  let html='';
-  if(staffHit.length===0 && partHit.length===0){
-    html = `<div class="gl-none">「${q}」に一致する方が見つかりませんでした。</div>
-      <div class="gl-hint">姓のみ・名のみでもお試しください。お名前が名簿にない場合は受付・リーダーにお声がけください。</div>`;
-  }else{
-    html = staffHit.map(glStaffCard).join('') + partHit.map(p=>glParticipantCard(p.n,p.g)).join('');
-    if(staffHit.length+partHit.length>1){
-      html = `<div class="gl-hint" style="margin-bottom:8px;">複数の候補が見つかりました。ご自身のお名前をご確認ください。</div>`+html;
-    }
+  const sid = studyId();
+  const dup = records.find((r) => r.id !== F.editId && r.studyId === sid && r.date === F.date && r.shift === F.shift && r.form.rater === F.rater);
+  if (dup) {
+    const v = await modal({ title: '同じ記録があります', body: `${sid}・${F.date} ${F.shift}・職員コード ${F.rater} の記録がすでに保存されています。別の記録として保存しますか？`, actions: [{ label: '入力に戻る', value: false }, { label: '別の記録として保存', value: true, cls: 'primary' }] });
+    if (!v) return;
   }
-  glResult.className='gl-result show';
-  glResult.innerHTML=html;
-}
-glInput.addEventListener('input', e=> glSearch(e.target.value));
+  const form = JSON.parse(JSON.stringify(F)); delete form.editId;
+  const now = nowStr();
+  if (F.editId) {
+    const r = records.find((x) => x.id === F.editId);
+    const wasExported = r.exported;
+    Object.assign(r, { studyId: sid, date: F.date, shift: F.shift, pmaW: F.pmaW, pmaD: F.pmaD, form, updatedAt: now, exported: false, editedAfterExport: r.editedAfterExport || wasExported });
+  } else {
+    records.push({ id: uid(), studyId: sid, date: F.date, shift: F.shift, pmaW: F.pmaW, pmaD: F.pmaD, form, createdAt: now, updatedAt: now, exported: false, editedAfterExport: false, version: DATA.version });
+  }
+  if (!saveRecords()) return;
+  drop(K.draft); F = null;
+  goHome(); toast('保存しました');
+};
 
-paint();
+// ---------- list ----------
+let showScores = false;
+$('toggleScores').onclick = () => { showScores = !showScores; renderList(); };
+function renderList() {
+  $('toggleScores').textContent = showScores ? '点数を隠す' : '点数を表示';
+  const rs = records.slice().sort((a, b) => (a.date + SHIFTS.indexOf(a.shift) < b.date + SHIFTS.indexOf(b.shift) ? 1 : -1));
+  if (!rs.length) { $('listBody').innerHTML = '<p class="muted">保存された記録はありません。</p>'; return; }
+  $('listBody').innerHTML = rs.map((r) => {
+    const b = tallyOf(r.form, 'baby'), c = tallyOf(r.form, 'care');
+    return `<div class="rec"><div class="main"><div class="t1">${esc(r.studyId)}　${esc(r.date)} ${esc(r.shift)}　<span class="pill ${r.exported ? 'ex' : 'un'}">${r.exported ? '出力済み' : '未出力'}</span></div>
+      <div class="t2">職員 ${esc(r.form.rater)}・${esc(pmaText(r.pmaW, r.pmaD))}（${esc(BAND_SHORT[bandOf(r.pmaW * 7 + r.pmaD)])}）${showScores ? `・Baby ${b.conv == null ? '—' : b.conv.toFixed(1)}${b.ref ? '（参考値）' : ''}・Care ${c.conv == null ? '—' : c.conv.toFixed(1)}${c.ref ? '（参考値）' : ''}` : ''}</div></div>
+      <button type="button" class="btn secondary" data-edit="${r.id}">修正</button><button type="button" class="btn danger" data-del="${r.id}">削除</button></div>`;
+  }).join('');
+  $('listBody').querySelectorAll('[data-edit]').forEach((b) => (b.onclick = () => openForm(records.find((r) => r.id === b.dataset.edit))));
+  $('listBody').querySelectorAll('[data-del]').forEach((b) => (b.onclick = async () => {
+    const r = records.find((x) => x.id === b.dataset.del);
+    const v = await modal({ title: 'この記録を削除しますか？', body: `${r.studyId}・${r.date} ${r.shift}・職員 ${r.form.rater}${r.exported ? '' : '\nこの記録はまだCSV出力されていません。'}`, actions: [{ label: 'やめる', value: false }, { label: '削除する', value: true, cls: 'danger fill' }] });
+    if (v) { records = records.filter((x) => x.id !== r.id); saveRecords(); render(); toast('削除しました'); }
+  }));
+}
+
+// ---------- CSV ----------
+const EXP_NOTE = {
+  share: () => IS_ANDROID
+    ? '共有画面が開きます。「Quick Share（ニアバイシェア）」で院内のPCへ送ってください。クラウド（Googleドライブ等）やメールには送らないでください。'
+    : '共有画面が開きます。「AirDrop」で院内のMacへ送るか、「"ファイル"に保存」を選んでください。',
+  save: () => IS_ANDROID
+    ? 'この端末の「ダウンロード」フォルダに保存します。USBケーブルで院内のPCにつなぎ、ファイルを移してください。'
+    : 'この端末にファイルとして保存します（保存先はダウンロード表示に従ってください）。',
+};
+function syncExpMode() {
+  const el = $('expModeSeg');
+  if (!el._built) {
+    [['share', '共有画面で送る'], ['save', '端末に保存']].forEach(([v, label]) => {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.dataset.v = v;
+      b.onclick = () => { settings.expMode = v; saveSettings(); syncExpMode(); };
+      el.appendChild(b);
+    });
+    el._built = true;
+  }
+  const mode = settings.expMode === 'save' ? 'save' : 'share';
+  Array.from(el.children).forEach((b) => b.classList.toggle('on', b.dataset.v === mode));
+  $('expModeNote').textContent = EXP_NOTE[mode]();
+}
+const CODES_B = DATA.baby.map((x) => x.code), CODES_C = DATA.care.map((x) => x.code);
+const yn = (v) => (v === true ? 1 : v === false ? 0 : '');
+function csvCell(v) { const s = String(v ?? ''); return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+function buildCsv(rs) {
+  const head = ['版', '記録ID', '研究ID', '日付', '勤務帯', '職員コード', '修正週数_週', '修正週数_日', '修正週数_総日数', '週数帯', '挿管', '鎮静薬', 'B3適用基準',
+    ...CODES_B, 'Baby_実得点', 'Baby_実施項目数', 'Baby_NA数', 'Baby_換算得点', 'Baby_参考値',
+    ...CODES_C, 'Care_実得点', 'Care_実施項目数', 'Care_NA数', 'Care_換算得点', 'Care_参考値',
+    'NA理由_C2', 'NA理由_D1', 'NA理由_D2', 'NA理由_D3', 'NA理由_II-1', 'NA理由_III-2', 'II-1_痛みスコア評価', 'II-1_鎮痛ケア', 'II-2_臨時処置',
+    '入力日時', '更新日時', '出力後修正'];
+  const lines = [head.map(csvCell).join(',')];
+  rs.forEach((r) => {
+    const f = r.form, total = f.pmaW * 7 + f.pmaD, band = bandOf(total);
+    const b = tallyOf(f, 'baby'), c = tallyOf(f, 'care');
+    const b3 = f.intubated === true ? 'lt32' : band;
+    const naReason = (code) => (f.scores[code] === 'NA' ? (code === 'D2' ? f.d2Reason : NA_ALLOWED[code]) : '');
+    const row = [r.version || DATA.version, r.id, r.studyId, r.date, r.shift, f.rater, f.pmaW, f.pmaD, total, BAND_SHORT[band], yn(f.intubated), yn(f.sedation), BAND_SHORT[b3],
+      ...CODES_B.map((k) => f.scores[k]), b.sum, b.n, b.na, b.conv == null ? '' : b.conv.toFixed(1), b.ref ? 1 : 0,
+      ...CODES_C.map((k) => f.scores[k]), c.sum, c.n, c.na, c.conv == null ? '' : c.conv.toFixed(1), c.ref ? 1 : 0,
+      naReason('C2'), naReason('D1'), naReason('D2'), naReason('D3'), naReason('II-1'), naReason('III-2'),
+      f.scores['II-1'] === 'NA' ? '' : yn(f.painAssessed), f.scores['II-1'] === 'NA' ? '' : yn(f.analgesia), yn(f.extraProc),
+      r.createdAt, r.updatedAt, r.editedAfterExport ? 1 : 0];
+    lines.push(row.map(csvCell).join(','));
+  });
+  return '﻿' + lines.join('\r\n') + '\r\n';
+}
+async function exportCsv(onlyUnexported) {
+  const rs = records.filter((r) => !onlyUnexported || !r.exported).sort((a, b) => (a.date + SHIFTS.indexOf(a.shift) > b.date + SHIFTS.indexOf(b.shift) ? 1 : -1));
+  if (!rs.length) return;
+  const d = new Date();
+  const name = `NWS6_${todayStr().replace(/-/g, '')}_${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}_${rs.length}件.csv`;
+  const csv = buildCsv(rs);
+  const file = new File([csv], name, { type: 'text/csv' });
+  let shared = false;
+  if (settings.expMode !== 'save') {
+    try {
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { sharing = true; await navigator.share({ files: [file], title: name }); shared = true; }
+    } catch (e) { if (e && e.name === 'AbortError') { toast('出力を取り消しました'); return; } }
+    finally { sharing = false; lastActivity = Date.now(); }
+    if (!shared) toast('共有画面が使えないため、端末に保存します');
+  }
+  if (!shared) {
+    const url = URL.createObjectURL(file); const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+  }
+  const v = await modal({ title: '院内PCに届きましたか？', body: `${name}\n（${rs.length}件）\n\nPCでファイルが開けることを確認してから「届いた」を押してください。出力済みにした記録は、あとでまとめて消去できます。`,
+    actions: [{ label: 'まだ届いていない', value: false }, { label: '届いた：出力済みにする', value: true, cls: 'primary' }] });
+  if (v) { const ids = new Set(rs.map((r) => r.id)); records.forEach((r) => { if (ids.has(r.id)) { r.exported = true; r.exportedAt = nowStr(); } }); saveRecords(); render(); toast('出力済みにしました'); }
+}
+$('expUn').onclick = () => exportCsv(true);
+$('expAll').onclick = () => exportCsv(false);
+$('delEx').onclick = async () => {
+  const n = records.filter((r) => r.exported).length;
+  const v = await modal({ title: `出力済みの記録 ${n} 件を消去しますか？`, body: '院内PCに届いていることを確認してください。消去した記録は元に戻せません。未出力の記録は消去されません。', actions: [{ label: 'やめる', value: false }, { label: '消去する', value: true, cls: 'danger fill' }] });
+  if (v) { records = records.filter((r) => !r.exported); saveRecords(); render(); toast(`${n} 件を消去しました`); }
+};
+
+// ---------- settings ----------
+$('prefixSave').onclick = async () => {
+  const v = $('prefixIn').value.trim();
+  if (!/^[A-Za-z0-9-]{1,20}$/.test(v)) { alertModal('使えない文字が含まれています', '英数字とハイフンのみ、20文字以内で入力してください。'); return; }
+  settings.idPrefix = v; saveSettings(); toast('接頭辞を保存しました');
+};
+$('pinChange').onclick = () => { $('app').hidden = true; $('lock').hidden = false; unlocked = false; setLockMode('changeOld'); };
+$('wipeAll').onclick = async () => {
+  const inp = document.createElement('input'); inp.className = 'tin'; inp.placeholder = '「消去」と入力'; inp.autocomplete = 'off';
+  const un = records.filter((r) => !r.exported).length;
+  const v = await modal({ title: 'すべてのデータを消去', body: `記録 ${records.length} 件（うち未出力 ${un} 件）、設定、PINを消去します。元に戻せません。\n続ける場合は「消去」と入力してください。`, extra: inp,
+    actions: [{ label: 'やめる', value: false }, { label: 'すべて消去する', value: true, cls: 'danger fill', check: () => inp.value.trim() === '消去' }] });
+  if (v) wipeEverything();
+};
+
+// ---------- boot ----------
+buildPad(); buildForm();
+showLock(settings.pinHash ? 'unlock' : 'setup1');
+if ('serviceWorker' in navigator && location.protocol === 'https:') { navigator.serviceWorker.register('sw.js').catch(() => {}); }
 </script>
 </body>
 </html>
